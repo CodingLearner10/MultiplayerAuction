@@ -24,6 +24,10 @@
     bidLog: document.getElementById("dashboard-bid-log"),
     roster: document.getElementById("dashboard-roster"),
     teamGrid: document.getElementById("dashboard-team-grid"),
+    chatLog: document.getElementById("dashboard-chat-log"),
+    chatForm: document.getElementById("dashboard-chat-form"),
+    chatInput: document.getElementById("dashboard-chat-input"),
+    chatSend: document.getElementById("dashboard-chat-send"),
     completionPanel: document.getElementById("dashboard-completion"),
     resultsGrid: document.getElementById("dashboard-results-grid"),
     exportJsonBtn: document.getElementById("dashboard-export-json"),
@@ -149,6 +153,25 @@
     }).join("");
   }
 
+  function renderChat() {
+    const items = state.chatLog || [];
+    ui.chatLog.innerHTML = items.length
+      ? items.map((entry) => `
+        <article class="chat-item">
+          <div class="chat-meta">
+            <div>
+              <strong>${entry.senderName}</strong>
+              <span class="chat-badge ${entry.senderType}">${entry.senderType}</span>
+            </div>
+            <span>${entry.displayTime}</span>
+          </div>
+          <p class="chat-message">${entry.message}</p>
+        </article>
+      `).join("")
+      : '<article class="chat-item"><p class="chat-message">No messages yet. Chat stays in sync for all connected viewers.</p></article>';
+    ui.chatLog.scrollTop = ui.chatLog.scrollHeight;
+  }
+
   function renderBanner() {
     const myTeam = getMyTeam();
     ui.bidBanner.className = "banner banner-neutral";
@@ -228,15 +251,20 @@
     ui.placeBidBtn.disabled = !canBid;
     if (spectatorMode) {
       ui.bidControls.classList.add("hidden");
+      ui.chatInput.placeholder = "Send a message as a spectator";
+      ui.chatSend.disabled = false;
     } else {
       ui.bidControls.classList.remove("hidden");
       ui.placeBidBtn.textContent = canBid ? `Place Bid (${formatMoney(state.nextBidAmount)})` : myTeam && state.nextBidAmount && myTeam.balance < state.nextBidAmount ? "Insufficient Balance" : "Place Bid";
+      ui.chatSend.disabled = !selectedTeam;
+      ui.chatInput.placeholder = selectedTeam ? "Chat with the admin, teams, and spectators" : "Select a team before chatting";
     }
 
     renderBanner();
     renderBidLog();
     renderRoster();
     renderTeams();
+    renderChat();
     renderCompletion();
     previousLastBidder = state.lastBidder;
   }
@@ -247,6 +275,13 @@
   });
   ui.exportJsonBtn.addEventListener("click", exportJson);
   ui.exportCsvBtn.addEventListener("click", exportCsv);
+  ui.chatForm.addEventListener("submit", (event) => {
+    event.preventDefault();
+    const message = ui.chatInput.value.trim();
+    if (!message || ui.chatSend.disabled) return;
+    socket.emit("send-chat-message", { message });
+    ui.chatInput.value = "";
+  });
 
   socket.on("connect", () => {
     ui.statusPill.textContent = "Connected";

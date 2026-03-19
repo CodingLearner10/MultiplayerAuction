@@ -1,74 +1,1802 @@
 [
   {
-    "name": "Virat Kohli",
-    "role": "Batsman",
-    "country": "India",
-    "basePrice": 3
-  },
-  {
-    "name": "Rohit Sharma",
-    "role": "Batsman",
-    "country": "India",
-    "basePrice": 3
-  },
-  {
-    "name": "Jasprit Bumrah",
-    "role": "Bowler",
-    "country": "India",
-    "basePrice": 2.5
-  },
-  {
-    "name": "Rashid Khan",
-    "role": "All-Rounder",
-    "country": "Afghanistan",
-    "basePrice": 2.5
-  },
-  {
     "name": "Jos Buttler",
-    "role": "Wicketkeeper",
+    "role": "Wicket-keeper",
     "country": "England",
     "basePrice": 2
   },
   {
-    "name": "KL Rahul",
-    "role": "Wicketkeeper",
+    "name": "Shreyas Iyer",
+    "role": "Batsman",
     "country": "India",
     "basePrice": 2
   },
   {
-    "name": "Hardik Pandya",
-    "role": "All-Rounder",
+    "name": "Rishabh Pant",
+    "role": "Batsman",
     "country": "India",
-    "basePrice": 2.5
+    "basePrice": 2
   },
   {
-    "name": "Pat Cummins",
+    "name": "Kagiso Rabada",
+    "role": "Bowler",
+    "country": "South Africa",
+    "basePrice": 2
+  },
+  {
+    "name": "Arshdeep Singh",
+    "role": "Bowler",
+    "country": "India",
+    "basePrice": 2
+  },
+  {
+    "name": "Mitchell Starc",
     "role": "Bowler",
     "country": "Australia",
     "basePrice": 2
   },
   {
-    "name": "Suryakumar Yadav",
+    "name": "Yuzvendra Chahal",
+    "role": "Bowler",
+    "country": "India",
+    "basePrice": 2
+  },
+  {
+    "name": "Liam Livingstone",
+    "role": "All-rounder",
+    "country": "England",
+    "basePrice": 2
+  },
+  {
+    "name": "David Miller",
+    "role": "Batsman",
+    "country": "South Africa",
+    "basePrice": 1.5
+  },
+  {
+    "name": "KL Rahul",
+    "role": "Wicket-keeper",
+    "country": "India",
+    "basePrice": 2
+  },
+  {
+    "name": "Mohammad Shami",
+    "role": "Bowler",
+    "country": "India",
+    "basePrice": 2
+  },
+  {
+    "name": "Mohammad Siraj",
+    "role": "Bowler",
+    "country": "India",
+    "basePrice": 2
+  },
+  {
+    "name": "Harry Brook",
+    "role": "Batsman",
+    "country": "England",
+    "basePrice": 2
+  },
+  {
+    "name": "Devon Conway",
+    "role": "Batsman",
+    "country": "New Zealand",
+    "basePrice": 2
+  },
+  {
+    "name": "Jake Fraser-Mcgurk",
+    "role": "Batsman",
+    "country": "Australia",
+    "basePrice": 2
+  },
+  {
+    "name": "Aiden Markram",
+    "role": "Batsman",
+    "country": "South Africa",
+    "basePrice": 2
+  },
+  {
+    "name": "Devdutt Padikkal",
     "role": "Batsman",
     "country": "India",
+    "basePrice": 2
+  },
+  {
+    "name": "Rahul Tripathi",
+    "role": "Batsman",
+    "country": "India",
+    "basePrice": 0.75
+  },
+  {
+    "name": "David Warner",
+    "role": "Batsman",
+    "country": "Australia",
+    "basePrice": 2
+  },
+  {
+    "name": "Ravichandaran Ashwin",
+    "role": "All-rounder",
+    "country": "India",
+    "basePrice": 2
+  },
+  {
+    "name": "Venkatesh Iyer",
+    "role": "All-rounder",
+    "country": "India",
+    "basePrice": 2
+  },
+  {
+    "name": "Mitchell Marsh",
+    "role": "All-rounder",
+    "country": "Australia",
+    "basePrice": 2
+  },
+  {
+    "name": "Glenn Maxwell",
+    "role": "All-rounder",
+    "country": "Australia",
+    "basePrice": 2
+  },
+  {
+    "name": "Harshal Patel",
+    "role": "All-rounder",
+    "country": "India",
+    "basePrice": 2
+  },
+  {
+    "name": "Rachin Ravindra",
+    "role": "All-rounder",
+    "country": "New Zealand",
     "basePrice": 1.5
+  },
+  {
+    "name": "Marcus Stoinis",
+    "role": "All-rounder",
+    "country": "Australia",
+    "basePrice": 2
+  },
+  {
+    "name": "Jonny Bairstow",
+    "role": "Wicket-keeper",
+    "country": "England",
+    "basePrice": 2
+  },
+  {
+    "name": "Quinton De Kock",
+    "role": "Wicket-keeper",
+    "country": "South Africa",
+    "basePrice": 2
+  },
+  {
+    "name": "Rahmanullah Gurbaz",
+    "role": "Wicket-keeper",
+    "country": "Afghanistan",
+    "basePrice": 2
+  },
+  {
+    "name": "Ishan Kishan",
+    "role": "Wicket-keeper",
+    "country": "India",
+    "basePrice": 2
+  },
+  {
+    "name": "Phil Salt",
+    "role": "Wicket-keeper",
+    "country": "England",
+    "basePrice": 2
+  },
+  {
+    "name": "Jitesh Sharma",
+    "role": "Wicket-keeper",
+    "country": "India",
+    "basePrice": 1
+  },
+  {
+    "name": "Syed Khaleel Ahmed",
+    "role": "Bowler",
+    "country": "India",
+    "basePrice": 2
   },
   {
     "name": "Trent Boult",
     "role": "Bowler",
     "country": "New Zealand",
-    "basePrice": 1.5
+    "basePrice": 2
   },
   {
-    "name": "Glenn Maxwell",
-    "role": "All-Rounder",
+    "name": "Josh Hazlewood",
+    "role": "Bowler",
     "country": "Australia",
-    "basePrice": 1.5
+    "basePrice": 2
   },
   {
-    "name": "Ruturaj Gaikwad",
+    "name": "Avesh Khan",
+    "role": "Bowler",
+    "country": "India",
+    "basePrice": 2
+  },
+  {
+    "name": "Prasidh Krishna",
+    "role": "Bowler",
+    "country": "India",
+    "basePrice": 2
+  },
+  {
+    "name": "T. Natarajan",
+    "role": "Bowler",
+    "country": "India",
+    "basePrice": 2
+  },
+  {
+    "name": "Anrich Nortje",
+    "role": "Bowler",
+    "country": "South Africa",
+    "basePrice": 2
+  },
+  {
+    "name": "Noor Ahmad",
+    "role": "Bowler",
+    "country": "Afghanistan",
+    "basePrice": 2
+  },
+  {
+    "name": "Rahul Chahar",
+    "role": "Bowler",
+    "country": "India",
+    "basePrice": 1
+  },
+  {
+    "name": "Wanindu Hasaranga",
+    "role": "Bowler",
+    "country": "Sri Lanka",
+    "basePrice": 2
+  },
+  {
+    "name": "Waqar Salamkheil",
+    "role": "Bowler",
+    "country": "Afghanistan",
+    "basePrice": 0.75
+  },
+  {
+    "name": "Maheesh Theekshana",
+    "role": "Bowler",
+    "country": "Sri Lanka",
+    "basePrice": 2
+  },
+  {
+    "name": "Adam Zampa",
+    "role": "Bowler",
+    "country": "Australia",
+    "basePrice": 2
+  },
+  {
+    "name": "Yash Dhull",
+    "role": "Batsman",
+    "country": "India",
+    "basePrice": 0.3
+  },
+  {
+    "name": "Abhinav Manohar",
+    "role": "Batsman",
+    "country": "India",
+    "basePrice": 0.3
+  },
+  {
+    "name": "Karun Nair",
+    "role": "Batsman",
+    "country": "India",
+    "basePrice": 0.3
+  },
+  {
+    "name": "Angkrish Raghuvanshi",
+    "role": "Batsman",
+    "country": "India",
+    "basePrice": 0.3
+  },
+  {
+    "name": "Anmolpreet Singh",
+    "role": "Batsman",
+    "country": "India",
+    "basePrice": 0.3
+  },
+  {
+    "name": "Atharva Taide",
+    "role": "Batsman",
+    "country": "India",
+    "basePrice": 0.3
+  },
+  {
+    "name": "Nehal Wadhera",
+    "role": "Batsman",
+    "country": "India",
+    "basePrice": 0.3
+  },
+  {
+    "name": "Harpreet Brar",
+    "role": "All-rounder",
+    "country": "India",
+    "basePrice": 0.3
+  },
+  {
+    "name": "Naman Dhir",
+    "role": "All-rounder",
+    "country": "India",
+    "basePrice": 0.3
+  },
+  {
+    "name": "Mahipal Lomror",
+    "role": "All-rounder",
+    "country": "India",
+    "basePrice": 0.5
+  },
+  {
+    "name": "Sameer Rizvi",
+    "role": "All-rounder",
+    "country": "India",
+    "basePrice": 0.3
+  },
+  {
+    "name": "Abdul Samad",
+    "role": "All-rounder",
+    "country": "India",
+    "basePrice": 0.3
+  },
+  {
+    "name": "Vijay Shankar",
+    "role": "All-rounder",
+    "country": "India",
+    "basePrice": 0.3
+  },
+  {
+    "name": "Ashutosh Sharma",
+    "role": "All-rounder",
+    "country": "India",
+    "basePrice": 0.3
+  },
+  {
+    "name": "Nishant Sindhu",
+    "role": "All-rounder",
+    "country": "India",
+    "basePrice": 0.3
+  },
+  {
+    "name": "Utkarsh Singh",
+    "role": "All-rounder",
+    "country": "India",
+    "basePrice": 0.3
+  },
+  {
+    "name": "Aryan Juyal",
+    "role": "Wicket-keeper",
+    "country": "India",
+    "basePrice": 0.3
+  },
+  {
+    "name": "Kumar Kushagra",
+    "role": "Wicket-keeper",
+    "country": "India",
+    "basePrice": 0.3
+  },
+  {
+    "name": "Robin Minz",
+    "role": "Wicket-keeper",
+    "country": "India",
+    "basePrice": 0.3
+  },
+  {
+    "name": "Anuj Rawat",
+    "role": "Wicket-keeper",
+    "country": "India",
+    "basePrice": 0.3
+  },
+  {
+    "name": "Luvnith Sisodia",
+    "role": "Wicket-keeper",
+    "country": "India",
+    "basePrice": 0.3
+  },
+  {
+    "name": "Vishnu Vinod",
+    "role": "Wicket-keeper",
+    "country": "India",
+    "basePrice": 0.3
+  },
+  {
+    "name": "Upendra Singh Yadav",
+    "role": "Wicket-keeper",
+    "country": "India",
+    "basePrice": 0.3
+  },
+  {
+    "name": "Vaibhav Arora",
+    "role": "Bowler",
+    "country": "India",
+    "basePrice": 0.3
+  },
+  {
+    "name": "Rasikh Dar",
+    "role": "Bowler",
+    "country": "India",
+    "basePrice": 0.3
+  },
+  {
+    "name": "Akash Madhwal",
+    "role": "Bowler",
+    "country": "India",
+    "basePrice": 0.3
+  },
+  {
+    "name": "Mohit Sharma",
+    "role": "Bowler",
+    "country": "India",
+    "basePrice": 0.5
+  },
+  {
+    "name": "Simarjeet Singh",
+    "role": "Bowler",
+    "country": "India",
+    "basePrice": 0.3
+  },
+  {
+    "name": "Yash Thakur",
+    "role": "Bowler",
+    "country": "India",
+    "basePrice": 0.3
+  },
+  {
+    "name": "Kartik Tyagi",
+    "role": "Bowler",
+    "country": "India",
+    "basePrice": 0.4
+  },
+  {
+    "name": "Vyshak Vijaykumar",
+    "role": "Bowler",
+    "country": "India",
+    "basePrice": 0.3
+  },
+  {
+    "name": "Piyush Chawla",
+    "role": "Bowler",
+    "country": "India",
+    "basePrice": 0.5
+  },
+  {
+    "name": "Shreyas Gopal",
+    "role": "Bowler",
+    "country": "India",
+    "basePrice": 0.3
+  },
+  {
+    "name": "Mayank Markande",
+    "role": "Bowler",
+    "country": "India",
+    "basePrice": 0.3
+  },
+  {
+    "name": "Suyash Sharma",
+    "role": "Bowler",
+    "country": "India",
+    "basePrice": 0.3
+  },
+  {
+    "name": "Karn Sharma",
+    "role": "Bowler",
+    "country": "India",
+    "basePrice": 0.5
+  },
+  {
+    "name": "Kumar Kartikeya Singh",
+    "role": "Bowler",
+    "country": "India",
+    "basePrice": 0.3
+  },
+  {
+    "name": "Manav Suthar",
+    "role": "Bowler",
+    "country": "India",
+    "basePrice": 0.3
+  },
+  {
+    "name": "Mayank Agarawal",
     "role": "Batsman",
     "country": "India",
     "basePrice": 1
+  },
+  {
+    "name": "Faf Du Plessis",
+    "role": "Batsman",
+    "country": "South Africa",
+    "basePrice": 2
+  },
+  {
+    "name": "Glenn Phillips",
+    "role": "Batsman",
+    "country": "New Zealand",
+    "basePrice": 2
+  },
+  {
+    "name": "Rovman Powell",
+    "role": "Batsman",
+    "country": "West Indies",
+    "basePrice": 1.5
+  },
+  {
+    "name": "Ajinkya Rahane",
+    "role": "Batsman",
+    "country": "India",
+    "basePrice": 1.5
+  },
+  {
+    "name": "Prithvi Shaw",
+    "role": "Batsman",
+    "country": "India",
+    "basePrice": 0.75
+  },
+  {
+    "name": "Kane Williamson",
+    "role": "Batsman",
+    "country": "New Zealand",
+    "basePrice": 2
+  },
+  {
+    "name": "Sam Curran",
+    "role": "All-rounder",
+    "country": "England",
+    "basePrice": 2
+  },
+  {
+    "name": "Marco Jansen",
+    "role": "All-rounder",
+    "country": "South Africa",
+    "basePrice": 1.25
+  },
+  {
+    "name": "Daryl Mitchell",
+    "role": "All-rounder",
+    "country": "New Zealand",
+    "basePrice": 2
+  },
+  {
+    "name": "Krunal Pandya",
+    "role": "All-rounder",
+    "country": "India",
+    "basePrice": 2
+  },
+  {
+    "name": "Nitish Rana",
+    "role": "All-rounder",
+    "country": "India",
+    "basePrice": 1.5
+  },
+  {
+    "name": "Washington Sundar",
+    "role": "All-rounder",
+    "country": "India",
+    "basePrice": 2
+  },
+  {
+    "name": "Shardul Thakur",
+    "role": "All-rounder",
+    "country": "India",
+    "basePrice": 2
+  },
+  {
+    "name": "K.S Bharat",
+    "role": "Wicket-keeper",
+    "country": "India",
+    "basePrice": 0.75
+  },
+  {
+    "name": "Alex Carey",
+    "role": "Wicket-keeper",
+    "country": "Australia",
+    "basePrice": 1
+  },
+  {
+    "name": "Donovan Ferreira",
+    "role": "Wicket-keeper",
+    "country": "South Africa",
+    "basePrice": 0.75
+  },
+  {
+    "name": "Shai Hope",
+    "role": "Wicket-keeper",
+    "country": "West Indies",
+    "basePrice": 1.25
+  },
+  {
+    "name": "Josh Inglis",
+    "role": "Wicket-keeper",
+    "country": "Australia",
+    "basePrice": 2
+  },
+  {
+    "name": "Ryan Rickelton",
+    "role": "Wicket-keeper",
+    "country": "South Africa",
+    "basePrice": 1
+  },
+  {
+    "name": "Deepak Chahar",
+    "role": "Bowler",
+    "country": "India",
+    "basePrice": 2
+  },
+  {
+    "name": "Gerald Coetzee",
+    "role": "Bowler",
+    "country": "South Africa",
+    "basePrice": 1.25
+  },
+  {
+    "name": "Akash Deep",
+    "role": "Bowler",
+    "country": "India",
+    "basePrice": 1
+  },
+  {
+    "name": "Tushar Deshpande",
+    "role": "Bowler",
+    "country": "India",
+    "basePrice": 1
+  },
+  {
+    "name": "Lockie Ferguson",
+    "role": "Bowler",
+    "country": "New Zealand",
+    "basePrice": 2
+  },
+  {
+    "name": "Bhuvneshwar Kumar",
+    "role": "Bowler",
+    "country": "India",
+    "basePrice": 2
+  },
+  {
+    "name": "Mukesh Kumar",
+    "role": "Bowler",
+    "country": "India",
+    "basePrice": 2
+  },
+  {
+    "name": "Allah Ghazanfar",
+    "role": "Bowler",
+    "country": "Afghanistan",
+    "basePrice": 0.75
+  },
+  {
+    "name": "Akeal Hosein",
+    "role": "Bowler",
+    "country": "West Indies",
+    "basePrice": 1.5
+  },
+  {
+    "name": "Keshav Maharaj",
+    "role": "Bowler",
+    "country": "South Africa",
+    "basePrice": 0.75
+  },
+  {
+    "name": "Mujeeb Ur Rahman",
+    "role": "Bowler",
+    "country": "Afghanistan",
+    "basePrice": 2
+  },
+  {
+    "name": "Adil Rashid",
+    "role": "Bowler",
+    "country": "England",
+    "basePrice": 2
+  },
+  {
+    "name": "Vijayakanth Viyaskanth",
+    "role": "Bowler",
+    "country": "Sri Lanka",
+    "basePrice": 0.75
+  },
+  {
+    "name": "Ricky Bhui",
+    "role": "Batsman",
+    "country": "India",
+    "basePrice": 0.3
+  },
+  {
+    "name": "Swastik Chhikara",
+    "role": "Batsman",
+    "country": "India",
+    "basePrice": 0.3
+  },
+  {
+    "name": "Aarya Desai",
+    "role": "Batsman",
+    "country": "India",
+    "basePrice": 0.3
+  },
+  {
+    "name": "Shubham Dubey",
+    "role": "Batsman",
+    "country": "India",
+    "basePrice": 0.3
+  },
+  {
+    "name": "Madhav Kaushik",
+    "role": "Batsman",
+    "country": "India",
+    "basePrice": 0.3
+  },
+  {
+    "name": "Pukhraj Mann",
+    "role": "Batsman",
+    "country": "India",
+    "basePrice": 0.3
+  },
+  {
+    "name": "Shaik Rasheed",
+    "role": "Batsman",
+    "country": "India",
+    "basePrice": 0.3
+  },
+  {
+    "name": "Himmat Singh",
+    "role": "Batsman",
+    "country": "India",
+    "basePrice": 0.3
+  },
+  {
+    "name": "Mayank Dagar",
+    "role": "All-rounder",
+    "country": "India",
+    "basePrice": 0.3
+  },
+  {
+    "name": "Anshul Kamboj",
+    "role": "All-rounder",
+    "country": "India",
+    "basePrice": 0.3
+  },
+  {
+    "name": "Mohd. Arshad Khan",
+    "role": "All-rounder",
+    "country": "India",
+    "basePrice": 0.3
+  },
+  {
+    "name": "Darshan Nalkande",
+    "role": "All-rounder",
+    "country": "India",
+    "basePrice": 0.3
+  },
+  {
+    "name": "Suyash Prabhudessai",
+    "role": "All-rounder",
+    "country": "India",
+    "basePrice": 0.3
+  },
+  {
+    "name": "Anukul Roy",
+    "role": "All-rounder",
+    "country": "India",
+    "basePrice": 0.3
+  },
+  {
+    "name": "Swapnil Singh",
+    "role": "All-rounder",
+    "country": "India",
+    "basePrice": 0.3
+  },
+  {
+    "name": "Sanvir Singh",
+    "role": "All-rounder",
+    "country": "India",
+    "basePrice": 0.3
+  },
+  {
+    "name": "Avanish Aravelly",
+    "role": "Wicket-keeper",
+    "country": "India",
+    "basePrice": 0.3
+  },
+  {
+    "name": "Vansh Bedi",
+    "role": "Wicket-keeper",
+    "country": "India",
+    "basePrice": 0.3
+  },
+  {
+    "name": "Saurav Chauhan",
+    "role": "Wicket-keeper",
+    "country": "India",
+    "basePrice": 0.3
+  },
+  {
+    "name": "Harvik Desai",
+    "role": "Wicket-keeper",
+    "country": "India",
+    "basePrice": 0.3
+  },
+  {
+    "name": "Tom Kohler-Cadmore",
+    "role": "Wicket-keeper",
+    "country": "England",
+    "basePrice": 0.5
+  },
+  {
+    "name": "Kunal Rathore",
+    "role": "Wicket-keeper",
+    "country": "India",
+    "basePrice": 0.3
+  },
+  {
+    "name": "B.R Sharath",
+    "role": "Wicket-keeper",
+    "country": "India",
+    "basePrice": 0.3
+  },
+  {
+    "name": "Gurnoor Singh Brar",
+    "role": "Bowler",
+    "country": "India",
+    "basePrice": 0.3
+  },
+  {
+    "name": "Mukesh Choudhary",
+    "role": "Bowler",
+    "country": "India",
+    "basePrice": 0.3
+  },
+  {
+    "name": "Sakib Hussain",
+    "role": "Bowler",
+    "country": "India",
+    "basePrice": 0.3
+  },
+  {
+    "name": "Vidwath Kaverappa",
+    "role": "Bowler",
+    "country": "India",
+    "basePrice": 0.3
+  },
+  {
+    "name": "Rajan Kumar",
+    "role": "Bowler",
+    "country": "India",
+    "basePrice": 0.3
+  },
+  {
+    "name": "Sushant Mishra",
+    "role": "Bowler",
+    "country": "India",
+    "basePrice": 0.3
+  },
+  {
+    "name": "Arjun Tendulkar",
+    "role": "Bowler",
+    "country": "India",
+    "basePrice": 0.3
+  },
+  {
+    "name": "Zeeshan Ansari",
+    "role": "Bowler",
+    "country": "India",
+    "basePrice": 0.3
+  },
+  {
+    "name": "Prince Choudhary",
+    "role": "Bowler",
+    "country": "India",
+    "basePrice": 0.3
+  },
+  {
+    "name": "Himanshu Sharma",
+    "role": "Bowler",
+    "country": "India",
+    "basePrice": 0.3
+  },
+  {
+    "name": "M. Siddharth",
+    "role": "Bowler",
+    "country": "India",
+    "basePrice": 0.3
+  },
+  {
+    "name": "Digvesh Singh",
+    "role": "Bowler",
+    "country": "India",
+    "basePrice": 0.3
+  },
+  {
+    "name": "Prashant Solanki",
+    "role": "Bowler",
+    "country": "India",
+    "basePrice": 0.3
+  },
+  {
+    "name": "Jhathavedh Subramanyan",
+    "role": "Bowler",
+    "country": "India",
+    "basePrice": 0.3
+  },
+  {
+    "name": "Finn Allen",
+    "role": "Batsman",
+    "country": "New Zealand",
+    "basePrice": 2
+  },
+  {
+    "name": "Dewald Brevis",
+    "role": "Batsman",
+    "country": "South Africa",
+    "basePrice": 0.75
+  },
+  {
+    "name": "Ben Duckett",
+    "role": "Batsman",
+    "country": "England",
+    "basePrice": 2
+  },
+  {
+    "name": "Manish Pandey",
+    "role": "Batsman",
+    "country": "India",
+    "basePrice": 0.75
+  },
+  {
+    "name": "Rilee Rossouw",
+    "role": "Batsman",
+    "country": "South Africa",
+    "basePrice": 2
+  },
+  {
+    "name": "Sherfane Rutherford",
+    "role": "Batsman",
+    "country": "West Indies",
+    "basePrice": 1.5
+  },
+  {
+    "name": "Ashton Turner",
+    "role": "Batsman",
+    "country": "Australia",
+    "basePrice": 1
+  },
+  {
+    "name": "James Vince",
+    "role": "Batsman",
+    "country": "England",
+    "basePrice": 2
+  },
+  {
+    "name": "Shahbaz Ahamad",
+    "role": "All-rounder",
+    "country": "India",
+    "basePrice": 1
+  },
+  {
+    "name": "Moeen Ali",
+    "role": "All-rounder",
+    "country": "England",
+    "basePrice": 2
+  },
+  {
+    "name": "Tim David",
+    "role": "All-rounder",
+    "country": "Australia",
+    "basePrice": 2
+  },
+  {
+    "name": "Deepak Hooda",
+    "role": "All-rounder",
+    "country": "India",
+    "basePrice": 0.75
+  },
+  {
+    "name": "Will Jacks",
+    "role": "All-rounder",
+    "country": "England",
+    "basePrice": 2
+  },
+  {
+    "name": "Azmatullah Omarzai",
+    "role": "All-rounder",
+    "country": "Afghanistan",
+    "basePrice": 1.5
+  },
+  {
+    "name": "R. Sai Kishore",
+    "role": "All-rounder",
+    "country": "India",
+    "basePrice": 0.75
+  },
+  {
+    "name": "Romario Shepherd",
+    "role": "All-rounder",
+    "country": "West Indies",
+    "basePrice": 1.5
+  },
+  {
+    "name": "Tom Banton",
+    "role": "Wicket-keeper",
+    "country": "England",
+    "basePrice": 2
+  },
+  {
+    "name": "Sam Billings",
+    "role": "Wicket-keeper",
+    "country": "England",
+    "basePrice": 1.5
+  },
+  {
+    "name": "Jordan Cox",
+    "role": "Wicket-keeper",
+    "country": "England",
+    "basePrice": 1.25
+  },
+  {
+    "name": "Ben McDermott",
+    "role": "Wicket-keeper",
+    "country": "Australia",
+    "basePrice": 0.75
+  },
+  {
+    "name": "Kusal Mendis",
+    "role": "Wicket-keeper",
+    "country": "Sri Lanka",
+    "basePrice": 0.75
+  },
+  {
+    "name": "Kusal Perera",
+    "role": "Wicket-keeper",
+    "country": "Sri Lanka",
+    "basePrice": 0.75
+  },
+  {
+    "name": "Josh Philippe",
+    "role": "Wicket-keeper",
+    "country": "Australia",
+    "basePrice": 0.75
+  },
+  {
+    "name": "Tim Seifert",
+    "role": "Wicket-keeper",
+    "country": "New Zealand",
+    "basePrice": 1.25
+  },
+  {
+    "name": "Nandre Burger",
+    "role": "Bowler",
+    "country": "South Africa",
+    "basePrice": 1.25
+  },
+  {
+    "name": "Spencer Johnson",
+    "role": "Bowler",
+    "country": "Australia",
+    "basePrice": 2
+  },
+  {
+    "name": "Umran Malik",
+    "role": "Bowler",
+    "country": "India",
+    "basePrice": 0.75
+  },
+  {
+    "name": "Mustafizur Rahman",
+    "role": "Bowler",
+    "country": "Bangladesh",
+    "basePrice": 2
+  },
+  {
+    "name": "Ishant Sharma",
+    "role": "Bowler",
+    "country": "India",
+    "basePrice": 0.75
+  },
+  {
+    "name": "Nuwan Thushara",
+    "role": "Bowler",
+    "country": "Sri Lanka",
+    "basePrice": 0.75
+  },
+  {
+    "name": "Naveen Ul Haq",
+    "role": "Bowler",
+    "country": "Afghanistan",
+    "basePrice": 2
+  },
+  {
+    "name": "Jaydev Unadkat",
+    "role": "Bowler",
+    "country": "India",
+    "basePrice": 1
+  },
+  {
+    "name": "Umesh Yadav",
+    "role": "Bowler",
+    "country": "India",
+    "basePrice": 2
+  },
+  {
+    "name": "Rishad Hossain",
+    "role": "Bowler",
+    "country": "Bangladesh",
+    "basePrice": 0.75
+  },
+  {
+    "name": "Zahir Khan Pakten",
+    "role": "Bowler",
+    "country": "Afghanistan",
+    "basePrice": 0.75
+  },
+  {
+    "name": "Nqabayomzi Peter",
+    "role": "Bowler",
+    "country": "South Africa",
+    "basePrice": 0.75
+  },
+  {
+    "name": "Tanveer Sangha",
+    "role": "Bowler",
+    "country": "Australia",
+    "basePrice": 0.75
+  },
+  {
+    "name": "Tabraiz Shamsi",
+    "role": "Bowler",
+    "country": "South Africa",
+    "basePrice": 2
+  },
+  {
+    "name": "Jeffery Vandersay",
+    "role": "Bowler",
+    "country": "Sri Lanka",
+    "basePrice": 0.75
+  },
+  {
+    "name": "Sachin Baby",
+    "role": "Batsman",
+    "country": "India",
+    "basePrice": 0.3
+  },
+  {
+    "name": "Priyam Garg",
+    "role": "Batsman",
+    "country": "India",
+    "basePrice": 0.3
+  },
+  {
+    "name": "Harnoor Pannu",
+    "role": "Batsman",
+    "country": "India",
+    "basePrice": 0.3
+  },
+  {
+    "name": "Smaran Ravichandran",
+    "role": "Batsman",
+    "country": "India",
+    "basePrice": 0.3
+  },
+  {
+    "name": "Shashwat Rawat",
+    "role": "Batsman",
+    "country": "India",
+    "basePrice": 0.3
+  },
+  {
+    "name": "Andre Siddarth",
+    "role": "Batsman",
+    "country": "India",
+    "basePrice": 0.3
+  },
+  {
+    "name": "Avneesh Sudha",
+    "role": "Batsman",
+    "country": "India",
+    "basePrice": 0.3
+  },
+  {
+    "name": "Apoorv Wankhade",
+    "role": "Batsman",
+    "country": "India",
+    "basePrice": 0.3
+  },
+  {
+    "name": "Yudhvir Charak",
+    "role": "All-rounder",
+    "country": "India",
+    "basePrice": 0.3
+  },
+  {
+    "name": "Rishi Dhawan",
+    "role": "All-rounder",
+    "country": "India",
+    "basePrice": 0.3
+  },
+  {
+    "name": "Rajvardhan Hangargekar",
+    "role": "All-rounder",
+    "country": "India",
+    "basePrice": 0.3
+  },
+  {
+    "name": "Tanush Kotian",
+    "role": "All-rounder",
+    "country": "India",
+    "basePrice": 0.3
+  },
+  {
+    "name": "Arshin Kulkarni",
+    "role": "All-rounder",
+    "country": "India",
+    "basePrice": 0.3
+  },
+  {
+    "name": "Shams Mulani",
+    "role": "All-rounder",
+    "country": "India",
+    "basePrice": 0.3
+  },
+  {
+    "name": "Shivam Singh",
+    "role": "All-rounder",
+    "country": "India",
+    "basePrice": 0.3
+  },
+  {
+    "name": "Lalit Yadav",
+    "role": "All-rounder",
+    "country": "India",
+    "basePrice": 0.3
+  },
+  {
+    "name": "Mohammed Azharuddeen",
+    "role": "Wicket-keeper",
+    "country": "India",
+    "basePrice": 0.3
+  },
+  {
+    "name": "L.R Chethan",
+    "role": "Wicket-keeper",
+    "country": "India",
+    "basePrice": 0.3
+  },
+  {
+    "name": "Aryaman Singh Dhaliwal",
+    "role": "Wicket-keeper",
+    "country": "India",
+    "basePrice": 0.3
+  },
+  {
+    "name": "Urvil Patel",
+    "role": "Wicket-keeper",
+    "country": "India",
+    "basePrice": 0.3
+  },
+  {
+    "name": "Sanskar Rawat",
+    "role": "Wicket-keeper",
+    "country": "India",
+    "basePrice": 0.3
+  },
+  {
+    "name": "Bipin Saurabh",
+    "role": "Wicket-keeper",
+    "country": "India",
+    "basePrice": 0.3
+  },
+  {
+    "name": "Tanay Thyagarajann",
+    "role": "Wicket-keeper",
+    "country": "India",
+    "basePrice": 0.3
+  },
+  {
+    "name": "Money Grewal",
+    "role": "Bowler",
+    "country": "India",
+    "basePrice": 0.3
+  },
+  {
+    "name": "Ashwani Kumar",
+    "role": "Bowler",
+    "country": "India",
+    "basePrice": 0.3
+  },
+  {
+    "name": "Ishan Porel",
+    "role": "Bowler",
+    "country": "India",
+    "basePrice": 0.3
+  },
+  {
+    "name": "Abhilash Shetty",
+    "role": "Bowler",
+    "country": "India",
+    "basePrice": 0.3
+  },
+  {
+    "name": "Akash Singh",
+    "role": "Bowler",
+    "country": "India",
+    "basePrice": 0.3
+  },
+  {
+    "name": "Gurjapneet Singh",
+    "role": "Bowler",
+    "country": "India",
+    "basePrice": 0.3
+  },
+  {
+    "name": "Basil Thampi",
+    "role": "Bowler",
+    "country": "India",
+    "basePrice": 0.3
+  },
+  {
+    "name": "Murugan Ashwin",
+    "role": "Bowler",
+    "country": "India",
+    "basePrice": 0.3
+  },
+  {
+    "name": "Shreyas Chavan",
+    "role": "Bowler",
+    "country": "India",
+    "basePrice": 0.3
+  },
+  {
+    "name": "Chintal Gandhi",
+    "role": "Bowler",
+    "country": "India",
+    "basePrice": 0.3
+  },
+  {
+    "name": "Raghav Goyal",
+    "role": "Bowler",
+    "country": "India",
+    "basePrice": 0.3
+  },
+  {
+    "name": "Jagadeesha Suchith",
+    "role": "Bowler",
+    "country": "India",
+    "basePrice": 0.3
+  },
+  {
+    "name": "Roshan Waghsare",
+    "role": "Bowler",
+    "country": "India",
+    "basePrice": 0.3
+  },
+  {
+    "name": "Bailapudi Yeswanth",
+    "role": "Bowler",
+    "country": "India",
+    "basePrice": 0.3
+  },
+  {
+    "name": "Sediqullah Atal",
+    "role": "Batsman",
+    "country": "Afghanistan",
+    "basePrice": 0.75
+  },
+  {
+    "name": "Matthew Breetzke",
+    "role": "Batsman",
+    "country": "South Africa",
+    "basePrice": 0.75
+  },
+  {
+    "name": "Mark Chapman",
+    "role": "Batsman",
+    "country": "New Zealand",
+    "basePrice": 1.5
+  },
+  {
+    "name": "Brandon King",
+    "role": "Batsman",
+    "country": "West Indies",
+    "basePrice": 0.75
+  },
+  {
+    "name": "Evin Lewis",
+    "role": "Batsman",
+    "country": "West Indies",
+    "basePrice": 2
+  },
+  {
+    "name": "Pathum Nissanka",
+    "role": "Batsman",
+    "country": "Sri Lanka",
+    "basePrice": 0.75
+  },
+  {
+    "name": "Bhanuka Rajapaksa",
+    "role": "Batsman",
+    "country": "Sri Lanka",
+    "basePrice": 0.75
+  },
+  {
+    "name": "Steve Smith",
+    "role": "Batsman",
+    "country": "Australia",
+    "basePrice": 2
+  },
+  {
+    "name": "Gus Atkinson",
+    "role": "All-rounder",
+    "country": "England",
+    "basePrice": 2
+  },
+  {
+    "name": "Tom Curran",
+    "role": "All-rounder",
+    "country": "England",
+    "basePrice": 2
+  },
+  {
+    "name": "Krishnappa Gowtham",
+    "role": "All-rounder",
+    "country": "India",
+    "basePrice": 1
+  },
+  {
+    "name": "Mohammad Nabi",
+    "role": "All-rounder",
+    "country": "Afghanistan",
+    "basePrice": 1.5
+  },
+  {
+    "name": "Gulbadin Naib",
+    "role": "All-rounder",
+    "country": "Afghanistan",
+    "basePrice": 1
+  },
+  {
+    "name": "Sikandar Raza",
+    "role": "All-rounder",
+    "country": "Zimbabwe",
+    "basePrice": 1.25
+  },
+  {
+    "name": "Mitchell Santner",
+    "role": "All-rounder",
+    "country": "New Zealand",
+    "basePrice": 2
+  },
+  {
+    "name": "Jayant Yadav",
+    "role": "All-rounder",
+    "country": "India",
+    "basePrice": 0.75
+  },
+  {
+    "name": "Johnson Charles",
+    "role": "Wicket-keeper",
+    "country": "West Indies",
+    "basePrice": 0.75
+  },
+  {
+    "name": "Litton Das",
+    "role": "Wicket-keeper",
+    "country": "Bangladesh",
+    "basePrice": 0.75
+  },
+  {
+    "name": "Andre Fletcher",
+    "role": "Wicket-keeper",
+    "country": "West Indies",
+    "basePrice": 0.75
+  },
+  {
+    "name": "Tom Latham",
+    "role": "Wicket-keeper",
+    "country": "New Zealand",
+    "basePrice": 1.5
+  },
+  {
+    "name": "Ollie Pope",
+    "role": "Wicket-keeper",
+    "country": "England",
+    "basePrice": 0.75
+  },
+  {
+    "name": "Kyle Verreynne",
+    "role": "Wicket-keeper",
+    "country": "South Africa",
+    "basePrice": 0.75
+  },
+  {
+    "name": "Fazalhaq Farooqi",
+    "role": "Bowler",
+    "country": "Afghanistan",
+    "basePrice": 2
+  },
+  {
+    "name": "Richard Gleeson",
+    "role": "Bowler",
+    "country": "England",
+    "basePrice": 0.75
+  },
+  {
+    "name": "Matt Henry",
+    "role": "Bowler",
+    "country": "New Zealand",
+    "basePrice": 2
+  },
+  {
+    "name": "Alzarri Joseph",
+    "role": "Bowler",
+    "country": "West Indies",
+    "basePrice": 2
+  },
+  {
+    "name": "Kwena Maphaka",
+    "role": "Bowler",
+    "country": "South Africa",
+    "basePrice": 0.75
+  },
+  {
+    "name": "Kuldeep Sen",
+    "role": "Bowler",
+    "country": "India",
+    "basePrice": 0.75
+  },
+  {
+    "name": "Reece Topley",
+    "role": "Bowler",
+    "country": "England",
+    "basePrice": 0.75
+  },
+  {
+    "name": "Lizaad Williams",
+    "role": "Bowler",
+    "country": "South Africa",
+    "basePrice": 0.75
+  },
+  {
+    "name": "Luke Wood",
+    "role": "Bowler",
+    "country": "England",
+    "basePrice": 0.75
+  },
+  {
+    "name": "Sachin Dhas",
+    "role": "Batsman",
+    "country": "India",
+    "basePrice": 0.3
+  },
+  {
+    "name": "Leus Du Plooy",
+    "role": "Batsman",
+    "country": "England",
+    "basePrice": 0.5
+  },
+  {
+    "name": "Ashwin Hebbar",
+    "role": "Batsman",
+    "country": "India",
+    "basePrice": 0.3
+  },
+  {
+    "name": "Rohan Kunnummal",
+    "role": "Batsman",
+    "country": "India",
+    "basePrice": 0.3
+  },
+  {
+    "name": "Ayush Pandey",
+    "role": "Batsman",
+    "country": "India",
+    "basePrice": 0.3
+  },
+  {
+    "name": "Akshat Raghuwanshi",
+    "role": "Batsman",
+    "country": "India",
+    "basePrice": 0.3
+  },
+  {
+    "name": "Shoun Roger",
+    "role": "Batsman",
+    "country": "India",
+    "basePrice": 0.4
+  },
+  {
+    "name": "Virat Singh",
+    "role": "Batsman",
+    "country": "India",
+    "basePrice": 0.3
+  },
+  {
+    "name": "Priyansh Arya",
+    "role": "All-rounder",
+    "country": "India",
+    "basePrice": 0.3
+  },
+  {
+    "name": "Manoj Bhandage",
+    "role": "All-rounder",
+    "country": "India",
+    "basePrice": 0.3
+  },
+  {
+    "name": "Pravin Dubey",
+    "role": "All-rounder",
+    "country": "India",
+    "basePrice": 0.3
+  },
+  {
+    "name": "Ajay Mandal",
+    "role": "All-rounder",
+    "country": "India",
+    "basePrice": 0.3
+  },
+  {
+    "name": "Prerak Mankad",
+    "role": "All-rounder",
+    "country": "India",
+    "basePrice": 0.3
+  },
+  {
+    "name": "Vipraj Nigam",
+    "role": "All-rounder",
+    "country": "India",
+    "basePrice": 0.3
+  },
+  {
+    "name": "Vicky Ostwal",
+    "role": "All-rounder",
+    "country": "India",
+    "basePrice": 0.3
+  },
+  {
+    "name": "Shivalik Sharma",
+    "role": "All-rounder",
+    "country": "India",
+    "basePrice": 0.3
+  },
+  {
+    "name": "Salil Arora",
+    "role": "Wicket-keeper",
+    "country": "India",
+    "basePrice": 0.3
+  },
+  {
+    "name": "Dinesh Bana",
+    "role": "Wicket-keeper",
+    "country": "India",
+    "basePrice": 0.3
+  },
+  {
+    "name": "Ajitesh Guruswamy",
+    "role": "Wicket-keeper",
+    "country": "India",
+    "basePrice": 0.3
+  },
+  {
+    "name": "Narayan Jagadeesan",
+    "role": "Wicket-keeper",
+    "country": "India",
+    "basePrice": 0.3
+  },
+  {
+    "name": "Shrijith Krishnan",
+    "role": "Wicket-keeper",
+    "country": "India",
+    "basePrice": 0.3
+  },
+  {
+    "name": "Michael Pepper",
+    "role": "Wicket-keeper",
+    "country": "England",
+    "basePrice": 0.5
+  },
+  {
+    "name": "Vishnu Solanki",
+    "role": "Wicket-keeper",
+    "country": "India",
+    "basePrice": 0.3
+  },
+  {
+    "name": "K.M Asif",
+    "role": "Bowler",
+    "country": "India",
+    "basePrice": 0.3
+  },
+  {
+    "name": "Akhil Chaudhary",
+    "role": "Bowler",
+    "country": "India",
+    "basePrice": 0.3
+  },
+  {
+    "name": "Himanshu Chauhan",
+    "role": "Bowler",
+    "country": "India",
+    "basePrice": 0.3
+  },
+  {
+    "name": "Arpit Guleria",
+    "role": "Bowler",
+    "country": "India",
+    "basePrice": 0.3
+  },
+  {
+    "name": "Nishanth Saranu",
+    "role": "Bowler",
+    "country": "India",
+    "basePrice": 0.3
+  },
+  {
+    "name": "Kuldip Yadav",
+    "role": "Bowler",
+    "country": "India",
+    "basePrice": 0.3
+  },
+  {
+    "name": "Prithviraj Yarra",
+    "role": "Bowler",
+    "country": "India",
+    "basePrice": 0.3
+  },
+  {
+    "name": "Shubham Agrawal",
+    "role": "Bowler",
+    "country": "India",
+    "basePrice": 0.3
+  },
+  {
+    "name": "Jass Inder Baidwan",
+    "role": "Bowler",
+    "country": "India",
+    "basePrice": 0.3
+  },
+  {
+    "name": "Jasmer Dhankhar",
+    "role": "Bowler",
+    "country": "India",
+    "basePrice": 0.3
+  },
+  {
+    "name": "Pulkit Narang",
+    "role": "Bowler",
+    "country": "India",
+    "basePrice": 0.3
+  },
+  {
+    "name": "Saumy Pandey",
+    "role": "Bowler",
+    "country": "India",
+    "basePrice": 0.3
+  },
+  {
+    "name": "Mohit Rathee",
+    "role": "Bowler",
+    "country": "India",
+    "basePrice": 0.3
+  },
+  {
+    "name": "Himanshu Singh",
+    "role": "Bowler",
+    "country": "India",
+    "basePrice": 0.3
+  },
+  {
+    "name": "Towhid Hridoy",
+    "role": "Batsman",
+    "country": "Bangladesh",
+    "basePrice": 0.75
+  },
+  {
+    "name": "Mikyle Louis",
+    "role": "Batsman",
+    "country": "West Indies",
+    "basePrice": 0.75
+  },
+  {
+    "name": "Harry Tector",
+    "role": "Batsman",
+    "country": "Ireland",
+    "basePrice": 0.75
   }
 ]

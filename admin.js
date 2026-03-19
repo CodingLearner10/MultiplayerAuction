@@ -14,6 +14,9 @@
     bidLog: document.getElementById("admin-bid-log"),
     participantsList: document.getElementById("admin-participants-list"),
     teamGrid: document.getElementById("admin-team-grid"),
+    chatLog: document.getElementById("admin-chat-log"),
+    chatForm: document.getElementById("admin-chat-form"),
+    chatInput: document.getElementById("admin-chat-input"),
     startBtn: document.getElementById("admin-start-btn"),
     pauseBtn: document.getElementById("admin-pause-btn"),
     soldBtn: document.getElementById("admin-sold-btn"),
@@ -109,6 +112,25 @@
     }).join("");
   }
 
+  function renderChat() {
+    const items = state.chatLog || [];
+    ui.chatLog.innerHTML = items.length
+      ? items.map((entry) => `
+        <article class="chat-item">
+          <div class="chat-meta">
+            <div>
+              <strong>${entry.senderName}</strong>
+              <span class="chat-badge ${entry.senderType}">${entry.senderType}</span>
+            </div>
+            <span>${entry.displayTime}</span>
+          </div>
+          <p class="chat-message">${entry.message}</p>
+        </article>
+      `).join("")
+      : '<article class="chat-item"><p class="chat-message">No messages yet. Use chat to coordinate the auction room.</p></article>';
+    ui.chatLog.scrollTop = ui.chatLog.scrollHeight;
+  }
+
   function renderCompletion() {
     const visible = state.status === "ended" && state.results;
     ui.completionPanel.classList.toggle("hidden", !visible);
@@ -158,6 +180,7 @@
     renderParticipants();
     renderBidLog();
     renderTeams();
+    renderChat();
     renderCompletion();
   }
 
@@ -185,6 +208,13 @@
   });
   ui.exportJsonBtn.addEventListener("click", exportJson);
   ui.exportCsvBtn.addEventListener("click", exportCsv);
+  ui.chatForm.addEventListener("submit", (event) => {
+    event.preventDefault();
+    const message = ui.chatInput.value.trim();
+    if (!message) return;
+    socket.emit("send-chat-message", { message });
+    ui.chatInput.value = "";
+  });
 
   socket.on("connect", () => {
     ui.connectionStatus.textContent = "Connected";

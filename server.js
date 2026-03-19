@@ -141,6 +141,7 @@ function createInitialAuctionState() {
     unsoldFromRoundOne: [],
     teams: createTeamState(),
     replayLog: [],
+    chatLog: [],
     completedPlayers: [],
     timerRemaining: Number(config.BID_TIMER_SECONDS),
     timerEndsAt: null,
@@ -320,6 +321,7 @@ function buildPublicState() {
         : roundCurrency(((team.initialBalance - team.balance) / team.initialBalance) * 100)
     })),
     replayLog: deepClone(auctionState.replayLog),
+    chatLog: deepClone(auctionState.chatLog),
     progress: getProgressSummary(),
     timerRemaining: auctionState.timerRemaining,
     connectedParticipants: Array.from(connectedClients.values()).map((client) => ({
@@ -347,6 +349,62 @@ function broadcastState(eventName, payload) {
 
 function emitError(socket, message) {
   socket.emit("error-message", { message });
+}
+
+function getChatIdentity(socket) {
+  const client = connectedClients.get(socket.id);
+  if (!client) {
+    return null;
+  }
+
+  if (client.role === "admin") {
+    return { senderName: "Admin", senderType: "admin" };
+  }
+
+  if (client.spectator) {
+    return { senderName: "Spectator", senderType: "spectator" };
+  }
+
+  return {
+    senderName: client.teamName || "Participant",
+    senderType: "participant"
+  };
+}
+
+function addChatMessage(socket, rawMessage) {
+  const identity = getChatIdentity(socket);
+  if (!identity) {
+    return { ok: false, message: "Join the auction before sending chat messages." };
+  }
+
+  const message = typeof rawMessage === "string" ? rawMessage.trim().replace(/\s+/g, " ") : "";
+  if (!message) {
+    return { ok: false, message: "Chat message cannot be empty." };
+  }
+
+  if (message.length > 240) {
+    return { ok: false, message: "Chat message must be 240 characters or less." };
+  }
+
+  const timestamp = createTimestampParts();
+  const chatEntry = {
+    id: auctionState.chatLog.length + 1,
+    senderName: identity.senderName,
+    senderType: identity.senderType,
+    message,
+    timestamp: timestamp.iso,
+    displayTime: timestamp.time
+  };
+
+  auctionState.chatLog.push(chatEntry);
+  if (auctionState.chatLog.length > 100) {
+    auctionState.chatLog = auctionState.chatLog.slice(-100);
+  }
+
+  return {
+    ok: true,
+    chatEntry
+  };
 }
 
 function requireAdmin(socket) {
@@ -710,6 +768,16 @@ io.on("connection", (socket) => {
     }
 
     applyBid(validation.team.name, validation.requestedAmount);
+  });
+
+  socket.on("send-chat-message", (payload = {}) => {
+    const result = addChatMessage(socket, payload.message);
+    if (!result.ok) {
+      emitError(socket, result.message);
+      return;
+    }
+
+    broadcastState("chat-message", result.chatEntry);
   });
 
   socket.on("admin-start-auction", () => {
