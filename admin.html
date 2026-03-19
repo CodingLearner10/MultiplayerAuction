@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="Cache-Control" content="no-store, no-cache, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
+  <title>IPL Auction Admin</title>
+  <link rel="stylesheet" href="/style.css?v=20260319">
+</head>
+<body class="page-shell">
+  <main class="app-shell multi-shell">
+    <header class="topbar">
+      <div>
+        <div class="eyebrow">Real-Time Multiplayer</div>
+        <h1>IPL Player Auction - Admin Panel</h1>
+      </div>
+      <div class="status-group">
+        <div id="admin-connection-status" class="status-pill">Connecting...</div>
+        <div class="timer-chip">
+          <span>Bid Timer</span>
+          <strong id="admin-timer">--</strong>
+        </div>
+      </div>
+    </header>
+
+    <section class="panel control-panel">
+      <div class="control-buttons">
+        <button id="admin-start-btn" class="btn btn-primary">Start Auction</button>
+        <button id="admin-pause-btn" class="btn btn-secondary">Pause Auction</button>
+        <button id="admin-sold-btn" class="btn btn-success">Mark SOLD</button>
+        <button id="admin-unsold-btn" class="btn btn-warning">Mark UNSOLD</button>
+        <button id="admin-next-btn" class="btn btn-primary">Next Player</button>
+        <button id="admin-reset-btn" class="btn btn-ghost">Reset Auction</button>
+      </div>
+      <div class="override-row">
+        <select id="override-team-select" class="input"></select>
+        <input id="override-amount-input" class="input" type="number" min="0" step="0.5" placeholder="Override bid amount">
+        <button id="override-apply-btn" class="btn btn-secondary">Apply Override</button>
+      </div>
+    </section>
+
+    <section class="admin-layout">
+      <article class="panel current-player-panel">
+        <div class="section-head">
+          <div>
+            <div class="eyebrow">Current Player</div>
+            <h2 id="admin-player-name">Waiting for auction to start</h2>
+          </div>
+          <div id="admin-round-badge" class="round-badge">Round 1</div>
+        </div>
+        <p id="admin-player-meta" class="muted">Role and country will appear here.</p>
+        <div class="price-strip">
+          <div>
+            <span class="label">Base / Current</span>
+            <strong id="admin-current-price">Rs 0 Cr</strong>
+          </div>
+          <div>
+            <span class="label">Highest Bidder</span>
+            <strong id="admin-last-bidder">No bids yet</strong>
+          </div>
+        </div>
+        <div class="info-grid">
+          <div class="info-card">
+            <span class="label">Player Count</span>
+            <strong id="admin-progress">0 / 0</strong>
+          </div>
+          <div class="info-card">
+            <span class="label">Participants</span>
+            <strong id="admin-participant-count">0</strong>
+          </div>
+        </div>
+        <div>
+          <div class="eyebrow">Last 5 Bids</div>
+          <ul id="admin-bid-log" class="log-list compact-log"></ul>
+        </div>
+      </article>
+
+      <aside class="panel sidebar-panel">
+        <div class="section-head">
+          <div>
+            <div class="eyebrow">Connections</div>
+            <h3>Participants And Status</h3>
+          </div>
+        </div>
+        <div id="admin-status-copy" class="muted">Waiting for live state...</div>
+        <ul id="admin-participants-list" class="participant-list"></ul>
+      </aside>
+
+      <article class="panel teams-panel">
+        <div class="section-head">
+          <div>
+            <div class="eyebrow">Live Teams Grid</div>
+            <h3>Balances And Budgets</h3>
+          </div>
+        </div>
+        <div id="admin-team-grid" class="team-grid"></div>
+      </article>
+    </section>
+
+    <section id="admin-completion" class="panel hidden">
+      <div class="eyebrow">Auction Complete</div>
+      <h2>Final Auction Results</h2>
+      <div id="admin-results-grid" class="completion-grid"></div>
+      <div class="hero-actions">
+        <button id="admin-export-json" class="btn btn-primary">Export Results (JSON)</button>
+        <button id="admin-export-csv" class="btn btn-secondary">Export Replay Log (CSV)</button>
+      </div>
+    </section>
+  </main>
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="/admin.js?v=20260319"></script>
+</body>
+</html>

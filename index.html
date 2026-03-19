@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="Cache-Control" content="no-store, no-cache, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
+  <title>IPL Player Auction</title>
+  <link rel="stylesheet" href="/style.css?v=20260319">
+</head>
+<body class="page-shell">
+  <main class="app-shell single-player-shell">
+    <section id="home-screen" class="panel panel-hero">
+      <div class="eyebrow">Single Player Mode</div>
+      <h1>IPL Player Auction</h1>
+      <p class="lead">Run a full two-round IPL-style auction offline in one browser, with saved progress, timer controls, and exportable results.</p>
+      <div id="saved-summary" class="saved-summary hidden"></div>
+      <div class="hero-actions">
+        <button id="start-auction-btn" class="btn btn-primary">Start New Auction</button>
+        <button id="resume-auction-btn" class="btn btn-secondary">Resume Saved Auction</button>
+        <button id="clear-saved-btn" class="btn btn-ghost">Clear Saved Data</button>
+      </div>
+    </section>
+
+    <section id="loading-screen" class="panel loading-panel hidden">
+      <div class="spinner"></div>
+      <h2>Loading auction data...</h2>
+      <p>Validating teams, players, and auction settings.</p>
+    </section>
+
+    <section id="auction-screen" class="hidden">
+      <header class="topbar">
+        <div>
+          <div class="eyebrow">Auction Control Desk</div>
+          <h2>Single-Player Auction</h2>
+        </div>
+        <div class="status-group">
+          <div class="status-pill" id="single-status-pill">Waiting</div>
+          <div class="timer-chip">
+            <span>Timer</span>
+            <strong id="single-timer">30s</strong>
+          </div>
+        </div>
+      </header>
+
+      <section class="grid-two">
+        <article class="panel current-player-panel">
+          <div class="section-head">
+            <div>
+              <div class="eyebrow">Current Player</div>
+              <h3 id="single-player-name">Auction not started</h3>
+            </div>
+            <div class="round-badge" id="single-round-badge">Round 1</div>
+          </div>
+          <p id="single-player-meta" class="muted">Role and country will appear here.</p>
+          <div class="price-strip">
+            <div>
+              <span class="label">Current Price</span>
+              <strong id="single-current-price">Rs 0 Cr</strong>
+            </div>
+            <div>
+              <span class="label">Highest Bidder</span>
+              <strong id="single-last-bidder">No bids yet</strong>
+            </div>
+          </div>
+          <div class="info-grid">
+            <div class="info-card">
+              <span class="label">Progress</span>
+              <strong id="single-progress">0 / 0</strong>
+            </div>
+            <div class="info-card">
+              <span class="label">Unsold Queue</span>
+              <strong id="single-unsold-count">0</strong>
+            </div>
+          </div>
+          <div class="controls-row">
+            <button id="single-sold-btn" class="btn btn-success" disabled>SOLD</button>
+            <button id="single-unsold-btn" class="btn btn-warning">UNSOLD</button>
+            <button id="single-next-btn" class="btn btn-primary" disabled>NEXT PLAYER</button>
+          </div>
+        </article>
+
+        <article class="panel">
+          <div class="section-head">
+            <div>
+              <div class="eyebrow">Bid Feed</div>
+              <h3>Current Round Activity</h3>
+            </div>
+          </div>
+          <ul id="single-bid-log" class="log-list"></ul>
+        </article>
+      </section>
+
+      <section class="panel">
+        <div class="section-head">
+          <div>
+            <div class="eyebrow">Teams</div>
+            <h3>Balances And Bidding</h3>
+          </div>
+        </div>
+        <div id="single-team-grid" class="team-grid"></div>
+      </section>
+    </section>
+
+    <section id="completion-screen" class="panel hidden">
+      <div class="eyebrow">Final Results</div>
+      <h2>Auction Completed!</h2>
+      <div id="single-completion-summary" class="completion-grid"></div>
+      <div class="hero-actions">
+        <button id="single-export-json" class="btn btn-primary">Export Results (JSON)</button>
+        <button id="single-export-csv" class="btn btn-secondary">Export Replay Log (CSV)</button>
+        <button id="single-restart-btn" class="btn btn-ghost">Start New Auction</button>
+      </div>
+    </section>
+  </main>
+
+  <div id="team-modal" class="modal hidden">
+    <div class="modal-card">
+      <button id="team-modal-close" class="modal-close" aria-label="Close team details">x</button>
+      <div class="eyebrow">Team Details</div>
+      <h3 id="team-modal-title">Team</h3>
+      <p id="team-modal-balance" class="muted"></p>
+      <div id="team-modal-roster" class="roster-list"></div>
+    </div>
+  </div>
+
+  <script src="/app.js?v=20260319"></script>
+</body>
+</html>

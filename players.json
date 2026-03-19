@@ -1,0 +1,74 @@
+[
+  {
+    "name": "Virat Kohli",
+    "role": "Batsman",
+    "country": "India",
+    "basePrice": 3
+  },
+  {
+    "name": "Rohit Sharma",
+    "role": "Batsman",
+    "country": "India",
+    "basePrice": 3
+  },
+  {
+    "name": "Jasprit Bumrah",
+    "role": "Bowler",
+    "country": "India",
+    "basePrice": 2.5
+  },
+  {
+    "name": "Rashid Khan",
+    "role": "All-Rounder",
+    "country": "Afghanistan",
+    "basePrice": 2.5
+  },
+  {
+    "name": "Jos Buttler",
+    "role": "Wicketkeeper",
+    "country": "England",
+    "basePrice": 2
+  },
+  {
+    "name": "KL Rahul",
+    "role": "Wicketkeeper",
+    "country": "India",
+    "basePrice": 2
+  },
+  {
+    "name": "Hardik Pandya",
+    "role": "All-Rounder",
+    "country": "India",
+    "basePrice": 2.5
+  },
+  {
+    "name": "Pat Cummins",
+    "role": "Bowler",
+    "country": "Australia",
+    "basePrice": 2
+  },
+  {
+    "name": "Suryakumar Yadav",
+    "role": "Batsman",
+    "country": "India",
+    "basePrice": 1.5
+  },
+  {
+    "name": "Trent Boult",
+    "role": "Bowler",
+    "country": "New Zealand",
+    "basePrice": 1.5
+  },
+  {
+    "name": "Glenn Maxwell",
+    "role": "All-Rounder",
+    "country": "Australia",
+    "basePrice": 1.5
+  },
+  {
+    "name": "Ruturaj Gaikwad",
+    "role": "Batsman",
+    "country": "India",
+    "basePrice": 1
+  }
+]

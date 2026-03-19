@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>IPL Auction | Admin Dashboard</title>
+    <link rel="stylesheet" href="/style.css" />
+  </head>
+  <body>
+    <div class="page-shell">
+      <header class="hero-card">
+        <div>
+          <p class="eyebrow">Multiplayer Admin</p>
+          <h1>Auctioneer Command Center</h1>
+          <p class="hero-copy">
+            Control the live auction, broadcast every state change, and track participants in real time.
+          </p>
+        </div>
+        <div class="hero-actions">
+          <a href="/" class="btn btn-secondary">Single Player Mode</a>
+          <a href="/dashboard.html" class="btn btn-primary">Participant Dashboard</a>
+        </div>
+      </header>
+
+      <main class="grid admin-layout">
+        <section class="panel">
+          <div class="panel-heading">
+            <h2>Live Auction</h2>
+            <span id="adminStatusBadge" class="status-badge waiting">waiting</span>
+          </div>
+          <div id="adminPlayerCard" class="player-card empty-state">Waiting for auction start.</div>
+          <div class="info-grid">
+            <div class="stat-box">
+              <span class="stat-label">Round</span>
+              <strong id="adminRound">1</strong>
+            </div>
+            <div class="stat-box">
+              <span class="stat-label">Progress</span>
+              <strong id="adminProgress">0 / 0</strong>
+            </div>
+            <div class="stat-box">
+              <span class="stat-label">Current Bid</span>
+              <strong id="adminCurrentBid">0 Cr</strong>
+            </div>
+            <div class="stat-box">
+              <span class="stat-label">Last Bidder</span>
+              <strong id="adminLastBidder">-</strong>
+            </div>
+          </div>
+
+          <div class="button-row">
+            <button id="adminStartBtn" class="btn btn-primary">Start Auction</button>
+            <button id="adminSoldBtn" class="btn btn-success">Mark Sold</button>
+            <button id="adminUnsoldBtn" class="btn btn-warning">Mark Unsold</button>
+            <button id="adminNextBtn" class="btn btn-secondary">Next Player</button>
+            <button id="adminResetBtn" class="btn btn-danger">Reset Auction</button>
+          </div>
+        </section>
+
+        <section class="panel">
+          <div class="panel-heading">
+            <h2>Participants</h2>
+            <span id="participantCount" class="pill pill-dark">0 Online</span>
+          </div>
+          <ul id="participantsList" class="list-box"></ul>
+        </section>
+
+        <section class="panel span-two">
+          <div class="panel-heading">
+            <h2>Team Balances</h2>
+            <span class="pill pill-warning">Live Sync</span>
+          </div>
+          <div id="adminTeamsBoard" class="team-grid"></div>
+        </section>
+
+        <section class="panel span-two">
+          <div class="panel-heading">
+            <h2>Event Feed</h2>
+            <span class="pill pill-success">Realtime</span>
+          </div>
+          <ul id="adminEventFeed" class="list-box"></ul>
+        </section>
+      </main>
+    </div>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="/admin.js"></script>
+  </body>
+</html>

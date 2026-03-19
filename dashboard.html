@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="Cache-Control" content="no-store, no-cache, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
+  <title>IPL Auction Dashboard</title>
+  <link rel="stylesheet" href="/style.css?v=20260319">
+</head>
+<body class="page-shell">
+  <main class="app-shell multi-shell">
+    <header class="topbar">
+      <div>
+        <div class="eyebrow">Multiplayer Dashboard</div>
+        <h1 id="dashboard-title">Participant Dashboard</h1>
+      </div>
+      <div class="status-group">
+        <div id="dashboard-status-pill" class="status-pill">Connecting...</div>
+        <div class="timer-chip">
+          <span>Bid Timer</span>
+          <strong id="dashboard-timer">--</strong>
+        </div>
+      </div>
+    </header>
+
+    <section id="team-selection-panel" class="panel">
+      <div class="section-head">
+        <div>
+          <div class="eyebrow">Pre-Auction</div>
+          <h2>Select Your Team</h2>
+        </div>
+      </div>
+      <p id="selection-copy" class="muted">Pick an available team to join the live auction.</p>
+      <div id="team-selection-grid" class="selection-grid"></div>
+      <div id="waiting-message" class="banner banner-neutral hidden">Waiting for auction to start...</div>
+    </section>
+
+    <section id="dashboard-live-view" class="hidden">
+      <section class="grid-two">
+        <article class="panel current-player-panel">
+          <div class="section-head">
+            <div>
+              <div class="eyebrow">Current Player</div>
+              <h2 id="dashboard-player-name">Waiting for player</h2>
+            </div>
+            <div id="dashboard-round-badge" class="round-badge">Round 1</div>
+          </div>
+          <p id="dashboard-player-meta" class="muted">Role and country will appear here.</p>
+          <div class="price-strip">
+            <div>
+              <span class="label">Base / Current</span>
+              <strong id="dashboard-current-price">Rs 0 Cr</strong>
+            </div>
+            <div>
+              <span class="label">Highest Bidder</span>
+              <strong id="dashboard-last-bidder">No bids yet</strong>
+            </div>
+          </div>
+          <div class="info-grid">
+            <div class="info-card">
+              <span class="label">Auction Progress</span>
+              <strong id="dashboard-progress">0 / 0</strong>
+            </div>
+            <div class="info-card">
+              <span class="label">Team Balance</span>
+              <strong id="dashboard-balance">Rs 0 Cr</strong>
+            </div>
+          </div>
+          <div id="bid-banner" class="banner banner-neutral">Waiting for auction updates...</div>
+          <div id="bid-controls" class="controls-row">
+            <button id="place-bid-btn" class="btn btn-primary">Place Bid</button>
+          </div>
+        </article>
+
+        <article class="panel">
+          <div class="section-head">
+            <div>
+              <div class="eyebrow">Bid History</div>
+              <h3>Live Activity</h3>
+            </div>
+          </div>
+          <ul id="dashboard-bid-log" class="log-list"></ul>
+        </article>
+      </section>
+
+      <section class="grid-two">
+        <article class="panel">
+          <div class="section-head">
+            <div>
+              <div class="eyebrow">My Squad</div>
+              <h3>Acquired Players</h3>
+            </div>
+          </div>
+          <div id="dashboard-roster" class="roster-list"></div>
+        </article>
+
+        <article class="panel">
+          <div class="section-head">
+            <div>
+              <div class="eyebrow">All Teams</div>
+              <h3>Live Balances</h3>
+            </div>
+          </div>
+          <div id="dashboard-team-grid" class="team-grid compact-team-grid"></div>
+        </article>
+      </section>
+    </section>
+
+    <section id="dashboard-completion" class="panel hidden">
+      <div class="eyebrow">Auction Complete</div>
+      <h2>Final Results</h2>
+      <div id="dashboard-results-grid" class="completion-grid"></div>
+      <div class="hero-actions">
+        <button id="dashboard-export-json" class="btn btn-primary">Export Results (JSON)</button>
+        <button id="dashboard-export-csv" class="btn btn-secondary">Export Replay Log (CSV)</button>
+      </div>
+    </section>
+  </main>
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="/dashboard.js?v=20260319"></script>
+</body>
+</html>

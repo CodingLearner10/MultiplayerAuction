@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>IPL Auction | Participant Dashboard</title>
+    <link rel="stylesheet" href="/style.css" />
+  </head>
+  <body>
+    <div class="page-shell">
+      <header class="hero-card">
+        <div>
+          <p class="eyebrow">Multiplayer Participants</p>
+          <h1>Live Team War Room</h1>
+          <p class="hero-copy">
+            Join the auction as a franchise, watch bids unfold in real time, and strike when the next increment fits your purse.
+          </p>
+        </div>
+        <div class="hero-actions">
+          <a href="/" class="btn btn-secondary">Single Player Mode</a>
+          <a href="/admin.html" class="btn btn-primary">Admin Dashboard</a>
+        </div>
+      </header>
+
+      <main class="grid dashboard-layout">
+        <section class="panel">
+          <div class="panel-heading">
+            <h2>Join Auction</h2>
+            <span id="dashboardStatusBadge" class="status-badge waiting">waiting</span>
+          </div>
+          <label for="teamSelect" class="field-label">Choose Team</label>
+          <select id="teamSelect" class="select-control"></select>
+          <button id="joinBtn" class="btn btn-primary full-width">Join Team Room</button>
+          <div class="info-grid compact">
+            <div class="stat-box">
+              <span class="stat-label">Round</span>
+              <strong id="dashboardRound">1</strong>
+            </div>
+            <div class="stat-box">
+              <span class="stat-label">Progress</span>
+              <strong id="dashboardProgress">0 / 0</strong>
+            </div>
+            <div class="stat-box">
+              <span class="stat-label">Current Bid</span>
+              <strong id="dashboardCurrentBid">0 Cr</strong>
+            </div>
+            <div class="stat-box">
+              <span class="stat-label">Next Bid</span>
+              <strong id="dashboardNextBid">0 Cr</strong>
+            </div>
+          </div>
+          <button id="bidBtn" class="btn btn-success full-width" disabled>Place Bid</button>
+          <p id="dashboardMessage" class="message-strip">Choose your team to join live bidding.</p>
+        </section>
+
+        <section class="panel">
+          <div class="panel-heading">
+            <h2>Current Player</h2>
+            <span id="myTeamBalance" class="pill pill-dark">Balance: -</span>
+          </div>
+          <div id="dashboardPlayerCard" class="player-card empty-state">No player is currently live.</div>
+          <div class="info-grid compact">
+            <div class="stat-box">
+              <span class="stat-label">Last Bidder</span>
+              <strong id="dashboardLastBidder">-</strong>
+            </div>
+            <div class="stat-box">
+              <span class="stat-label">Participants</span>
+              <strong id="dashboardParticipants">0</strong>
+            </div>
+          </div>
+        </section>
+
+        <section class="panel">
+          <div class="panel-heading">
+            <h2>Bid History</h2>
+            <span class="pill pill-warning">Latest First</span>
+          </div>
+          <ul id="bidHistoryList" class="list-box"></ul>
+        </section>
+
+        <section class="panel">
+          <div class="panel-heading">
+            <h2>My Squad</h2>
+            <span id="myTeamName" class="pill pill-success">No Team</span>
+          </div>
+          <ul id="myPlayersList" class="list-box"></ul>
+        </section>
+
+        <section class="panel span-two">
+          <div class="panel-heading">
+            <h2>All Teams</h2>
+            <span class="pill pill-dark">Shared State</span>
+          </div>
+          <div id="dashboardTeamsBoard" class="team-grid"></div>
+        </section>
+      </main>
+    </div>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="/dashboard.js"></script>
+  </body>
+</html>

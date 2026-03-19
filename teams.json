@@ -1,0 +1,52 @@
+[
+  {
+    "name": "Mumbai Indians",
+    "balance": 90,
+    "initialBalance": 90
+  },
+  {
+    "name": "Chennai Super Kings",
+    "balance": 90,
+    "initialBalance": 90
+  },
+  {
+    "name": "Royal Challengers Bengaluru",
+    "balance": 90,
+    "initialBalance": 90
+  },
+  {
+    "name": "Kolkata Knight Riders",
+    "balance": 90,
+    "initialBalance": 90
+  },
+  {
+    "name": "Rajasthan Royals",
+    "balance": 90,
+    "initialBalance": 90
+  },
+  {
+    "name": "Delhi Capitals",
+    "balance": 90,
+    "initialBalance": 90
+  },
+  {
+    "name": "Sunrisers Hyderabad",
+    "balance": 90,
+    "initialBalance": 90
+  },
+  {
+    "name": "Punjab Kings",
+    "balance": 90,
+    "initialBalance": 90
+  },
+  {
+    "name": "Lucknow Super Giants",
+    "balance": 90,
+    "initialBalance": 90
+  },
+  {
+    "name": "Gujarat Titans",
+    "balance": 90,
+    "initialBalance": 90
+  }
+]

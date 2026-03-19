@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>IPL Auction | Single Player</title>
+    <link rel="stylesheet" href="/style.css" />
+  </head>
+  <body>
+    <div class="page-shell">
+      <header class="hero-card">
+        <div>
+          <p class="eyebrow">Single Player Mode</p>
+          <h1>IPL-Style Auction Control Room</h1>
+          <p class="hero-copy">
+            Run a full auction locally, save progress in your browser, and export the final results as JSON.
+          </p>
+        </div>
+        <div class="hero-actions">
+          <button id="startAuctionBtn" class="btn btn-primary">Start New Auction</button>
+          <button id="resumeAuctionBtn" class="btn btn-secondary">Resume Saved Auction</button>
+          <button id="clearAuctionBtn" class="btn btn-danger">Clear Saved Data</button>
+        </div>
+      </header>
+
+      <main class="grid two-column">
+        <section class="panel">
+          <div class="panel-heading">
+            <h2>Auction Board</h2>
+            <span id="singleStatusBadge" class="status-badge waiting">Waiting</span>
+          </div>
+          <div class="info-grid compact">
+            <div class="stat-box">
+              <span class="stat-label">Round</span>
+              <strong id="singleRound">1</strong>
+            </div>
+            <div class="stat-box">
+              <span class="stat-label">Progress</span>
+              <strong id="singleProgress">0 / 0</strong>
+            </div>
+            <div class="stat-box">
+              <span class="stat-label">Current Bid</span>
+              <strong id="singleCurrentBid">0 Cr</strong>
+            </div>
+            <div class="stat-box">
+              <span class="stat-label">Last Bidder</span>
+              <strong id="singleLastBidder">-</strong>
+            </div>
+          </div>
+
+          <div id="singlePlayerCard" class="player-card empty-state">
+            Start a new auction or resume saved progress.
+          </div>
+
+          <div class="auction-actions">
+            <label class="field-label" for="singleTeamSelect">Select Team</label>
+            <select id="singleTeamSelect" class="select-control"></select>
+            <div class="button-row">
+              <button id="singleBidBtn" class="btn btn-primary" disabled>Place Bid</button>
+              <button id="singleSoldBtn" class="btn btn-success" disabled>Mark Sold</button>
+              <button id="singleUnsoldBtn" class="btn btn-warning" disabled>Mark Unsold</button>
+              <button id="singleNextBtn" class="btn btn-secondary" disabled>Next Player</button>
+            </div>
+          </div>
+
+          <div>
+            <h3>Bid History</h3>
+            <ul id="singleBidHistory" class="list-box"></ul>
+          </div>
+        </section>
+
+        <section class="panel">
+          <div class="panel-heading">
+            <h2>Team Overview</h2>
+            <a href="/dashboard.html" class="text-link">Open Multiplayer Dashboard</a>
+          </div>
+          <div id="singleTeamsBoard" class="team-grid"></div>
+        </section>
+      </main>
+
+      <section id="singleSummarySection" class="panel hidden">
+        <div class="panel-heading">
+          <h2>Auction Summary</h2>
+          <button id="exportResultsBtn" class="btn btn-primary">Export Results (JSON)</button>
+        </div>
+        <div id="singleSummaryBoard" class="summary-grid"></div>
+      </section>
+    </div>
+
+    <script>
+      const STORAGE_KEY = "ipl_auction_state";
+      const singleState = {
+        config: null,
+        masterPlayers: [],
+        roundOnePlayers: [],
+        roundTwoPool: [],
+        teams: [],
+        round: 1,
+        currentPlayerIndex: 0,
+        currentBid: 0,
+        lastBidder: null,
+        auctionStatus: "waiting",
+        bidHistory: [],
+        soldPlayers: [],
+        currentPlayers: []
+      };
+
+      const refs = {
+        startAuctionBtn: document.getElementById("startAuctionBtn"),
+        resumeAuctionBtn: document.getElementById("resumeAuctionBtn"),
+        clearAuctionBtn: document.getElementById("clearAuctionBtn"),
+        singleStatusBadge: document.getElementById("singleStatusBadge"),
+        singleRound: document.getElementById("singleRound"),
+        singleProgress: document.getElementById("singleProgress"),
+        singleCurrentBid: document.getElementById("singleCurrentBid"),
+        singleLastBidder: document.getElementById("singleLastBidder"),
+        singlePlayerCard: document.getElementById("singlePlayerCard"),
+        singleTeamSelect: document.getElementById("singleTeamSelect"),
+        singleBidBtn: document.getElementById("singleBidBtn"),
+        singleSoldBtn: document.getElementById("singleSoldBtn"),
+        singleUnsoldBtn: document.getElementById("singleUnsoldBtn"),
+        singleNextBtn: document.getElementById("singleNextBtn"),
+        singleBidHistory: document.getElementById("singleBidHistory"),
+        singleTeamsBoard: document.getElementById("singleTeamsBoard"),
+        singleSummarySection: document.getElementById("singleSummarySection"),
+        singleSummaryBoard: document.getElementById("singleSummaryBoard"),
+        exportResultsBtn: document.getElementById("exportResultsBtn")
+      };
+
+      function clone(value) {
+        return JSON.parse(JSON.stringify(value));
+      }
+
+      function fisherYatesShuffle(items) {
+        const array = [...items];
+        for (let index = array.length - 1; index > 0; index -= 1) {
+          const swapIndex = Math.floor(Math.random() * (index + 1));
+          [array[index], array[swapIndex]] = [array[swapIndex], array[index]];
+        }
+        return array;
+      }
+
+      function formatCrore(value) {
+        return `${Number(value).toFixed(1).replace(".0", "")} Cr`;
+      }
+
+      function getRoundBasePrice() {
+        return singleState.round === 1
+          ? Number(singleState.config.BASE_PRICE_ROUND1)
+          : Number(singleState.config.BASE_PRICE_ROUND2);
+      }
+
+      function getCurrentPlayer() {
+        return singleState.currentPlayers[singleState.currentPlayerIndex] || null;
+      }
+
+      function persistState() {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(singleState));
+      }
+
+      function populateTeamOptions() {
+        refs.singleTeamSelect.innerHTML = "";
+        singleState.teams.forEach((team) => {
+          const option = document.createElement("option");
+          option.value = team.name;
+          option.textContent = team.name;
+          refs.singleTeamSelect.appendChild(option);
+        });
+      }
+
+      function setOpeningBid() {
+        const player = getCurrentPlayer();
+        if (!player) {
+          singleState.currentBid = 0;
+          singleState.lastBidder = null;
+          singleState.bidHistory = [];
+          return;
+        }
+
+        const openingPrice = Math.max(getRoundBasePrice(), Number(player.basePrice));
+        singleState.currentBid = Number((openingPrice - Number(singleState.config.BID_INCREMENT)).toFixed(2));
+        singleState.lastBidder = null;
+        singleState.bidHistory = [];
+      }
+
+      function createFreshState(resources) {
+        singleState.config = resources.config;
+        singleState.masterPlayers = resources.players.map((player, index) => ({
+          id: index + 1,
+          ...player,
+          status: "pending",
+          soldTo: null,
+          soldPrice: 0
+        }));
+        singleState.roundOnePlayers = clone(singleState.masterPlayers);
+        singleState.roundTwoPool = [];
+        singleState.currentPlayers = clone(singleState.roundOnePlayers);
+        singleState.teams = resources.teams.map((team) => ({
+          ...team,
+          players: []
+        }));
+        singleState.round = 1;
+        singleState.currentPlayerIndex = 0;
+        singleState.auctionStatus = "active";
+        singleState.soldPlayers = [];
+        setOpeningBid();
+        persistState();
+        render();
+      }
+
+      function renderPlayerCard() {
+        const player = getCurrentPlayer();
+        if (!player) {
+          refs.singlePlayerCard.className = "player-card empty-state";
+          refs.singlePlayerCard.innerHTML = "No player currently on the board.";
+          return;
+        }
+
+        refs.singlePlayerCard.className = "player-card";
+        refs.singlePlayerCard.innerHTML = `
+          <div class="player-header">
+            <div>
+              <p class="eyebrow">Current Player</p>
+              <h2>${player.name}</h2>
+            </div>
+            <span class="pill">${player.role}</span>
+          </div>
+          <div class="player-meta">
+            <span>${player.country}</span>
+            <span>Base Price: ${formatCrore(Math.max(getRoundBasePrice(), Number(player.basePrice)))}</span>
+          </div>
+        `;
+      }
+
+      function renderTeams() {
+        refs.singleTeamsBoard.innerHTML = "";
+        singleState.teams.forEach((team) => {
+          const nextBid = Number((singleState.currentBid + Number(singleState.config.BID_INCREMENT)).toFixed(2));
+          const card = document.createElement("article");
+          card.className = "team-card";
+          card.innerHTML = `
+            <div class="team-card-header">
+              <h3>${team.name}</h3>
+              <span class="pill pill-dark">${formatCrore(team.balance)}</span>
+            </div>
+            <p class="muted">Initial Balance: ${formatCrore(team.initialBalance)}</p>
+            <p class="muted">Players Bought: ${team.players.length}</p>
+            <p class="muted">${team.balance >= nextBid ? "Can bid" : "Insufficient balance"}</p>
+            <ul class="mini-list">
+              ${team.players.map((player) => `<li>${player.name} - ${formatCrore(player.price)}</li>`).join("") || "<li>No players acquired yet.</li>"}
+            </ul>
+          `;
+          refs.singleTeamsBoard.appendChild(card);
+        });
+      }
+
+      function renderBidHistory() {
+        refs.singleBidHistory.innerHTML = "";
+        if (!singleState.bidHistory.length) {
+          refs.singleBidHistory.innerHTML = "<li>No bids placed yet.</li>";
+          return;
+        }
+
+        singleState.bidHistory
+          .slice()
+          .reverse()
+          .forEach((entry) => {
+            const item = document.createElement("li");
+            item.textContent = `${entry.teamName} bid ${formatCrore(entry.amount)}`;
+            refs.singleBidHistory.appendChild(item);
+          });
+      }
+
+      function renderSummary() {
+        const isCompleted = singleState.auctionStatus === "completed";
+        refs.singleSummarySection.classList.toggle("hidden", !isCompleted);
+        refs.exportResultsBtn.disabled = !isCompleted;
+        refs.singleSummaryBoard.innerHTML = "";
+
+        if (!isCompleted) {
+          return;
+        }
+
+        singleState.teams.forEach((team) => {
+          const card = document.createElement("article");
+          card.className = "team-card";
+          card.innerHTML = `
+            <div class="team-card-header">
+              <h3>${team.name}</h3>
+              <span class="pill pill-success">${formatCrore(team.balance)}</span>
+            </div>
+            <p class="muted">Players Acquired: ${team.players.length}</p>
+            <ul class="mini-list">
+              ${team.players.map((player) => `<li>${player.name} - ${formatCrore(player.price)}</li>`).join("") || "<li>No purchases made.</li>"}
+            </ul>
+          `;
+          refs.singleSummaryBoard.appendChild(card);
+        });
+      }
+
+      function updateButtons() {
+        const player = getCurrentPlayer();
+        const selectedTeam = singleState.teams.find((team) => team.name === refs.singleTeamSelect.value);
+        const nextBid = Number((singleState.currentBid + Number(singleState.config.BID_INCREMENT)).toFixed(2));
+        const canBid =
+          player &&
+          selectedTeam &&
+          singleState.auctionStatus === "active" &&
+          singleState.lastBidder !== selectedTeam.name &&
+          selectedTeam.balance >= nextBid;
+
+        refs.singleBidBtn.disabled = !canBid;
+        refs.singleSoldBtn.disabled = !(player && singleState.lastBidder && singleState.auctionStatus === "active");
+        refs.singleUnsoldBtn.disabled = !(player && singleState.auctionStatus === "active");
+        refs.singleNextBtn.disabled = !(singleState.auctionStatus === "paused");
+      }
+
+      function render() {
+        refs.singleRound.textContent = singleState.round;
+        refs.singleProgress.textContent = `${Math.min(singleState.currentPlayerIndex + 1, singleState.currentPlayers.length)} / ${singleState.currentPlayers.length}`;
+        refs.singleCurrentBid.textContent = formatCrore(Math.max(singleState.currentBid, 0));
+        refs.singleLastBidder.textContent = singleState.lastBidder || "-";
+        refs.singleStatusBadge.textContent = singleState.auctionStatus;
+        refs.singleStatusBadge.className = `status-badge ${singleState.auctionStatus}`;
+        renderPlayerCard();
+        renderTeams();
+        renderBidHistory();
+        renderSummary();
+        updateButtons();
+      }
+
+      function moveToNextPlayer() {
+        singleState.currentPlayerIndex += 1;
+
+        if (singleState.currentPlayerIndex < singleState.currentPlayers.length) {
+          singleState.auctionStatus = "active";
+          setOpeningBid();
+          persistState();
+          render();
+          return;
+        }
+
+        if (singleState.round === 1 && singleState.roundTwoPool.length) {
+          singleState.round = 2;
+          singleState.currentPlayers = fisherYatesShuffle(clone(singleState.roundTwoPool)).map((player) => ({
+            ...player,
+            status: "pending",
+            soldTo: null,
+            soldPrice: 0
+          }));
+          singleState.roundTwoPool = [];
+          singleState.currentPlayerIndex = 0;
+          singleState.auctionStatus = "active";
+          setOpeningBid();
+          persistState();
+          render();
+          return;
+        }
+
+        singleState.auctionStatus = "completed";
+        singleState.currentBid = 0;
+        singleState.lastBidder = null;
+        persistState();
+        render();
+      }
+
+      function placeBid() {
+        const team = singleState.teams.find((item) => item.name === refs.singleTeamSelect.value);
+        const player = getCurrentPlayer();
+        if (!team || !player || singleState.auctionStatus !== "active") {
+          return;
+        }
+
+        const nextBid = Number((singleState.currentBid + Number(singleState.config.BID_INCREMENT)).toFixed(2));
+        if (singleState.lastBidder === team.name || team.balance < nextBid) {
+          return;
+        }
+
+        singleState.currentBid = nextBid;
+        singleState.lastBidder = team.name;
+        singleState.bidHistory.push({
+          teamName: team.name,
+          amount: nextBid
+        });
+        persistState();
+        render();
+      }
+
+      function markSold() {
+        const player = getCurrentPlayer();
+        const team = singleState.teams.find((item) => item.name === singleState.lastBidder);
+        if (!player || !team || !singleState.lastBidder) {
+          return;
+        }
+
+        player.status = "sold";
+        player.soldTo = team.name;
+        player.soldPrice = singleState.currentBid;
+        team.balance = Number((team.balance - singleState.currentBid).toFixed(2));
+        team.players.push({
+          id: player.id,
+          name: player.name,
+          role: player.role,
+          country: player.country,
+          price: singleState.currentBid,
+          round: singleState.round
+        });
+        singleState.soldPlayers.push(clone(player));
+        singleState.auctionStatus = "paused";
+        persistState();
+        render();
+      }
+
+      function markUnsold() {
+        const player = getCurrentPlayer();
+        if (!player) {
+          return;
+        }
+
+        player.status = "unsold";
+        if (singleState.round === 1) {
+          singleState.roundTwoPool.push(clone(player));
+        }
+        singleState.auctionStatus = "paused";
+        persistState();
+        render();
+      }
+
+      function resumeSavedAuction() {
+        const saved = localStorage.getItem(STORAGE_KEY);
+        if (!saved) {
+          window.alert("No saved auction found.");
+          return;
+        }
+
+        Object.assign(singleState, JSON.parse(saved));
+        populateTeamOptions();
+        render();
+      }
+
+      function clearSavedAuction() {
+        localStorage.removeItem(STORAGE_KEY);
+        window.location.reload();
+      }
+
+      function exportResults() {
+        const payload = {
+          round: singleState.round,
+          teams: singleState.teams,
+          soldPlayers: singleState.soldPlayers
+        };
+        const blob = new Blob([JSON.stringify(payload, null, 2)], { type: "application/json" });
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement("a");
+        link.href = url;
+        link.download = "ipl-auction-results.json";
+        link.click();
+        URL.revokeObjectURL(url);
+      }
+
+      async function loadResources() {
+        const [playersResponse, teamsResponse, configResponse] = await Promise.all([
+          fetch("/players.json"),
+          fetch("/teams.json"),
+          fetch("/config.json")
+        ]);
+
+        return {
+          players: await playersResponse.json(),
+          teams: await teamsResponse.json(),
+          config: await configResponse.json()
+        };
+      }
+
+      refs.startAuctionBtn.addEventListener("click", async () => {
+        const resources = await loadResources();
+        createFreshState(resources);
+        populateTeamOptions();
+        render();
+      });
+
+      refs.resumeAuctionBtn.addEventListener("click", resumeSavedAuction);
+      refs.clearAuctionBtn.addEventListener("click", clearSavedAuction);
+      refs.singleBidBtn.addEventListener("click", placeBid);
+      refs.singleSoldBtn.addEventListener("click", markSold);
+      refs.singleUnsoldBtn.addEventListener("click", markUnsold);
+      refs.singleNextBtn.addEventListener("click", moveToNextPlayer);
+      refs.singleTeamSelect.addEventListener("change", updateButtons);
+      refs.exportResultsBtn.addEventListener("click", exportResults);
+    </script>
+  </body>
+</html>
