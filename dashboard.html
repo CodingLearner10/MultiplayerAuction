@@ -10,6 +10,13 @@
   <link rel="stylesheet" href="/style.css?v=20260319">
 </head>
 <body class="page-shell">
+  <div id="dashboard-sold-overlay" class="sold-overlay hidden">
+    <div class="sold-overlay-card">
+      <div class="eyebrow">Player Sold</div>
+      <h2 id="dashboard-sold-overlay-title">SOLD</h2>
+      <p id="dashboard-sold-overlay-copy" class="muted"></p>
+    </div>
+  </div>
   <main class="app-shell multi-shell">
     <header class="topbar">
       <div>
@@ -18,7 +25,7 @@
       </div>
       <div class="status-group">
         <div id="dashboard-status-pill" class="status-pill">Connecting...</div>
-        <div class="timer-chip">
+        <div class="timer-chip timer-chip-lg" id="dashboard-timer-chip">
           <span>Bid Timer</span>
           <strong id="dashboard-timer">--</strong>
         </div>
@@ -38,6 +45,18 @@
     </section>
 
     <section id="dashboard-live-view" class="hidden">
+      <section id="dashboard-break-panel" class="panel break-panel hidden">
+        <div class="section-head">
+          <div>
+            <div class="eyebrow">Segment Break</div>
+            <h2 id="dashboard-break-title">Auction break</h2>
+          </div>
+          <div class="status-pill">Paused</div>
+        </div>
+        <div id="dashboard-break-meta" class="muted"></div>
+        <div id="dashboard-break-cards" class="completion-grid"></div>
+      </section>
+
       <section class="grid-two">
         <article class="panel current-player-panel">
           <div class="section-head">
@@ -48,6 +67,13 @@
             <div id="dashboard-round-badge" class="round-badge">Round 1</div>
           </div>
           <p id="dashboard-player-meta" class="muted">Role and country will appear here.</p>
+          <div class="hero-timer-board">
+            <div class="hero-timer-copy">
+              <span class="label">Auction Status</span>
+              <strong id="dashboard-live-status">Waiting for auction</strong>
+            </div>
+            <div class="hero-timer-value" id="dashboard-hero-timer">--</div>
+          </div>
           <div class="price-strip">
             <div>
               <span class="label">Base / Current</span>
@@ -66,6 +92,15 @@
             <div class="info-card">
               <span class="label">Team Balance</span>
               <strong id="dashboard-balance">Rs 0 Cr</strong>
+              <div id="dashboard-affordability" class="muted helper-copy">Select a team to see affordability.</div>
+            </div>
+            <div class="info-card">
+              <span class="label">Segment</span>
+              <strong id="dashboard-segment-progress">1 / 15</strong>
+            </div>
+            <div class="info-card">
+              <span class="label">Mode</span>
+              <strong id="dashboard-mode-label">Waiting</strong>
             </div>
           </div>
           <div id="bid-banner" class="banner banner-neutral">Waiting for auction updates...</div>

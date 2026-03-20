@@ -10,6 +10,13 @@
   <link rel="stylesheet" href="/style.css?v=20260319">
 </head>
 <body class="page-shell">
+  <div id="admin-sold-overlay" class="sold-overlay hidden">
+    <div class="sold-overlay-card">
+      <div class="eyebrow">Player Sold</div>
+      <h2 id="admin-sold-overlay-title">SOLD</h2>
+      <p id="admin-sold-overlay-copy" class="muted"></p>
+    </div>
+  </div>
   <main class="app-shell multi-shell">
     <header class="topbar">
       <div>
@@ -18,7 +25,7 @@
       </div>
       <div class="status-group">
         <div id="admin-connection-status" class="status-pill">Connecting...</div>
-        <div class="timer-chip">
+        <div class="timer-chip timer-chip-lg" id="admin-timer-chip">
           <span>Bid Timer</span>
           <strong id="admin-timer">--</strong>
         </div>
@@ -34,10 +41,31 @@
         <button id="admin-next-btn" class="btn btn-primary">Next Player</button>
         <button id="admin-reset-btn" class="btn btn-ghost">Reset Auction</button>
       </div>
+      <div class="timer-action-row">
+        <span class="muted">Timer controls</span>
+        <button id="admin-extend-10-btn" class="btn btn-secondary" type="button">+10s</button>
+        <button id="admin-extend-15-btn" class="btn btn-secondary" type="button">+15s</button>
+        <button id="admin-extend-30-btn" class="btn btn-ghost" type="button">+30s</button>
+      </div>
       <div class="override-row">
         <select id="override-team-select" class="input"></select>
         <input id="override-amount-input" class="input" type="number" min="0" step="0.5" placeholder="Override bid amount">
         <button id="override-apply-btn" class="btn btn-secondary">Apply Override</button>
+      </div>
+    </section>
+
+    <section id="admin-break-panel" class="panel break-panel hidden">
+      <div class="section-head">
+        <div>
+          <div class="eyebrow">Segment Break</div>
+          <h2 id="admin-break-title">Round break summary</h2>
+        </div>
+        <div class="status-pill">Paused</div>
+      </div>
+      <div id="admin-break-meta" class="muted"></div>
+      <div id="admin-break-cards" class="completion-grid"></div>
+      <div class="break-actions">
+        <button id="admin-continue-btn" class="btn btn-primary">Continue Auction</button>
       </div>
     </section>
 
@@ -51,6 +79,13 @@
           <div id="admin-round-badge" class="round-badge">Round 1</div>
         </div>
         <p id="admin-player-meta" class="muted">Role and country will appear here.</p>
+        <div class="hero-timer-board">
+          <div class="hero-timer-copy">
+            <span class="label">Live Auction Status</span>
+            <strong id="admin-live-status">Waiting for auction</strong>
+          </div>
+          <div class="hero-timer-value" id="admin-hero-timer">--</div>
+        </div>
         <div class="price-strip">
           <div>
             <span class="label">Base / Current</span>
@@ -69,6 +104,14 @@
           <div class="info-card">
             <span class="label">Participants</span>
             <strong id="admin-participant-count">0</strong>
+          </div>
+          <div class="info-card">
+            <span class="label">Segment</span>
+            <strong id="admin-segment-progress">1 / 15</strong>
+          </div>
+          <div class="info-card">
+            <span class="label">Auction Mode</span>
+            <strong id="admin-mode-label">Waiting</strong>
           </div>
         </div>
         <div>

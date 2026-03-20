@@ -6,11 +6,18 @@
     title: document.getElementById("dashboard-title"),
     statusPill: document.getElementById("dashboard-status-pill"),
     timer: document.getElementById("dashboard-timer"),
+    timerChip: document.getElementById("dashboard-timer-chip"),
+    heroTimer: document.getElementById("dashboard-hero-timer"),
+    liveStatus: document.getElementById("dashboard-live-status"),
     selectionPanel: document.getElementById("team-selection-panel"),
     selectionGrid: document.getElementById("team-selection-grid"),
     selectionCopy: document.getElementById("selection-copy"),
     waitingMessage: document.getElementById("waiting-message"),
     liveView: document.getElementById("dashboard-live-view"),
+    breakPanel: document.getElementById("dashboard-break-panel"),
+    breakTitle: document.getElementById("dashboard-break-title"),
+    breakMeta: document.getElementById("dashboard-break-meta"),
+    breakCards: document.getElementById("dashboard-break-cards"),
     playerName: document.getElementById("dashboard-player-name"),
     playerMeta: document.getElementById("dashboard-player-meta"),
     currentPrice: document.getElementById("dashboard-current-price"),
@@ -18,12 +25,18 @@
     roundBadge: document.getElementById("dashboard-round-badge"),
     progress: document.getElementById("dashboard-progress"),
     balance: document.getElementById("dashboard-balance"),
+    affordability: document.getElementById("dashboard-affordability"),
+    segmentProgress: document.getElementById("dashboard-segment-progress"),
+    modeLabel: document.getElementById("dashboard-mode-label"),
     bidBanner: document.getElementById("bid-banner"),
     placeBidBtn: document.getElementById("place-bid-btn"),
     bidControls: document.getElementById("bid-controls"),
     bidLog: document.getElementById("dashboard-bid-log"),
     roster: document.getElementById("dashboard-roster"),
     teamGrid: document.getElementById("dashboard-team-grid"),
+    soldOverlay: document.getElementById("dashboard-sold-overlay"),
+    soldOverlayTitle: document.getElementById("dashboard-sold-overlay-title"),
+    soldOverlayCopy: document.getElementById("dashboard-sold-overlay-copy"),
     chatLog: document.getElementById("dashboard-chat-log"),
     chatForm: document.getElementById("dashboard-chat-form"),
     chatInput: document.getElementById("dashboard-chat-input"),
@@ -37,10 +50,12 @@
   let state = null;
   let selectedTeam = null;
   let previousLastBidder = null;
+  let overlayTimeout = null;
+  const TEAM_COLORS = ["#38bdf8", "#f59e0b", "#10b981", "#f472b6", "#a78bfa", "#fb7185", "#22c55e", "#f97316", "#14b8a6", "#eab308"];
 
   if (spectatorMode) {
     ui.title.textContent = "Spectator Dashboard";
-    ui.selectionCopy.textContent = "Spectator mode is read-only. You can follow the live auction without selecting a team.";
+    ui.selectionCopy.textContent = "Spectator mode is read-only for bidding. You can still follow and chat in the live auction room.";
   }
 
   function roundCurrency(value) {
@@ -56,6 +71,45 @@
     if (spentPct < 40) return "#10b981";
     if (spentPct < 75) return "#f59e0b";
     return "#ef4444";
+  }
+
+  function getTeamColor(teamName) {
+    const index = state ? state.teams.findIndex((team) => team.name === teamName) : -1;
+    return TEAM_COLORS[index >= 0 ? index % TEAM_COLORS.length : 0];
+  }
+
+  function showSoldOverlay(playerName, winningTeam, finalPrice) {
+    if (overlayTimeout) {
+      clearTimeout(overlayTimeout);
+    }
+    ui.soldOverlayTitle.textContent = `${playerName} SOLD`;
+    ui.soldOverlayCopy.textContent = `${winningTeam} for ${formatMoney(finalPrice)}`;
+    ui.soldOverlay.classList.remove("hidden");
+    overlayTimeout = window.setTimeout(() => {
+      ui.soldOverlay.classList.add("hidden");
+      overlayTimeout = null;
+    }, 1800);
+  }
+
+  function timerClass(seconds) {
+    if (seconds <= 5) return "danger";
+    if (seconds <= 10) return "warning";
+    return "";
+  }
+
+  function renderTimerOnly() {
+    if (!state) return;
+    const hasCurrentPlayer = Boolean(state.currentPlayer);
+    const timerText = hasCurrentPlayer ? `${state.timerRemaining}s` : "--";
+    const urgencyClass = hasCurrentPlayer ? timerClass(state.timerRemaining) : "";
+    ui.timer.textContent = timerText;
+    ui.heroTimer.textContent = timerText;
+    ui.heroTimer.className = `hero-timer-value ${urgencyClass}`.trim();
+  }
+
+  function setStatusPill(text, status) {
+    ui.statusPill.className = `status-pill ${status}`;
+    ui.statusPill.textContent = text;
   }
 
   function createDownload(filename, content, type) {
@@ -89,7 +143,7 @@
 
   function renderSelection() {
     if (spectatorMode) {
-      ui.selectionGrid.innerHTML = '<div class="selection-card"><strong>Spectator mode enabled</strong><p class="muted">Live data will appear below. Bidding is disabled.</p></div>';
+      ui.selectionGrid.innerHTML = '<div class="selection-card"><strong>Spectator mode enabled</strong><p class="muted">Live data and chat are available below. Bidding is disabled.</p></div>';
       return;
     }
 
@@ -98,6 +152,7 @@
       ? teams.map((teamName) => `
         <button class="selection-card btn btn-ghost" data-team-select="${teamName}">
           <strong>${teamName}</strong>
+          <span class="muted">Join this team</span>
         </button>
       `).join("")
       : '<div class="selection-card"><strong>All teams are currently assigned.</strong><p class="muted">Waiting for admin or a team to become free.</p></div>';
@@ -115,7 +170,7 @@
   function renderBidLog() {
     const items = (state.currentPlayerBids || []).slice().reverse();
     ui.bidLog.innerHTML = items.length
-      ? items.map((entry) => `<li>${entry.teamName} bid ${formatMoney(entry.amount)}</li>`).join("")
+      ? items.map((entry) => `<li><strong>${entry.teamName}</strong>${formatMoney(entry.amount)}</li>`).join("")
       : "<li>No bids yet for this player.</li>";
   }
 
@@ -125,12 +180,13 @@
       ui.roster.innerHTML = '<div class="roster-row"><span>Spectator mode has no personal roster.</span></div>';
       return;
     }
+
     ui.roster.innerHTML = myTeam && myTeam.acquiredPlayers.length
       ? myTeam.acquiredPlayers.map((player) => `
         <div class="roster-row">
           <div>
             <strong>${player.name}</strong>
-            <div class="muted">${player.role} • ${player.country}</div>
+            <div class="muted">${player.role} - ${player.country}</div>
           </div>
           <strong>${formatMoney(player.price)}</strong>
         </div>
@@ -142,9 +198,10 @@
     ui.teamGrid.innerHTML = state.teams.map((team) => {
       const spentPct = team.initialBalance <= 0 ? 0 : ((team.initialBalance - team.balance) / team.initialBalance) * 100;
       const highlight = team.name === state.lastBidder || (!spectatorMode && team.name === selectedTeam);
+      const teamColor = getTeamColor(team.name);
       return `
-        <article class="team-card ${highlight ? "highlight" : ""}">
-          <strong>${team.name}</strong>
+        <article class="team-card team-accent ${highlight ? "highlight" : ""}" style="--team-accent:${teamColor}">
+          <strong class="team-name-chip">${team.name}</strong>
           <div class="muted">${team.playersCount} players</div>
           <div class="team-balance">${formatMoney(team.balance)}</div>
           <div class="budget-bar"><span style="width:${Math.min(100, spentPct)}%;background:${budgetColor(team.balance, team.initialBalance)}"></span></div>
@@ -172,9 +229,54 @@
     ui.chatLog.scrollTop = ui.chatLog.scrollHeight;
   }
 
+  function renderBreakPanel() {
+    const breakState = state.segmentBreak;
+    const visible = state.status === "break" && breakState;
+    ui.breakPanel.classList.toggle("hidden", !visible);
+    if (!visible) return;
+
+    ui.breakTitle.textContent = `Round ${breakState.round} - Segment ${breakState.segmentNumber} complete`;
+    ui.breakMeta.textContent = `Players ${breakState.startNumber} to ${breakState.endNumber} are done. Sold: ${breakState.soldCount}. Unsold: ${breakState.unsoldCount}.`;
+
+    const cards = [];
+    if (breakState.topBuy) {
+      cards.push(`
+        <article class="summary-card">
+          <div class="summary-card-head">
+            <strong>Top Buy</strong>
+            <span class="pill-note">${formatMoney(breakState.topBuy.price)}</span>
+          </div>
+          <p>${breakState.topBuy.name}</p>
+          <p class="muted">${breakState.topBuy.teamName}</p>
+        </article>
+      `);
+    }
+
+    breakState.teams.forEach((team) => {
+      cards.push(`
+        <article class="summary-card">
+          <div class="summary-card-head">
+            <strong>${team.name}</strong>
+            <span class="pill-note">${team.playersInSegment.length} buys</span>
+          </div>
+          <p class="muted">Balance: ${formatMoney(team.balance)}</p>
+          <p class="muted">${team.playersInSegment.length ? team.playersInSegment.map((player) => player.name).join(", ") : "No buys this segment"}</p>
+        </article>
+      `);
+    });
+
+    ui.breakCards.innerHTML = cards.join("");
+  }
+
   function renderBanner() {
     const myTeam = getMyTeam();
     ui.bidBanner.className = "banner banner-neutral";
+
+    if (state.status === "break") {
+      ui.bidBanner.className = "banner banner-warning";
+      ui.bidBanner.textContent = "Segment break in progress. The admin will resume shortly.";
+      return;
+    }
 
     if (spectatorMode) {
       ui.bidBanner.textContent = "Spectator mode is live. You are viewing a read-only stream.";
@@ -188,13 +290,13 @@
 
     if (state.lastBidder === selectedTeam) {
       ui.bidBanner.className = "banner banner-success";
-      ui.bidBanner.textContent = "You're highest bidder.";
+      ui.bidBanner.textContent = "You are currently the highest bidder.";
       return;
     }
 
     if (previousLastBidder === selectedTeam && state.lastBidder && state.lastBidder !== selectedTeam) {
       ui.bidBanner.className = "banner banner-danger";
-      ui.bidBanner.textContent = "You've been outbid!";
+      ui.bidBanner.textContent = "You have been outbid.";
       return;
     }
 
@@ -229,18 +331,24 @@
     const currentPlayer = state.currentPlayer;
     const canBid = !spectatorMode && myTeam && state.status === "running" && !state.currentPlayerClosed && state.lastBidder !== myTeam.name && myTeam.balance >= state.nextBidAmount;
 
-    ui.selectionPanel.classList.toggle("hidden", spectatorMode || Boolean(selectedTeam));
-    ui.liveView.classList.remove("hidden");
-    ui.statusPill.textContent = state.status;
-    ui.timer.textContent = currentPlayer ? `${state.timerRemaining}s` : "--";
+    setStatusPill(state.status, state.status);
+    renderTimerOnly();
     ui.roundBadge.textContent = `Round ${state.round}`;
     ui.progress.textContent = `${state.progress.current} / ${state.progress.total}`;
+    ui.segmentProgress.textContent = `${(state.progress.segmentProgress || 0) + 1} / ${state.progress.segmentSize || 15}`;
+    ui.modeLabel.textContent = state.status === "break" ? "Segment Break" : state.status;
     ui.balance.textContent = myTeam ? formatMoney(myTeam.balance) : spectatorMode ? "Read-only" : "Rs 0 Cr";
+    ui.affordability.textContent = spectatorMode
+      ? "Spectators can follow the action and chat live."
+      : myTeam
+        ? `You can bid up to ${formatMoney(myTeam.balance)} right now.`
+        : "Select a team to see affordability.";
     ui.lastBidder.textContent = state.lastBidder || "No bids yet";
+    ui.liveStatus.textContent = state.status === "break" ? "Segment break in progress" : state.status === "running" ? "Bidding is live" : state.status === "paused" ? "Auction paused" : state.status === "waiting" ? "Waiting for admin" : "Auction completed";
 
     if (currentPlayer) {
       ui.playerName.textContent = currentPlayer.name;
-      ui.playerMeta.textContent = `${currentPlayer.role} • ${currentPlayer.country}`;
+      ui.playerMeta.textContent = `${currentPlayer.role} - ${currentPlayer.country}`;
       ui.currentPrice.textContent = `${state.currentBid === null ? "Base" : "Current"} ${formatMoney(state.currentBid === null ? state.openingBid : state.currentBid)}`;
     } else {
       ui.playerName.textContent = state.status === "ended" ? "Auction completed" : "Waiting for player";
@@ -248,6 +356,9 @@
       ui.currentPrice.textContent = "Rs 0 Cr";
     }
 
+    ui.selectionPanel.classList.toggle("hidden", spectatorMode || Boolean(selectedTeam));
+    ui.liveView.classList.remove("hidden");
+    ui.breakPanel.classList.toggle("hidden", !(state.status === "break" && state.segmentBreak));
     ui.placeBidBtn.disabled = !canBid;
     if (spectatorMode) {
       ui.bidControls.classList.add("hidden");
@@ -265,6 +376,7 @@
     renderRoster();
     renderTeams();
     renderChat();
+    renderBreakPanel();
     renderCompletion();
     previousLastBidder = state.lastBidder;
   }
@@ -284,20 +396,26 @@
   });
 
   socket.on("connect", () => {
-    ui.statusPill.textContent = "Connected";
+    setStatusPill("Connected", "waiting");
     if (spectatorMode) {
       socket.emit("join-auction", { role: "participant", spectator: true });
     }
   });
 
   socket.on("disconnect", () => {
-    ui.statusPill.textContent = "Disconnected";
+    setStatusPill("Disconnected", "paused");
   });
 
   socket.on("auction-state-update", (nextState) => {
     state = nextState;
     renderSelection();
     renderState();
+  });
+
+  socket.on("timer-update", (payload) => {
+    if (!state) return;
+    state.timerRemaining = payload.secondsRemaining;
+    renderTimerOnly();
   });
 
   socket.on("error-message", (payload) => {
@@ -308,5 +426,9 @@
     }
     renderSelection();
     if (state) renderState();
+  });
+
+  socket.on("player-marked-sold", (payload) => {
+    showSoldOverlay(payload.player, payload.winningTeam, payload.finalPrice);
   });
 })();

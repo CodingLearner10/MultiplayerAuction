@@ -6,6 +6,7 @@ const { Server } = require("socket.io");
 
 const ROOT_DIR = __dirname;
 const PORT = Number(process.env.PORT || 5000);
+const SEGMENT_SIZE = 15;
 
 function loadJsonFile(filename) {
   return JSON.parse(fs.readFileSync(path.join(ROOT_DIR, filename), "utf8"));
@@ -143,6 +144,7 @@ function createInitialAuctionState() {
     replayLog: [],
     chatLog: [],
     completedPlayers: [],
+    segmentBreak: null,
     timerRemaining: Number(config.BID_TIMER_SECONDS),
     timerEndsAt: null,
     startedAt: null,
@@ -230,6 +232,82 @@ function stopBidTimer() {
   auctionState.timerEndsAt = null;
 }
 
+function buildSegmentBreakSummary() {
+  const completedInRound = auctionState.completedPlayers.filter((player) => player.round === auctionState.round);
+  if (completedInRound.length === 0 || completedInRound.length % SEGMENT_SIZE !== 0) {
+    return null;
+  }
+
+  const currentRoundPlayers = getCurrentRoundPlayers();
+  if (completedInRound.length >= currentRoundPlayers.length) {
+    return null;
+  }
+
+  const segmentNumber = completedInRound.length / SEGMENT_SIZE;
+  const segmentPlayers = completedInRound.slice(completedInRound.length - SEGMENT_SIZE);
+  const soldPlayers = segmentPlayers.filter((player) => player.status === "sold");
+  const topBuy = soldPlayers.reduce((best, player) => {
+    if (!best || player.price > best.price) {
+      return player;
+    }
+    return best;
+  }, null);
+
+  return {
+    round: auctionState.round,
+    segmentNumber,
+    segmentSize: SEGMENT_SIZE,
+    startNumber: completedInRound.length - SEGMENT_SIZE + 1,
+    endNumber: completedInRound.length,
+    soldCount: soldPlayers.length,
+    unsoldCount: segmentPlayers.length - soldPlayers.length,
+    topBuy,
+    teams: auctionState.teams.map((team) => ({
+      name: team.name,
+      balance: team.balance,
+      initialBalance: team.initialBalance,
+      playersInSegment: team.acquiredPlayers.filter((player) => player.round === auctionState.round).slice(-SEGMENT_SIZE)
+    }))
+  };
+}
+
+function enterSegmentBreak(summary) {
+  stopBidTimer();
+  auctionState.status = "break";
+  auctionState.pauseReason = "segment-break";
+  auctionState.segmentBreak = summary;
+  appendReplayLog(`Segment ${summary.segmentNumber} completed in Round ${summary.round}`, "segment-break", {
+    round: summary.round,
+    segmentNumber: summary.segmentNumber
+  });
+  broadcastState("segment-break-started", summary);
+}
+
+function extendBidTimer(seconds) {
+  if (auctionState.status !== "running" || !getCurrentPlayer() || auctionState.currentPlayerClosed || !auctionState.timerEndsAt) {
+    return { success: false, message: "There is no active timer to extend right now." };
+  }
+
+  const extension = Number(seconds);
+  if (!Number.isFinite(extension) || extension <= 0) {
+    return { success: false, message: "Timer extension must be a positive number of seconds." };
+  }
+
+  auctionState.timerEndsAt += extension * 1000;
+  auctionState.timerRemaining = Math.max(0, Math.ceil((auctionState.timerEndsAt - Date.now()) / 1000));
+  appendReplayLog(`Admin extended the timer by ${extension}s for ${getCurrentPlayer().name}`, "timer-extended", {
+    seconds: extension,
+    playerName: getCurrentPlayer().name
+  });
+  emitTimerUpdate();
+  broadcastState("timer-extended", {
+    seconds: extension,
+    timerRemaining: auctionState.timerRemaining,
+    playerName: getCurrentPlayer().name
+  });
+  return { success: true };
+}
+
 function startBidTimer() {
   stopBidTimer();
 
@@ -287,11 +365,16 @@ function buildResultsPayload() {
 
 function getProgressSummary() {
   const currentRoundPlayers = getCurrentRoundPlayers();
+  const completedInRound = auctionState.completedPlayers.filter((player) => player.round === auctionState.round).length;
   return {
     round: auctionState.round,
     current: currentRoundPlayers.length === 0 ? 0 : Math.min(auctionState.currentPlayerIndex + 1, currentRoundPlayers.length),
     total: currentRoundPlayers.length,
-    completed: auctionState.completedPlayers.length
+    completed: auctionState.completedPlayers.length,
+    completedInRound,
+    segmentSize: SEGMENT_SIZE,
+    segmentNumber: currentRoundPlayers.length === 0 ? 1 : Math.floor(completedInRound / SEGMENT_SIZE) + 1,
+    segmentProgress: completedInRound % SEGMENT_SIZE
   };
 }
 
@@ -313,6 +396,7 @@ function buildPublicState() {
     currentPlayerClosed: auctionState.currentPlayerClosed,
     currentPlayerBids: deepClone(auctionState.currentPlayerBids),
     unsoldCount: auctionState.unsoldFromRoundOne.length,
+    segmentBreak: deepClone(auctionState.segmentBreak),
     teams: auctionState.teams.map((team) => ({
       ...team,
       playersCount: team.acquiredPlayers.length,
@@ -442,6 +526,7 @@ function enterRound(round, sourcePlayersForRound) {
 
 function moveToNextPlayer() {
   const currentRoundPlayers = getCurrentRoundPlayers();
+  auctionState.segmentBreak = null;
   auctionState.currentPlayerIndex += 1;
 
   if (auctionState.currentPlayerIndex < currentRoundPlayers.length) {
@@ -458,6 +543,7 @@ function moveToNextPlayer() {
     auctionState.unsoldFromRoundOne = [];
     auctionState.status = "running";
     auctionState.pauseReason = null;
+    auctionState.segmentBreak = null;
     appendReplayLog("Round 2 started", "round-changed", { round: 2 });
     startBidTimer();
     broadcastState("round-changed", { round: 2, currentPlayer: getCurrentPlayer() });
@@ -520,6 +606,13 @@ function markCurrentPlayerUnsold(reason = "manual-unsold") {
     round: auctionState.round
   });
 
+  if (reason !== "timer-expired") {
+    const breakSummary = buildSegmentBreakSummary();
+    if (breakSummary) {
+      enterSegmentBreak(breakSummary);
+    }
+  }
+
   return { success: true, player: currentPlayer };
 }
 
@@ -581,6 +674,11 @@ function markCurrentPlayerSold() {
     player: currentPlayer.name
   });
 
+  const breakSummary = buildSegmentBreakSummary();
+  if (breakSummary) {
+    enterSegmentBreak(breakSummary);
+  }
+
   return { success: true, player: currentPlayer, team: winningTeam };
 }
 
@@ -590,15 +688,34 @@ function handleTimerExpiry() {
     return;
   }
 
-  const result = markCurrentPlayerUnsold("timer-expired");
+  const result = auctionState.lastBidder && auctionState.currentBid !== null
+    ? markCurrentPlayerSold()
+    : markCurrentPlayerUnsold("timer-expired");
   if (!result.success) {
     return;
   }
 
-  broadcastState("timer-expired", {
-    playerName: currentPlayer.name,
-    round: auctionState.round
-  });
+  if (auctionState.lastBidder && auctionState.currentBid !== null) {
+    broadcastState("timer-expired", {
+      playerName: currentPlayer.name,
+      round: auctionState.round,
+      outcome: "auto-sold",
+      winningTeam: auctionState.lastBidder,
+      finalPrice: auctionState.currentBid
+    });
+  } else {
+    broadcastState("timer-expired", {
+      playerName: currentPlayer.name,
+      round: auctionState.round,
+      outcome: "unsold"
+    });
+  }
+
+  const breakSummary = buildSegmentBreakSummary();
+  if (breakSummary) {
+    enterSegmentBreak(breakSummary);
+    return;
+  }
 
   autoAdvanceTimeout = setTimeout(() => {
     autoAdvanceTimeout = null;
@@ -799,6 +916,15 @@ io.on("connection", (socket) => {
       return;
     }
 
+    if (auctionState.status === "break") {
+      auctionState.status = "running";
+      auctionState.pauseReason = null;
+      auctionState.segmentBreak = null;
+      startBidTimer();
+      broadcastState("auction-started", { currentPlayer: getCurrentPlayer(), round: auctionState.round, resumed: true });
+      return;
+    }
+
     emitError(socket, "Auction is already running.");
   });
 
@@ -851,6 +977,15 @@ io.on("connection", (socket) => {
       return;
     }
 
+    if (auctionState.status === "break") {
+      auctionState.status = "running";
+      auctionState.pauseReason = null;
+      auctionState.segmentBreak = null;
+      startBidTimer();
+      broadcastState("auction-started", { currentPlayer: getCurrentPlayer(), round: auctionState.round, resumed: true });
+      return;
+    }
+
     if (!auctionState.currentPlayerClosed) {
       emitError(socket, "Mark the current player sold or unsold before moving on.");
       return;
@@ -889,6 +1024,17 @@ io.on("connection", (socket) => {
     }
 
     applyBid(validation.team.name, validation.requestedAmount, "admin-override");
+  });
+
+  socket.on("admin-extend-timer", (payload = {}) => {
+    if (!requireAdmin(socket)) {
+      return;
+    }
+
+    const result = extendBidTimer(payload.seconds);
+    if (!result.success) {
+      emitError(socket, result.message);
+    }
   });
 
   socket.on("disconnect", () => {
