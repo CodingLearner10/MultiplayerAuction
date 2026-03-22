@@ -52,6 +52,27 @@
         <input id="override-amount-input" class="input" type="number" min="0" step="0.5" placeholder="Override bid amount">
         <button id="override-apply-btn" class="btn btn-secondary">Apply Override</button>
       </div>
+      <div class="override-row">
+        <select id="retention-player-select" class="input"></select>
+        <select id="retention-team-select" class="input"></select>
+        <input id="retention-price-input" class="input" type="number" min="0" step="0.25" placeholder="Retention price">
+        <button id="retention-apply-btn" class="btn btn-warning">Retain Player</button>
+      </div>
+    </section>
+
+    <section id="admin-rtm-panel" class="panel hidden">
+      <div class="section-head">
+        <div>
+          <div class="eyebrow">Right To Match</div>
+          <h2 id="admin-rtm-title">RTM decision pending</h2>
+        </div>
+        <div class="status-pill break">Action Needed</div>
+      </div>
+      <p id="admin-rtm-copy" class="muted"></p>
+      <div class="break-actions">
+        <button id="admin-rtm-use-btn" class="btn btn-success">Use RTM</button>
+        <button id="admin-rtm-decline-btn" class="btn btn-ghost">Decline RTM</button>
+      </div>
     </section>
 
     <section id="admin-break-panel" class="panel break-panel hidden">

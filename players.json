@@ -3,1800 +3,3300 @@
     "name": "Jos Buttler",
     "role": "Wicket-keeper",
     "country": "England",
-    "basePrice": 2
+    "basePrice": 2,
+    "setCode": "M1",
+    "setLabel": "Marquee",
+    "capped": true,
+    "isOverseas": true,
+    "previousTeam": "Rajasthan Royals"
   },
   {
     "name": "Shreyas Iyer",
     "role": "Batsman",
     "country": "India",
-    "basePrice": 2
+    "basePrice": 2,
+    "setCode": "M1",
+    "setLabel": "Marquee",
+    "capped": true,
+    "isOverseas": false,
+    "previousTeam": "Kolkata Knight Riders"
   },
   {
     "name": "Rishabh Pant",
     "role": "Batsman",
     "country": "India",
-    "basePrice": 2
+    "basePrice": 2,
+    "setCode": "M1",
+    "setLabel": "Marquee",
+    "capped": true,
+    "isOverseas": false,
+    "previousTeam": "Delhi Capitals"
   },
   {
     "name": "Kagiso Rabada",
     "role": "Bowler",
     "country": "South Africa",
-    "basePrice": 2
+    "basePrice": 2,
+    "setCode": "M1",
+    "setLabel": "Marquee",
+    "capped": true,
+    "isOverseas": true,
+    "previousTeam": "Punjab Kings"
   },
   {
     "name": "Arshdeep Singh",
     "role": "Bowler",
     "country": "India",
-    "basePrice": 2
+    "basePrice": 2,
+    "setCode": "M1",
+    "setLabel": "Marquee",
+    "capped": true,
+    "isOverseas": false,
+    "previousTeam": "Punjab Kings"
   },
   {
     "name": "Mitchell Starc",
     "role": "Bowler",
     "country": "Australia",
-    "basePrice": 2
+    "basePrice": 2,
+    "setCode": "M1",
+    "setLabel": "Marquee",
+    "capped": true,
+    "isOverseas": true,
+    "previousTeam": "Kolkata Knight Riders"
   },
   {
     "name": "Yuzvendra Chahal",
     "role": "Bowler",
     "country": "India",
-    "basePrice": 2
+    "basePrice": 2,
+    "setCode": "M2",
+    "setLabel": "Marquee",
+    "capped": true,
+    "isOverseas": false,
+    "previousTeam": "Rajasthan Royals"
   },
   {
     "name": "Liam Livingstone",
     "role": "All-rounder",
     "country": "England",
-    "basePrice": 2
+    "basePrice": 2,
+    "setCode": "M2",
+    "setLabel": "Marquee",
+    "capped": true,
+    "isOverseas": true,
+    "previousTeam": "Punjab Kings"
   },
   {
     "name": "David Miller",
     "role": "Batsman",
     "country": "South Africa",
-    "basePrice": 1.5
+    "basePrice": 1.5,
+    "setCode": "M2",
+    "setLabel": "Marquee",
+    "capped": true,
+    "isOverseas": true,
+    "previousTeam": "Gujarat Titans"
   },
   {
     "name": "KL Rahul",
     "role": "Wicket-keeper",
     "country": "India",
-    "basePrice": 2
+    "basePrice": 2,
+    "setCode": "M2",
+    "setLabel": "Marquee",
+    "capped": true,
+    "isOverseas": false,
+    "previousTeam": "Lucknow Super Giants"
   },
   {
     "name": "Mohammad Shami",
     "role": "Bowler",
     "country": "India",
-    "basePrice": 2
+    "basePrice": 2,
+    "setCode": "M2",
+    "setLabel": "Marquee",
+    "capped": true,
+    "isOverseas": false,
+    "previousTeam": "Gujarat Titans"
   },
   {
     "name": "Mohammad Siraj",
     "role": "Bowler",
     "country": "India",
-    "basePrice": 2
+    "basePrice": 2,
+    "setCode": "M2",
+    "setLabel": "Marquee",
+    "capped": true,
+    "isOverseas": false,
+    "previousTeam": "Royal Challengers Bengaluru"
   },
   {
     "name": "Harry Brook",
     "role": "Batsman",
     "country": "England",
-    "basePrice": 2
+    "basePrice": 2,
+    "setCode": "BA1",
+    "setLabel": "Capped Batters",
+    "capped": true,
+    "isOverseas": true,
+    "previousTeam": "Delhi Capitals"
   },
   {
     "name": "Devon Conway",
     "role": "Batsman",
     "country": "New Zealand",
-    "basePrice": 2
+    "basePrice": 2,
+    "setCode": "BA1",
+    "setLabel": "Capped Batters",
+    "capped": true,
+    "isOverseas": true,
+    "previousTeam": "Chennai Super Kings"
   },
   {
     "name": "Jake Fraser-Mcgurk",
     "role": "Batsman",
     "country": "Australia",
-    "basePrice": 2
+    "basePrice": 2,
+    "setCode": "BA1",
+    "setLabel": "Capped Batters",
+    "capped": true,
+    "isOverseas": true,
+    "previousTeam": "Delhi Capitals"
   },
   {
     "name": "Aiden Markram",
     "role": "Batsman",
     "country": "South Africa",
-    "basePrice": 2
+    "basePrice": 2,
+    "setCode": "BA1",
+    "setLabel": "Capped Batters",
+    "capped": true,
+    "isOverseas": true,
+    "previousTeam": "Sunrisers Hyderabad"
   },
   {
     "name": "Devdutt Padikkal",
     "role": "Batsman",
     "country": "India",
-    "basePrice": 2
+    "basePrice": 2,
+    "setCode": "BA1",
+    "setLabel": "Capped Batters",
+    "capped": true,
+    "isOverseas": false,
+    "previousTeam": "Lucknow Super Giants"
   },
   {
     "name": "Rahul Tripathi",
     "role": "Batsman",
     "country": "India",
-    "basePrice": 0.75
+    "basePrice": 0.75,
+    "setCode": "BA1",
+    "setLabel": "Capped Batters",
+    "capped": true,
+    "isOverseas": false,
+    "previousTeam": "Sunrisers Hyderabad"
   },
   {
     "name": "David Warner",
     "role": "Batsman",
     "country": "Australia",
-    "basePrice": 2
+    "basePrice": 2,
+    "setCode": "BA1",
+    "setLabel": "Capped Batters",
+    "capped": true,
+    "isOverseas": true,
+    "previousTeam": "Delhi Capitals"
   },
   {
     "name": "Ravichandaran Ashwin",
     "role": "All-rounder",
     "country": "India",
-    "basePrice": 2
+    "basePrice": 2,
+    "setCode": "AL1",
+    "setLabel": "Capped All-rounders",
+    "capped": true,
+    "isOverseas": false,
+    "previousTeam": "Rajasthan Royals"
   },
   {
     "name": "Venkatesh Iyer",
     "role": "All-rounder",
     "country": "India",
-    "basePrice": 2
+    "basePrice": 2,
+    "setCode": "AL1",
+    "setLabel": "Capped All-rounders",
+    "capped": true,
+    "isOverseas": false,
+    "previousTeam": "Kolkata Knight Riders"
   },
   {
     "name": "Mitchell Marsh",
     "role": "All-rounder",
     "country": "Australia",
-    "basePrice": 2
+    "basePrice": 2,
+    "setCode": "AL1",
+    "setLabel": "Capped All-rounders",
+    "capped": true,
+    "isOverseas": true,
+    "previousTeam": "Delhi Capitals"
   },
   {
     "name": "Glenn Maxwell",
     "role": "All-rounder",
     "country": "Australia",
-    "basePrice": 2
+    "basePrice": 2,
+    "setCode": "AL1",
+    "setLabel": "Capped All-rounders",
+    "capped": true,
+    "isOverseas": true,
+    "previousTeam": "Royal Challengers Bengaluru"
   },
   {
     "name": "Harshal Patel",
     "role": "All-rounder",
     "country": "India",
-    "basePrice": 2
+    "basePrice": 2,
+    "setCode": "AL1",
+    "setLabel": "Capped All-rounders",
+    "capped": true,
+    "isOverseas": false,
+    "previousTeam": "Punjab Kings"
   },
   {
     "name": "Rachin Ravindra",
     "role": "All-rounder",
     "country": "New Zealand",
-    "basePrice": 1.5
+    "basePrice": 1.5,
+    "setCode": "AL1",
+    "setLabel": "Capped All-rounders",
+    "capped": true,
+    "isOverseas": true,
+    "previousTeam": "Chennai Super Kings"
   },
   {
     "name": "Marcus Stoinis",
     "role": "All-rounder",
     "country": "Australia",
-    "basePrice": 2
+    "basePrice": 2,
+    "setCode": "AL1",
+    "setLabel": "Capped All-rounders",
+    "capped": true,
+    "isOverseas": true,
+    "previousTeam": "Lucknow Super Giants"
   },
   {
     "name": "Jonny Bairstow",
     "role": "Wicket-keeper",
     "country": "England",
-    "basePrice": 2
+    "basePrice": 2,
+    "setCode": "WK1",
+    "setLabel": "Capped Wicketkeepers",
+    "capped": true,
+    "isOverseas": true,
+    "previousTeam": "Punjab Kings"
   },
   {
     "name": "Quinton De Kock",
     "role": "Wicket-keeper",
     "country": "South Africa",
-    "basePrice": 2
+    "basePrice": 2,
+    "setCode": "WK1",
+    "setLabel": "Capped Wicketkeepers",
+    "capped": true,
+    "isOverseas": true,
+    "previousTeam": "Lucknow Super Giants"
   },
   {
     "name": "Rahmanullah Gurbaz",
     "role": "Wicket-keeper",
     "country": "Afghanistan",
-    "basePrice": 2
+    "basePrice": 2,
+    "setCode": "WK1",
+    "setLabel": "Capped Wicketkeepers",
+    "capped": true,
+    "isOverseas": true,
+    "previousTeam": "Kolkata Knight Riders"
   },
   {
     "name": "Ishan Kishan",
     "role": "Wicket-keeper",
     "country": "India",
-    "basePrice": 2
+    "basePrice": 2,
+    "setCode": "WK1",
+    "setLabel": "Capped Wicketkeepers",
+    "capped": true,
+    "isOverseas": false,
+    "previousTeam": "Mumbai Indians"
   },
   {
     "name": "Phil Salt",
     "role": "Wicket-keeper",
     "country": "England",
-    "basePrice": 2
+    "basePrice": 2,
+    "setCode": "WK1",
+    "setLabel": "Capped Wicketkeepers",
+    "capped": true,
+    "isOverseas": true,
+    "previousTeam": "Kolkata Knight Riders"
   },
   {
     "name": "Jitesh Sharma",
     "role": "Wicket-keeper",
     "country": "India",
-    "basePrice": 1
+    "basePrice": 1,
+    "setCode": "WK1",
+    "setLabel": "Capped Wicketkeepers",
+    "capped": true,
+    "isOverseas": false,
+    "previousTeam": "Punjab Kings"
   },
   {
     "name": "Syed Khaleel Ahmed",
     "role": "Bowler",
     "country": "India",
-    "basePrice": 2
+    "basePrice": 2,
+    "setCode": "FA1",
+    "setLabel": "Capped Fast Bowlers",
+    "capped": true,
+    "isOverseas": false,
+    "previousTeam": "Delhi Capitals"
   },
   {
     "name": "Trent Boult",
     "role": "Bowler",
     "country": "New Zealand",
-    "basePrice": 2
+    "basePrice": 2,
+    "setCode": "FA1",
+    "setLabel": "Capped Fast Bowlers",
+    "capped": true,
+    "isOverseas": true,
+    "previousTeam": "Rajasthan Royals"
   },
   {
     "name": "Josh Hazlewood",
     "role": "Bowler",
     "country": "Australia",
-    "basePrice": 2
+    "basePrice": 2,
+    "setCode": "FA1",
+    "setLabel": "Capped Fast Bowlers",
+    "capped": true,
+    "isOverseas": true,
+    "previousTeam": "Chennai Super Kings"
   },
   {
     "name": "Avesh Khan",
     "role": "Bowler",
     "country": "India",
-    "basePrice": 2
+    "basePrice": 2,
+    "setCode": "FA1",
+    "setLabel": "Capped Fast Bowlers",
+    "capped": true,
+    "isOverseas": false,
+    "previousTeam": "Rajasthan Royals"
   },
   {
     "name": "Prasidh Krishna",
     "role": "Bowler",
     "country": "India",
-    "basePrice": 2
+    "basePrice": 2,
+    "setCode": "FA1",
+    "setLabel": "Capped Fast Bowlers",
+    "capped": true,
+    "isOverseas": false,
+    "previousTeam": "Rajasthan Royals"
   },
   {
     "name": "T. Natarajan",
     "role": "Bowler",
     "country": "India",
-    "basePrice": 2
+    "basePrice": 2,
+    "setCode": "FA1",
+    "setLabel": "Capped Fast Bowlers",
+    "capped": true,
+    "isOverseas": false,
+    "previousTeam": "Sunrisers Hyderabad"
   },
   {
     "name": "Anrich Nortje",
     "role": "Bowler",
     "country": "South Africa",
-    "basePrice": 2
+    "basePrice": 2,
+    "setCode": "FA1",
+    "setLabel": "Capped Fast Bowlers",
+    "capped": true,
+    "isOverseas": true,
+    "previousTeam": "Delhi Capitals"
   },
   {
     "name": "Noor Ahmad",
     "role": "Bowler",
     "country": "Afghanistan",
-    "basePrice": 2
+    "basePrice": 2,
+    "setCode": "SP1",
+    "setLabel": "Capped Spinners",
+    "capped": true,
+    "isOverseas": true,
+    "previousTeam": "Gujarat Titans"
   },
   {
     "name": "Rahul Chahar",
     "role": "Bowler",
     "country": "India",
-    "basePrice": 1
+    "basePrice": 1,
+    "setCode": "SP1",
+    "setLabel": "Capped Spinners",
+    "capped": true,
+    "isOverseas": false,
+    "previousTeam": "Punjab Kings"
   },
   {
     "name": "Wanindu Hasaranga",
     "role": "Bowler",
     "country": "Sri Lanka",
-    "basePrice": 2
+    "basePrice": 2,
+    "setCode": "SP1",
+    "setLabel": "Capped Spinners",
+    "capped": true,
+    "isOverseas": true,
+    "previousTeam": "Sunrisers Hyderabad"
   },
   {
     "name": "Waqar Salamkheil",
     "role": "Bowler",
     "country": "Afghanistan",
-    "basePrice": 0.75
+    "basePrice": 0.75,
+    "setCode": "SP1",
+    "setLabel": "Capped Spinners",
+    "capped": true,
+    "isOverseas": true,
+    "previousTeam": null
   },
   {
     "name": "Maheesh Theekshana",
     "role": "Bowler",
     "country": "Sri Lanka",
-    "basePrice": 2
+    "basePrice": 2,
+    "setCode": "SP1",
+    "setLabel": "Capped Spinners",
+    "capped": true,
+    "isOverseas": true,
+    "previousTeam": "Chennai Super Kings"
   },
   {
     "name": "Adam Zampa",
     "role": "Bowler",
     "country": "Australia",
-    "basePrice": 2
+    "basePrice": 2,
+    "setCode": "SP1",
+    "setLabel": "Capped Spinners",
+    "capped": true,
+    "isOverseas": true,
+    "previousTeam": "Rajasthan Royals"
   },
   {
     "name": "Yash Dhull",
     "role": "Batsman",
     "country": "India",
-    "basePrice": 0.3
+    "basePrice": 0.3,
+    "setCode": "UBA1",
+    "setLabel": "Uncapped Batters",
+    "capped": false,
+    "isOverseas": false,
+    "previousTeam": "Delhi Capitals"
   },
   {
     "name": "Abhinav Manohar",
     "role": "Batsman",
     "country": "India",
-    "basePrice": 0.3
+    "basePrice": 0.3,
+    "setCode": "UBA1",
+    "setLabel": "Uncapped Batters",
+    "capped": false,
+    "isOverseas": false,
+    "previousTeam": "Gujarat Titans"
   },
   {
     "name": "Karun Nair",
     "role": "Batsman",
     "country": "India",
-    "basePrice": 0.3
+    "basePrice": 0.3,
+    "setCode": "UBA1",
+    "setLabel": "Uncapped Batters",
+    "capped": false,
+    "isOverseas": false,
+    "previousTeam": "Royal Challengers Bengaluru"
   },
   {
     "name": "Angkrish Raghuvanshi",
     "role": "Batsman",
     "country": "India",
-    "basePrice": 0.3
+    "basePrice": 0.3,
+    "setCode": "UBA1",
+    "setLabel": "Uncapped Batters",
+    "capped": false,
+    "isOverseas": false,
+    "previousTeam": "Kolkata Knight Riders"
   },
   {
     "name": "Anmolpreet Singh",
     "role": "Batsman",
     "country": "India",
-    "basePrice": 0.3
+    "basePrice": 0.3,
+    "setCode": "UBA1",
+    "setLabel": "Uncapped Batters",
+    "capped": false,
+    "isOverseas": false,
+    "previousTeam": "Sunrisers Hyderabad"
   },
   {
     "name": "Atharva Taide",
     "role": "Batsman",
     "country": "India",
-    "basePrice": 0.3
+    "basePrice": 0.3,
+    "setCode": "UBA1",
+    "setLabel": "Uncapped Batters",
+    "capped": false,
+    "isOverseas": false,
+    "previousTeam": "Punjab Kings"
   },
   {
     "name": "Nehal Wadhera",
     "role": "Batsman",
     "country": "India",
-    "basePrice": 0.3
+    "basePrice": 0.3,
+    "setCode": "UBA1",
+    "setLabel": "Uncapped Batters",
+    "capped": false,
+    "isOverseas": false,
+    "previousTeam": "Mumbai Indians"
   },
   {
     "name": "Harpreet Brar",
     "role": "All-rounder",
     "country": "India",
-    "basePrice": 0.3
+    "basePrice": 0.3,
+    "setCode": "UAL1",
+    "setLabel": "Uncapped All-rounders",
+    "capped": false,
+    "isOverseas": false,
+    "previousTeam": "Punjab Kings"
   },
   {
     "name": "Naman Dhir",
     "role": "All-rounder",
     "country": "India",
-    "basePrice": 0.3
+    "basePrice": 0.3,
+    "setCode": "UAL1",
+    "setLabel": "Uncapped All-rounders",
+    "capped": false,
+    "isOverseas": false,
+    "previousTeam": "Mumbai Indians"
   },
   {
     "name": "Mahipal Lomror",
     "role": "All-rounder",
     "country": "India",
-    "basePrice": 0.5
+    "basePrice": 0.5,
+    "setCode": "UAL1",
+    "setLabel": "Uncapped All-rounders",
+    "capped": false,
+    "isOverseas": false,
+    "previousTeam": "Royal Challengers Bengaluru"
   },
   {
     "name": "Sameer Rizvi",
     "role": "All-rounder",
     "country": "India",
-    "basePrice": 0.3
+    "basePrice": 0.3,
+    "setCode": "UAL1",
+    "setLabel": "Uncapped All-rounders",
+    "capped": false,
+    "isOverseas": false,
+    "previousTeam": "Chennai Super Kings"
   },
   {
     "name": "Abdul Samad",
     "role": "All-rounder",
     "country": "India",
-    "basePrice": 0.3
+    "basePrice": 0.3,
+    "setCode": "UAL1",
+    "setLabel": "Uncapped All-rounders",
+    "capped": false,
+    "isOverseas": false,
+    "previousTeam": "Sunrisers Hyderabad"
   },
   {
     "name": "Vijay Shankar",
     "role": "All-rounder",
     "country": "India",
-    "basePrice": 0.3
+    "basePrice": 0.3,
+    "setCode": "UAL1",
+    "setLabel": "Uncapped All-rounders",
+    "capped": false,
+    "isOverseas": false,
+    "previousTeam": "Gujarat Titans"
   },
   {
     "name": "Ashutosh Sharma",
     "role": "All-rounder",
     "country": "India",
-    "basePrice": 0.3
+    "basePrice": 0.3,
+    "setCode": "UAL1",
+    "setLabel": "Uncapped All-rounders",
+    "capped": false,
+    "isOverseas": false,
+    "previousTeam": "Punjab Kings"
   },
   {
     "name": "Nishant Sindhu",
     "role": "All-rounder",
     "country": "India",
-    "basePrice": 0.3
+    "basePrice": 0.3,
+    "setCode": "UAL1",
+    "setLabel": "Uncapped All-rounders",
+    "capped": false,
+    "isOverseas": false,
+    "previousTeam": "Chennai Super Kings"
   },
   {
     "name": "Utkarsh Singh",
     "role": "All-rounder",
     "country": "India",
-    "basePrice": 0.3
+    "basePrice": 0.3,
+    "setCode": "UAL1",
+    "setLabel": "Uncapped All-rounders",
+    "capped": false,
+    "isOverseas": false,
+    "previousTeam": "Punjab Kings"
   },
   {
     "name": "Aryan Juyal",
     "role": "Wicket-keeper",
     "country": "India",
-    "basePrice": 0.3
+    "basePrice": 0.3,
+    "setCode": "UWK1",
+    "setLabel": "Uncapped Wicketkeepers",
+    "capped": false,
+    "isOverseas": false,
+    "previousTeam": "Mumbai Indians"
   },
   {
     "name": "Kumar Kushagra",
     "role": "Wicket-keeper",
     "country": "India",
-    "basePrice": 0.3
+    "basePrice": 0.3,
+    "setCode": "UWK1",
+    "setLabel": "Uncapped Wicketkeepers",
+    "capped": false,
+    "isOverseas": false,
+    "previousTeam": "Gujarat Titans"
   },
   {
     "name": "Robin Minz",
     "role": "Wicket-keeper",
     "country": "India",
-    "basePrice": 0.3
+    "basePrice": 0.3,
+    "setCode": "UWK1",
+    "setLabel": "Uncapped Wicketkeepers",
+    "capped": false,
+    "isOverseas": false,
+    "previousTeam": "Gujarat Titans"
   },
   {
     "name": "Anuj Rawat",
     "role": "Wicket-keeper",
     "country": "India",
-    "basePrice": 0.3
+    "basePrice": 0.3,
+    "setCode": "UWK1",
+    "setLabel": "Uncapped Wicketkeepers",
+    "capped": false,
+    "isOverseas": false,
+    "previousTeam": "Royal Challengers Bengaluru"
   },
   {
     "name": "Luvnith Sisodia",
     "role": "Wicket-keeper",
     "country": "India",
-    "basePrice": 0.3
+    "basePrice": 0.3,
+    "setCode": "UWK1",
+    "setLabel": "Uncapped Wicketkeepers",
+    "capped": false,
+    "isOverseas": false,
+    "previousTeam": "Royal Challengers Bengaluru"
   },
   {
     "name": "Vishnu Vinod",
     "role": "Wicket-keeper",
     "country": "India",
-    "basePrice": 0.3
+    "basePrice": 0.3,
+    "setCode": "UWK1",
+    "setLabel": "Uncapped Wicketkeepers",
+    "capped": false,
+    "isOverseas": false,
+    "previousTeam": "Mumbai Indians"
   },
   {
     "name": "Upendra Singh Yadav",
     "role": "Wicket-keeper",
     "country": "India",
-    "basePrice": 0.3
+    "basePrice": 0.3,
+    "setCode": "UWK1",
+    "setLabel": "Uncapped Wicketkeepers",
+    "capped": false,
+    "isOverseas": false,
+    "previousTeam": "Sunrisers Hyderabad"
   },
   {
     "name": "Vaibhav Arora",
     "role": "Bowler",
     "country": "India",
-    "basePrice": 0.3
+    "basePrice": 0.3,
+    "setCode": "UFA1",
+    "setLabel": "Uncapped Fast Bowlers",
+    "capped": false,
+    "isOverseas": false,
+    "previousTeam": "Kolkata Knight Riders"
   },
   {
     "name": "Rasikh Dar",
     "role": "Bowler",
     "country": "India",
-    "basePrice": 0.3
+    "basePrice": 0.3,
+    "setCode": "UFA1",
+    "setLabel": "Uncapped Fast Bowlers",
+    "capped": false,
+    "isOverseas": false,
+    "previousTeam": "Delhi Capitals"
   },
   {
     "name": "Akash Madhwal",
     "role": "Bowler",
     "country": "India",
-    "basePrice": 0.3
+    "basePrice": 0.3,
+    "setCode": "UFA1",
+    "setLabel": "Uncapped Fast Bowlers",
+    "capped": false,
+    "isOverseas": false,
+    "previousTeam": "Mumbai Indians"
   },
   {
     "name": "Mohit Sharma",
     "role": "Bowler",
     "country": "India",
-    "basePrice": 0.5
+    "basePrice": 0.5,
+    "setCode": "UFA1",
+    "setLabel": "Uncapped Fast Bowlers",
+    "capped": false,
+    "isOverseas": false,
+    "previousTeam": "Gujarat Titans"
   },
   {
     "name": "Simarjeet Singh",
     "role": "Bowler",
     "country": "India",
-    "basePrice": 0.3
+    "basePrice": 0.3,
+    "setCode": "UFA1",
+    "setLabel": "Uncapped Fast Bowlers",
+    "capped": false,
+    "isOverseas": false,
+    "previousTeam": "Chennai Super Kings"
   },
   {
     "name": "Yash Thakur",
     "role": "Bowler",
     "country": "India",
-    "basePrice": 0.3
+    "basePrice": 0.3,
+    "setCode": "UFA1",
+    "setLabel": "Uncapped Fast Bowlers",
+    "capped": false,
+    "isOverseas": false,
+    "previousTeam": "Lucknow Super Giants"
   },
   {
     "name": "Kartik Tyagi",
     "role": "Bowler",
     "country": "India",
-    "basePrice": 0.4
+    "basePrice": 0.4,
+    "setCode": "UFA1",
+    "setLabel": "Uncapped Fast Bowlers",
+    "capped": false,
+    "isOverseas": false,
+    "previousTeam": "Gujarat Titans"
   },
   {
     "name": "Vyshak Vijaykumar",
     "role": "Bowler",
     "country": "India",
-    "basePrice": 0.3
+    "basePrice": 0.3,
+    "setCode": "UFA1",
+    "setLabel": "Uncapped Fast Bowlers",
+    "capped": false,
+    "isOverseas": false,
+    "previousTeam": "Royal Challengers Bengaluru"
   },
   {
     "name": "Piyush Chawla",
     "role": "Bowler",
     "country": "India",
-    "basePrice": 0.5
+    "basePrice": 0.5,
+    "setCode": "USP1",
+    "setLabel": "Uncapped Spinners",
+    "capped": false,
+    "isOverseas": false,
+    "previousTeam": "Mumbai Indians"
   },
   {
     "name": "Shreyas Gopal",
     "role": "Bowler",
     "country": "India",
-    "basePrice": 0.3
+    "basePrice": 0.3,
+    "setCode": "USP1",
+    "setLabel": "Uncapped Spinners",
+    "capped": false,
+    "isOverseas": false,
+    "previousTeam": "Mumbai Indians"
   },
   {
     "name": "Mayank Markande",
     "role": "Bowler",
     "country": "India",
-    "basePrice": 0.3
+    "basePrice": 0.3,
+    "setCode": "USP1",
+    "setLabel": "Uncapped Spinners",
+    "capped": false,
+    "isOverseas": false,
+    "previousTeam": "Sunrisers Hyderabad"
   },
   {
     "name": "Suyash Sharma",
     "role": "Bowler",
     "country": "India",
-    "basePrice": 0.3
+    "basePrice": 0.3,
+    "setCode": "USP1",
+    "setLabel": "Uncapped Spinners",
+    "capped": false,
+    "isOverseas": false,
+    "previousTeam": "Kolkata Knight Riders"
   },
   {
     "name": "Karn Sharma",
     "role": "Bowler",
     "country": "India",
-    "basePrice": 0.5
+    "basePrice": 0.5,
+    "setCode": "USP1",
+    "setLabel": "Uncapped Spinners",
+    "capped": false,
+    "isOverseas": false,
+    "previousTeam": "Royal Challengers Bengaluru"
   },
   {
     "name": "Kumar Kartikeya Singh",
     "role": "Bowler",
     "country": "India",
-    "basePrice": 0.3
+    "basePrice": 0.3,
+    "setCode": "USP1",
+    "setLabel": "Uncapped Spinners",
+    "capped": false,
+    "isOverseas": false,
+    "previousTeam": "Mumbai Indians"
   },
   {
     "name": "Manav Suthar",
     "role": "Bowler",
     "country": "India",
-    "basePrice": 0.3
+    "basePrice": 0.3,
+    "setCode": "USP1",
+    "setLabel": "Uncapped Spinners",
+    "capped": false,
+    "isOverseas": false,
+    "previousTeam": "Gujarat Titans"
   },
   {
     "name": "Mayank Agarawal",
     "role": "Batsman",
     "country": "India",
-    "basePrice": 1
+    "basePrice": 1,
+    "setCode": "BA2",
+    "setLabel": "Capped Batters",
+    "capped": true,
+    "isOverseas": false,
+    "previousTeam": "Sunrisers Hyderabad"
   },
   {
     "name": "Faf Du Plessis",
     "role": "Batsman",
     "country": "South Africa",
-    "basePrice": 2
+    "basePrice": 2,
+    "setCode": "BA2",
+    "setLabel": "Capped Batters",
+    "capped": true,
+    "isOverseas": true,
+    "previousTeam": "Royal Challengers Bengaluru"
   },
   {
     "name": "Glenn Phillips",
     "role": "Batsman",
     "country": "New Zealand",
-    "basePrice": 2
+    "basePrice": 2,
+    "setCode": "BA2",
+    "setLabel": "Capped Batters",
+    "capped": true,
+    "isOverseas": true,
+    "previousTeam": "Sunrisers Hyderabad"
   },
   {
     "name": "Rovman Powell",
     "role": "Batsman",
     "country": "West Indies",
-    "basePrice": 1.5
+    "basePrice": 1.5,
+    "setCode": "BA2",
+    "setLabel": "Capped Batters",
+    "capped": true,
+    "isOverseas": true,
+    "previousTeam": "Rajasthan Royals"
   },
   {
     "name": "Ajinkya Rahane",
     "role": "Batsman",
     "country": "India",
-    "basePrice": 1.5
+    "basePrice": 1.5,
+    "setCode": "BA2",
+    "setLabel": "Capped Batters",
+    "capped": true,
+    "isOverseas": false,
+    "previousTeam": "Chennai Super Kings"
   },
   {
     "name": "Prithvi Shaw",
     "role": "Batsman",
     "country": "India",
-    "basePrice": 0.75
+    "basePrice": 0.75,
+    "setCode": "BA2",
+    "setLabel": "Capped Batters",
+    "capped": true,
+    "isOverseas": false,
+    "previousTeam": "Delhi Capitals"
   },
   {
     "name": "Kane Williamson",
     "role": "Batsman",
     "country": "New Zealand",
-    "basePrice": 2
+    "basePrice": 2,
+    "setCode": "BA2",
+    "setLabel": "Capped Batters",
+    "capped": true,
+    "isOverseas": true,
+    "previousTeam": "Gujarat Titans"
   },
   {
     "name": "Sam Curran",
     "role": "All-rounder",
     "country": "England",
-    "basePrice": 2
+    "basePrice": 2,
+    "setCode": "AL2",
+    "setLabel": "Capped All-rounders",
+    "capped": true,
+    "isOverseas": true,
+    "previousTeam": "Punjab Kings"
   },
   {
     "name": "Marco Jansen",
     "role": "All-rounder",
     "country": "South Africa",
-    "basePrice": 1.25
+    "basePrice": 1.25,
+    "setCode": "AL2",
+    "setLabel": "Capped All-rounders",
+    "capped": true,
+    "isOverseas": true,
+    "previousTeam": "Sunrisers Hyderabad"
   },
   {
     "name": "Daryl Mitchell",
     "role": "All-rounder",
     "country": "New Zealand",
-    "basePrice": 2
+    "basePrice": 2,
+    "setCode": "AL2",
+    "setLabel": "Capped All-rounders",
+    "capped": true,
+    "isOverseas": true,
+    "previousTeam": "Chennai Super Kings"
   },
   {
     "name": "Krunal Pandya",
     "role": "All-rounder",
     "country": "India",
-    "basePrice": 2
+    "basePrice": 2,
+    "setCode": "AL2",
+    "setLabel": "Capped All-rounders",
+    "capped": true,
+    "isOverseas": false,
+    "previousTeam": "Lucknow Super Giants"
   },
   {
     "name": "Nitish Rana",
     "role": "All-rounder",
     "country": "India",
-    "basePrice": 1.5
+    "basePrice": 1.5,
+    "setCode": "AL2",
+    "setLabel": "Capped All-rounders",
+    "capped": true,
+    "isOverseas": false,
+    "previousTeam": "Kolkata Knight Riders"
   },
   {
     "name": "Washington Sundar",
     "role": "All-rounder",
     "country": "India",
-    "basePrice": 2
+    "basePrice": 2,
+    "setCode": "AL2",
+    "setLabel": "Capped All-rounders",
+    "capped": true,
+    "isOverseas": false,
+    "previousTeam": "Sunrisers Hyderabad"
   },
   {
     "name": "Shardul Thakur",
     "role": "All-rounder",
     "country": "India",
-    "basePrice": 2
+    "basePrice": 2,
+    "setCode": "AL2",
+    "setLabel": "Capped All-rounders",
+    "capped": true,
+    "isOverseas": false,
+    "previousTeam": "Chennai Super Kings"
   },
   {
     "name": "K.S Bharat",
     "role": "Wicket-keeper",
     "country": "India",
-    "basePrice": 0.75
+    "basePrice": 0.75,
+    "setCode": "WK2",
+    "setLabel": "Capped Wicketkeepers",
+    "capped": true,
+    "isOverseas": false,
+    "previousTeam": "Kolkata Knight Riders"
   },
   {
     "name": "Alex Carey",
     "role": "Wicket-keeper",
     "country": "Australia",
-    "basePrice": 1
+    "basePrice": 1,
+    "setCode": "WK2",
+    "setLabel": "Capped Wicketkeepers",
+    "capped": true,
+    "isOverseas": true,
+    "previousTeam": "Delhi Capitals"
   },
   {
     "name": "Donovan Ferreira",
     "role": "Wicket-keeper",
     "country": "South Africa",
-    "basePrice": 0.75
+    "basePrice": 0.75,
+    "setCode": "WK2",
+    "setLabel": "Capped Wicketkeepers",
+    "capped": true,
+    "isOverseas": true,
+    "previousTeam": "Rajasthan Royals"
   },
   {
     "name": "Shai Hope",
     "role": "Wicket-keeper",
     "country": "West Indies",
-    "basePrice": 1.25
+    "basePrice": 1.25,
+    "setCode": "WK2",
+    "setLabel": "Capped Wicketkeepers",
+    "capped": true,
+    "isOverseas": true,
+    "previousTeam": "Delhi Capitals"
   },
   {
     "name": "Josh Inglis",
     "role": "Wicket-keeper",
     "country": "Australia",
-    "basePrice": 2
+    "basePrice": 2,
+    "setCode": "WK2",
+    "setLabel": "Capped Wicketkeepers",
+    "capped": true,
+    "isOverseas": true,
+    "previousTeam": null
   },
   {
     "name": "Ryan Rickelton",
     "role": "Wicket-keeper",
     "country": "South Africa",
-    "basePrice": 1
+    "basePrice": 1,
+    "setCode": "WK2",
+    "setLabel": "Capped Wicketkeepers",
+    "capped": true,
+    "isOverseas": true,
+    "previousTeam": null
   },
   {
     "name": "Deepak Chahar",
     "role": "Bowler",
     "country": "India",
-    "basePrice": 2
+    "basePrice": 2,
+    "setCode": "FA2",
+    "setLabel": "Capped Fast Bowlers",
+    "capped": true,
+    "isOverseas": false,
+    "previousTeam": "Chennai Super Kings"
   },
   {
     "name": "Gerald Coetzee",
     "role": "Bowler",
     "country": "South Africa",
-    "basePrice": 1.25
+    "basePrice": 1.25,
+    "setCode": "FA2",
+    "setLabel": "Capped Fast Bowlers",
+    "capped": true,
+    "isOverseas": true,
+    "previousTeam": "Mumbai Indians"
   },
   {
     "name": "Akash Deep",
     "role": "Bowler",
     "country": "India",
-    "basePrice": 1
+    "basePrice": 1,
+    "setCode": "FA2",
+    "setLabel": "Capped Fast Bowlers",
+    "capped": true,
+    "isOverseas": false,
+    "previousTeam": "Royal Challengers Bengaluru"
   },
   {
     "name": "Tushar Deshpande",
     "role": "Bowler",
     "country": "India",
-    "basePrice": 1
+    "basePrice": 1,
+    "setCode": "FA2",
+    "setLabel": "Capped Fast Bowlers",
+    "capped": true,
+    "isOverseas": false,
+    "previousTeam": "Chennai Super Kings"
   },
   {
     "name": "Lockie Ferguson",
     "role": "Bowler",
     "country": "New Zealand",
-    "basePrice": 2
+    "basePrice": 2,
+    "setCode": "FA2",
+    "setLabel": "Capped Fast Bowlers",
+    "capped": true,
+    "isOverseas": true,
+    "previousTeam": "Royal Challengers Bengaluru"
   },
   {
     "name": "Bhuvneshwar Kumar",
     "role": "Bowler",
     "country": "India",
-    "basePrice": 2
+    "basePrice": 2,
+    "setCode": "FA2",
+    "setLabel": "Capped Fast Bowlers",
+    "capped": true,
+    "isOverseas": false,
+    "previousTeam": "Sunrisers Hyderabad"
   },
   {
     "name": "Mukesh Kumar",
     "role": "Bowler",
     "country": "India",
-    "basePrice": 2
+    "basePrice": 2,
+    "setCode": "FA2",
+    "setLabel": "Capped Fast Bowlers",
+    "capped": true,
+    "isOverseas": false,
+    "previousTeam": "Delhi Capitals"
   },
   {
     "name": "Allah Ghazanfar",
     "role": "Bowler",
     "country": "Afghanistan",
-    "basePrice": 0.75
+    "basePrice": 0.75,
+    "setCode": "SP2",
+    "setLabel": "Capped Spinners",
+    "capped": true,
+    "isOverseas": true,
+    "previousTeam": "Kolkata Knight Riders"
   },
   {
     "name": "Akeal Hosein",
     "role": "Bowler",
     "country": "West Indies",
-    "basePrice": 1.5
+    "basePrice": 1.5,
+    "setCode": "SP2",
+    "setLabel": "Capped Spinners",
+    "capped": true,
+    "isOverseas": true,
+    "previousTeam": "Sunrisers Hyderabad"
   },
   {
     "name": "Keshav Maharaj",
     "role": "Bowler",
     "country": "South Africa",
-    "basePrice": 0.75
+    "basePrice": 0.75,
+    "setCode": "SP2",
+    "setLabel": "Capped Spinners",
+    "capped": true,
+    "isOverseas": true,
+    "previousTeam": "Rajasthan Royals"
   },
   {
     "name": "Mujeeb Ur Rahman",
     "role": "Bowler",
     "country": "Afghanistan",
-    "basePrice": 2
+    "basePrice": 2,
+    "setCode": "SP2",
+    "setLabel": "Capped Spinners",
+    "capped": true,
+    "isOverseas": true,
+    "previousTeam": "Punjab Kings"
   },
   {
     "name": "Adil Rashid",
     "role": "Bowler",
     "country": "England",
-    "basePrice": 2
+    "basePrice": 2,
+    "setCode": "SP2",
+    "setLabel": "Capped Spinners",
+    "capped": true,
+    "isOverseas": true,
+    "previousTeam": "Punjab Kings"
   },
   {
     "name": "Vijayakanth Viyaskanth",
     "role": "Bowler",
     "country": "Sri Lanka",
-    "basePrice": 0.75
+    "basePrice": 0.75,
+    "setCode": "SP2",
+    "setLabel": "Capped Spinners",
+    "capped": true,
+    "isOverseas": true,
+    "previousTeam": "Sunrisers Hyderabad"
   },
   {
     "name": "Ricky Bhui",
     "role": "Batsman",
     "country": "India",
-    "basePrice": 0.3
+    "basePrice": 0.3,
+    "setCode": "UBA2",
+    "setLabel": "Uncapped Batters",
+    "capped": false,
+    "isOverseas": false,
+    "previousTeam": "Delhi Capitals"
   },
   {
     "name": "Swastik Chhikara",
     "role": "Batsman",
     "country": "India",
-    "basePrice": 0.3
+    "basePrice": 0.3,
+    "setCode": "UBA2",
+    "setLabel": "Uncapped Batters",
+    "capped": false,
+    "isOverseas": false,
+    "previousTeam": "Delhi Capitals"
   },
   {
     "name": "Aarya Desai",
     "role": "Batsman",
     "country": "India",
-    "basePrice": 0.3
+    "basePrice": 0.3,
+    "setCode": "UBA2",
+    "setLabel": "Uncapped Batters",
+    "capped": false,
+    "isOverseas": false,
+    "previousTeam": "Kolkata Knight Riders"
   },
   {
     "name": "Shubham Dubey",
     "role": "Batsman",
     "country": "India",
-    "basePrice": 0.3
+    "basePrice": 0.3,
+    "setCode": "UBA2",
+    "setLabel": "Uncapped Batters",
+    "capped": false,
+    "isOverseas": false,
+    "previousTeam": "Rajasthan Royals"
   },
   {
     "name": "Madhav Kaushik",
     "role": "Batsman",
     "country": "India",
-    "basePrice": 0.3
+    "basePrice": 0.3,
+    "setCode": "UBA2",
+    "setLabel": "Uncapped Batters",
+    "capped": false,
+    "isOverseas": false,
+    "previousTeam": null
   },
   {
     "name": "Pukhraj Mann",
     "role": "Batsman",
     "country": "India",
-    "basePrice": 0.3
+    "basePrice": 0.3,
+    "setCode": "UBA2",
+    "setLabel": "Uncapped Batters",
+    "capped": false,
+    "isOverseas": false,
+    "previousTeam": null
   },
   {
     "name": "Shaik Rasheed",
     "role": "Batsman",
     "country": "India",
-    "basePrice": 0.3
+    "basePrice": 0.3,
+    "setCode": "UBA2",
+    "setLabel": "Uncapped Batters",
+    "capped": false,
+    "isOverseas": false,
+    "previousTeam": "Chennai Super Kings"
   },
   {
     "name": "Himmat Singh",
     "role": "Batsman",
     "country": "India",
-    "basePrice": 0.3
+    "basePrice": 0.3,
+    "setCode": "UBA2",
+    "setLabel": "Uncapped Batters",
+    "capped": false,
+    "isOverseas": false,
+    "previousTeam": "Royal Challengers Bengaluru"
   },
   {
     "name": "Mayank Dagar",
     "role": "All-rounder",
     "country": "India",
-    "basePrice": 0.3
+    "basePrice": 0.3,
+    "setCode": "UAL2",
+    "setLabel": "Uncapped All-rounders",
+    "capped": false,
+    "isOverseas": false,
+    "previousTeam": "Royal Challengers Bengaluru"
   },
   {
     "name": "Anshul Kamboj",
     "role": "All-rounder",
     "country": "India",
-    "basePrice": 0.3
+    "basePrice": 0.3,
+    "setCode": "UAL2",
+    "setLabel": "Uncapped All-rounders",
+    "capped": false,
+    "isOverseas": false,
+    "previousTeam": "Mumbai Indians"
   },
   {
     "name": "Mohd. Arshad Khan",
     "role": "All-rounder",
     "country": "India",
-    "basePrice": 0.3
+    "basePrice": 0.3,
+    "setCode": "UAL2",
+    "setLabel": "Uncapped All-rounders",
+    "capped": false,
+    "isOverseas": false,
+    "previousTeam": "Lucknow Super Giants"
   },
   {
     "name": "Darshan Nalkande",
     "role": "All-rounder",
     "country": "India",
-    "basePrice": 0.3
+    "basePrice": 0.3,
+    "setCode": "UAL2",
+    "setLabel": "Uncapped All-rounders",
+    "capped": false,
+    "isOverseas": false,
+    "previousTeam": "Gujarat Titans"
   },
   {
     "name": "Suyash Prabhudessai",
     "role": "All-rounder",
     "country": "India",
-    "basePrice": 0.3
+    "basePrice": 0.3,
+    "setCode": "UAL2",
+    "setLabel": "Uncapped All-rounders",
+    "capped": false,
+    "isOverseas": false,
+    "previousTeam": "Royal Challengers Bengaluru"
   },
   {
     "name": "Anukul Roy",
     "role": "All-rounder",
     "country": "India",
-    "basePrice": 0.3
+    "basePrice": 0.3,
+    "setCode": "UAL2",
+    "setLabel": "Uncapped All-rounders",
+    "capped": false,
+    "isOverseas": false,
+    "previousTeam": "Kolkata Knight Riders"
   },
   {
     "name": "Swapnil Singh",
     "role": "All-rounder",
     "country": "India",
-    "basePrice": 0.3
+    "basePrice": 0.3,
+    "setCode": "UAL2",
+    "setLabel": "Uncapped All-rounders",
+    "capped": false,
+    "isOverseas": false,
+    "previousTeam": "Punjab Kings"
   },
   {
     "name": "Sanvir Singh",
     "role": "All-rounder",
     "country": "India",
-    "basePrice": 0.3
+    "basePrice": 0.3,
+    "setCode": "UAL2",
+    "setLabel": "Uncapped All-rounders",
+    "capped": false,
+    "isOverseas": false,
+    "previousTeam": "Sunrisers Hyderabad"
   },
   {
     "name": "Avanish Aravelly",
     "role": "Wicket-keeper",
     "country": "India",
-    "basePrice": 0.3
+    "basePrice": 0.3,
+    "setCode": "UWK2",
+    "setLabel": "Uncapped Wicketkeepers",
+    "capped": false,
+    "isOverseas": false,
+    "previousTeam": "Chennai Super Kings"
   },
   {
     "name": "Vansh Bedi",
     "role": "Wicket-keeper",
     "country": "India",
-    "basePrice": 0.3
+    "basePrice": 0.3,
+    "setCode": "UWK2",
+    "setLabel": "Uncapped Wicketkeepers",
+    "capped": false,
+    "isOverseas": false,
+    "previousTeam": null
   },
   {
     "name": "Saurav Chauhan",
     "role": "Wicket-keeper",
     "country": "India",
-    "basePrice": 0.3
+    "basePrice": 0.3,
+    "setCode": "UWK2",
+    "setLabel": "Uncapped Wicketkeepers",
+    "capped": false,
+    "isOverseas": false,
+    "previousTeam": "Royal Challengers Bengaluru"
   },
   {
     "name": "Harvik Desai",
     "role": "Wicket-keeper",
     "country": "India",
-    "basePrice": 0.3
+    "basePrice": 0.3,
+    "setCode": "UWK2",
+    "setLabel": "Uncapped Wicketkeepers",
+    "capped": false,
+    "isOverseas": false,
+    "previousTeam": "Mumbai Indians"
   },
   {
     "name": "Tom Kohler-Cadmore",
     "role": "Wicket-keeper",
     "country": "England",
-    "basePrice": 0.5
+    "basePrice": 0.5,
+    "setCode": "UWK2",
+    "setLabel": "Uncapped Wicketkeepers",
+    "capped": false,
+    "isOverseas": true,
+    "previousTeam": "Rajasthan Royals"
   },
   {
     "name": "Kunal Rathore",
     "role": "Wicket-keeper",
     "country": "India",
-    "basePrice": 0.3
+    "basePrice": 0.3,
+    "setCode": "UWK2",
+    "setLabel": "Uncapped Wicketkeepers",
+    "capped": false,
+    "isOverseas": false,
+    "previousTeam": "Rajasthan Royals"
   },
   {
     "name": "B.R Sharath",
     "role": "Wicket-keeper",
     "country": "India",
-    "basePrice": 0.3
+    "basePrice": 0.3,
+    "setCode": "UWK2",
+    "setLabel": "Uncapped Wicketkeepers",
+    "capped": false,
+    "isOverseas": false,
+    "previousTeam": "Gujarat Titans"
   },
   {
     "name": "Gurnoor Singh Brar",
     "role": "Bowler",
     "country": "India",
-    "basePrice": 0.3
+    "basePrice": 0.3,
+    "setCode": "UFA2",
+    "setLabel": "Uncapped Fast Bowlers",
+    "capped": false,
+    "isOverseas": false,
+    "previousTeam": "Gujarat Titans"
   },
   {
     "name": "Mukesh Choudhary",
     "role": "Bowler",
     "country": "India",
-    "basePrice": 0.3
+    "basePrice": 0.3,
+    "setCode": "UFA2",
+    "setLabel": "Uncapped Fast Bowlers",
+    "capped": false,
+    "isOverseas": false,
+    "previousTeam": "Chennai Super Kings"
   },
   {
     "name": "Sakib Hussain",
     "role": "Bowler",
     "country": "India",
-    "basePrice": 0.3
+    "basePrice": 0.3,
+    "setCode": "UFA2",
+    "setLabel": "Uncapped Fast Bowlers",
+    "capped": false,
+    "isOverseas": false,
+    "previousTeam": "Kolkata Knight Riders"
   },
   {
     "name": "Vidwath Kaverappa",
     "role": "Bowler",
     "country": "India",
-    "basePrice": 0.3
+    "basePrice": 0.3,
+    "setCode": "UFA2",
+    "setLabel": "Uncapped Fast Bowlers",
+    "capped": false,
+    "isOverseas": false,
+    "previousTeam": "Punjab Kings"
   },
   {
     "name": "Rajan Kumar",
     "role": "Bowler",
     "country": "India",
-    "basePrice": 0.3
+    "basePrice": 0.3,
+    "setCode": "UFA2",
+    "setLabel": "Uncapped Fast Bowlers",
+    "capped": false,
+    "isOverseas": false,
+    "previousTeam": "Royal Challengers Bengaluru"
   },
   {
     "name": "Sushant Mishra",
     "role": "Bowler",
     "country": "India",
-    "basePrice": 0.3
+    "basePrice": 0.3,
+    "setCode": "UFA2",
+    "setLabel": "Uncapped Fast Bowlers",
+    "capped": false,
+    "isOverseas": false,
+    "previousTeam": "Gujarat Titans"
   },
   {
     "name": "Arjun Tendulkar",
     "role": "Bowler",
     "country": "India",
-    "basePrice": 0.3
+    "basePrice": 0.3,
+    "setCode": "UFA2",
+    "setLabel": "Uncapped Fast Bowlers",
+    "capped": false,
+    "isOverseas": false,
+    "previousTeam": "Mumbai Indians"
   },
   {
     "name": "Zeeshan Ansari",
     "role": "Bowler",
     "country": "India",
-    "basePrice": 0.3
+    "basePrice": 0.3,
+    "setCode": "USP2",
+    "setLabel": "Uncapped Spinners",
+    "capped": false,
+    "isOverseas": false,
+    "previousTeam": null
   },
   {
     "name": "Prince Choudhary",
     "role": "Bowler",
     "country": "India",
-    "basePrice": 0.3
+    "basePrice": 0.3,
+    "setCode": "USP2",
+    "setLabel": "Uncapped Spinners",
+    "capped": false,
+    "isOverseas": false,
+    "previousTeam": "Punjab Kings"
   },
   {
     "name": "Himanshu Sharma",
     "role": "Bowler",
     "country": "India",
-    "basePrice": 0.3
+    "basePrice": 0.3,
+    "setCode": "USP2",
+    "setLabel": "Uncapped Spinners",
+    "capped": false,
+    "isOverseas": false,
+    "previousTeam": "Royal Challengers Bengaluru"
   },
   {
     "name": "M. Siddharth",
     "role": "Bowler",
     "country": "India",
-    "basePrice": 0.3
+    "basePrice": 0.3,
+    "setCode": "USP2",
+    "setLabel": "Uncapped Spinners",
+    "capped": false,
+    "isOverseas": false,
+    "previousTeam": "Lucknow Super Giants"
   },
   {
     "name": "Digvesh Singh",
     "role": "Bowler",
     "country": "India",
-    "basePrice": 0.3
+    "basePrice": 0.3,
+    "setCode": "USP2",
+    "setLabel": "Uncapped Spinners",
+    "capped": false,
+    "isOverseas": false,
+    "previousTeam": null
   },
   {
     "name": "Prashant Solanki",
     "role": "Bowler",
     "country": "India",
-    "basePrice": 0.3
+    "basePrice": 0.3,
+    "setCode": "USP2",
+    "setLabel": "Uncapped Spinners",
+    "capped": false,
+    "isOverseas": false,
+    "previousTeam": "Chennai Super Kings"
   },
   {
     "name": "Jhathavedh Subramanyan",
     "role": "Bowler",
     "country": "India",
-    "basePrice": 0.3
+    "basePrice": 0.3,
+    "setCode": "USP2",
+    "setLabel": "Uncapped Spinners",
+    "capped": false,
+    "isOverseas": false,
+    "previousTeam": "Sunrisers Hyderabad"
   },
   {
     "name": "Finn Allen",
     "role": "Batsman",
     "country": "New Zealand",
-    "basePrice": 2
+    "basePrice": 2,
+    "setCode": "BA3",
+    "setLabel": "Capped Batters",
+    "capped": true,
+    "isOverseas": true,
+    "previousTeam": "Royal Challengers Bengaluru"
   },
   {
     "name": "Dewald Brevis",
     "role": "Batsman",
     "country": "South Africa",
-    "basePrice": 0.75
+    "basePrice": 0.75,
+    "setCode": "BA3",
+    "setLabel": "Capped Batters",
+    "capped": true,
+    "isOverseas": true,
+    "previousTeam": "Mumbai Indians"
   },
   {
     "name": "Ben Duckett",
     "role": "Batsman",
     "country": "England",
-    "basePrice": 2
+    "basePrice": 2,
+    "setCode": "BA3",
+    "setLabel": "Capped Batters",
+    "capped": true,
+    "isOverseas": true,
+    "previousTeam": null
   },
   {
     "name": "Manish Pandey",
     "role": "Batsman",
     "country": "India",
-    "basePrice": 0.75
+    "basePrice": 0.75,
+    "setCode": "BA3",
+    "setLabel": "Capped Batters",
+    "capped": true,
+    "isOverseas": false,
+    "previousTeam": "Kolkata Knight Riders"
   },
   {
     "name": "Rilee Rossouw",
     "role": "Batsman",
     "country": "South Africa",
-    "basePrice": 2
+    "basePrice": 2,
+    "setCode": "BA3",
+    "setLabel": "Capped Batters",
+    "capped": true,
+    "isOverseas": true,
+    "previousTeam": "Punjab Kings"
   },
   {
     "name": "Sherfane Rutherford",
     "role": "Batsman",
     "country": "West Indies",
-    "basePrice": 1.5
+    "basePrice": 1.5,
+    "setCode": "BA3",
+    "setLabel": "Capped Batters",
+    "capped": true,
+    "isOverseas": true,
+    "previousTeam": "Kolkata Knight Riders"
   },
   {
     "name": "Ashton Turner",
     "role": "Batsman",
     "country": "Australia",
-    "basePrice": 1
+    "basePrice": 1,
+    "setCode": "BA3",
+    "setLabel": "Capped Batters",
+    "capped": true,
+    "isOverseas": true,
+    "previousTeam": "Lucknow Super Giants"
   },
   {
     "name": "James Vince",
     "role": "Batsman",
     "country": "England",
-    "basePrice": 2
+    "basePrice": 2,
+    "setCode": "BA3",
+    "setLabel": "Capped Batters",
+    "capped": true,
+    "isOverseas": true,
+    "previousTeam": null
   },
   {
     "name": "Shahbaz Ahamad",
     "role": "All-rounder",
     "country": "India",
-    "basePrice": 1
+    "basePrice": 1,
+    "setCode": "AL3",
+    "setLabel": "Capped All-rounders",
+    "capped": true,
+    "isOverseas": false,
+    "previousTeam": "Sunrisers Hyderabad"
   },
   {
     "name": "Moeen Ali",
     "role": "All-rounder",
     "country": "England",
-    "basePrice": 2
+    "basePrice": 2,
+    "setCode": "AL3",
+    "setLabel": "Capped All-rounders",
+    "capped": true,
+    "isOverseas": true,
+    "previousTeam": "Chennai Super Kings"
   },
   {
     "name": "Tim David",
     "role": "All-rounder",
     "country": "Australia",
-    "basePrice": 2
+    "basePrice": 2,
+    "setCode": "AL3",
+    "setLabel": "Capped All-rounders",
+    "capped": true,
+    "isOverseas": true,
+    "previousTeam": "Mumbai Indians"
   },
   {
     "name": "Deepak Hooda",
     "role": "All-rounder",
     "country": "India",
-    "basePrice": 0.75
+    "basePrice": 0.75,
+    "setCode": "AL3",
+    "setLabel": "Capped All-rounders",
+    "capped": true,
+    "isOverseas": false,
+    "previousTeam": "Lucknow Super Giants"
   },
   {
     "name": "Will Jacks",
     "role": "All-rounder",
     "country": "England",
-    "basePrice": 2
+    "basePrice": 2,
+    "setCode": "AL3",
+    "setLabel": "Capped All-rounders",
+    "capped": true,
+    "isOverseas": true,
+    "previousTeam": "Royal Challengers Bengaluru"
   },
   {
     "name": "Azmatullah Omarzai",
     "role": "All-rounder",
     "country": "Afghanistan",
-    "basePrice": 1.5
+    "basePrice": 1.5,
+    "setCode": "AL3",
+    "setLabel": "Capped All-rounders",
+    "capped": true,
+    "isOverseas": true,
+    "previousTeam": "Gujarat Titans"
   },
   {
     "name": "R. Sai Kishore",
     "role": "All-rounder",
     "country": "India",
-    "basePrice": 0.75
+    "basePrice": 0.75,
+    "setCode": "AL3",
+    "setLabel": "Capped All-rounders",
+    "capped": true,
+    "isOverseas": false,
+    "previousTeam": "Gujarat Titans"
   },
   {
     "name": "Romario Shepherd",
     "role": "All-rounder",
     "country": "West Indies",
-    "basePrice": 1.5
+    "basePrice": 1.5,
+    "setCode": "AL3",
+    "setLabel": "Capped All-rounders",
+    "capped": true,
+    "isOverseas": true,
+    "previousTeam": "Mumbai Indians"
   },
   {
     "name": "Tom Banton",
     "role": "Wicket-keeper",
     "country": "England",
-    "basePrice": 2
+    "basePrice": 2,
+    "setCode": "WK3",
+    "setLabel": "Capped Wicketkeepers",
+    "capped": true,
+    "isOverseas": true,
+    "previousTeam": "Kolkata Knight Riders"
   },
   {
     "name": "Sam Billings",
     "role": "Wicket-keeper",
     "country": "England",
-    "basePrice": 1.5
+    "basePrice": 1.5,
+    "setCode": "WK3",
+    "setLabel": "Capped Wicketkeepers",
+    "capped": true,
+    "isOverseas": true,
+    "previousTeam": "Chennai Super Kings"
   },
   {
     "name": "Jordan Cox",
     "role": "Wicket-keeper",
     "country": "England",
-    "basePrice": 1.25
+    "basePrice": 1.25,
+    "setCode": "WK3",
+    "setLabel": "Capped Wicketkeepers",
+    "capped": true,
+    "isOverseas": true,
+    "previousTeam": null
   },
   {
     "name": "Ben McDermott",
     "role": "Wicket-keeper",
     "country": "Australia",
-    "basePrice": 0.75
+    "basePrice": 0.75,
+    "setCode": "WK3",
+    "setLabel": "Capped Wicketkeepers",
+    "capped": true,
+    "isOverseas": true,
+    "previousTeam": null
   },
   {
     "name": "Kusal Mendis",
     "role": "Wicket-keeper",
     "country": "Sri Lanka",
-    "basePrice": 0.75
+    "basePrice": 0.75,
+    "setCode": "WK3",
+    "setLabel": "Capped Wicketkeepers",
+    "capped": true,
+    "isOverseas": true,
+    "previousTeam": null
   },
   {
     "name": "Kusal Perera",
     "role": "Wicket-keeper",
     "country": "Sri Lanka",
-    "basePrice": 0.75
+    "basePrice": 0.75,
+    "setCode": "WK3",
+    "setLabel": "Capped Wicketkeepers",
+    "capped": true,
+    "isOverseas": true,
+    "previousTeam": "Rajasthan Royals"
   },
   {
     "name": "Josh Philippe",
     "role": "Wicket-keeper",
     "country": "Australia",
-    "basePrice": 0.75
+    "basePrice": 0.75,
+    "setCode": "WK3",
+    "setLabel": "Capped Wicketkeepers",
+    "capped": true,
+    "isOverseas": true,
+    "previousTeam": "Royal Challengers Bengaluru"
   },
   {
     "name": "Tim Seifert",
     "role": "Wicket-keeper",
     "country": "New Zealand",
-    "basePrice": 1.25
+    "basePrice": 1.25,
+    "setCode": "WK3",
+    "setLabel": "Capped Wicketkeepers",
+    "capped": true,
+    "isOverseas": true,
+    "previousTeam": "Kolkata Knight Riders"
   },
   {
     "name": "Nandre Burger",
     "role": "Bowler",
     "country": "South Africa",
-    "basePrice": 1.25
+    "basePrice": 1.25,
+    "setCode": "FA3",
+    "setLabel": "Capped Fast Bowlers",
+    "capped": true,
+    "isOverseas": true,
+    "previousTeam": "Rajasthan Royals"
   },
   {
     "name": "Spencer Johnson",
     "role": "Bowler",
     "country": "Australia",
-    "basePrice": 2
+    "basePrice": 2,
+    "setCode": "FA3",
+    "setLabel": "Capped Fast Bowlers",
+    "capped": true,
+    "isOverseas": true,
+    "previousTeam": "Gujarat Titans"
   },
   {
     "name": "Umran Malik",
     "role": "Bowler",
     "country": "India",
-    "basePrice": 0.75
+    "basePrice": 0.75,
+    "setCode": "FA3",
+    "setLabel": "Capped Fast Bowlers",
+    "capped": true,
+    "isOverseas": false,
+    "previousTeam": "Sunrisers Hyderabad"
   },
   {
     "name": "Mustafizur Rahman",
     "role": "Bowler",
     "country": "Bangladesh",
-    "basePrice": 2
+    "basePrice": 2,
+    "setCode": "FA3",
+    "setLabel": "Capped Fast Bowlers",
+    "capped": true,
+    "isOverseas": true,
+    "previousTeam": "Chennai Super Kings"
   },
   {
     "name": "Ishant Sharma",
     "role": "Bowler",
     "country": "India",
-    "basePrice": 0.75
+    "basePrice": 0.75,
+    "setCode": "FA3",
+    "setLabel": "Capped Fast Bowlers",
+    "capped": true,
+    "isOverseas": false,
+    "previousTeam": "Delhi Capitals"
   },
   {
     "name": "Nuwan Thushara",
     "role": "Bowler",
     "country": "Sri Lanka",
-    "basePrice": 0.75
+    "basePrice": 0.75,
+    "setCode": "FA3",
+    "setLabel": "Capped Fast Bowlers",
+    "capped": true,
+    "isOverseas": true,
+    "previousTeam": "Mumbai Indians"
   },
   {
     "name": "Naveen Ul Haq",
     "role": "Bowler",
     "country": "Afghanistan",
-    "basePrice": 2
+    "basePrice": 2,
+    "setCode": "FA3",
+    "setLabel": "Capped Fast Bowlers",
+    "capped": true,
+    "isOverseas": true,
+    "previousTeam": "Lucknow Super Giants"
   },
   {
     "name": "Jaydev Unadkat",
     "role": "Bowler",
     "country": "India",
-    "basePrice": 1
+    "basePrice": 1,
+    "setCode": "FA3",
+    "setLabel": "Capped Fast Bowlers",
+    "capped": true,
+    "isOverseas": false,
+    "previousTeam": "Royal Challengers Bengaluru"
   },
   {
     "name": "Umesh Yadav",
     "role": "Bowler",
     "country": "India",
-    "basePrice": 2
+    "basePrice": 2,
+    "setCode": "FA3",
+    "setLabel": "Capped Fast Bowlers",
+    "capped": true,
+    "isOverseas": false,
+    "previousTeam": "Gujarat Titans"
   },
   {
     "name": "Rishad Hossain",
     "role": "Bowler",
     "country": "Bangladesh",
-    "basePrice": 0.75
+    "basePrice": 0.75,
+    "setCode": "SP3",
+    "setLabel": "Capped Spinners",
+    "capped": true,
+    "isOverseas": true,
+    "previousTeam": null
   },
   {
     "name": "Zahir Khan Pakten",
     "role": "Bowler",
     "country": "Afghanistan",
-    "basePrice": 0.75
+    "basePrice": 0.75,
+    "setCode": "SP3",
+    "setLabel": "Capped Spinners",
+    "capped": true,
+    "isOverseas": true,
+    "previousTeam": "Rajasthan Royals"
   },
   {
     "name": "Nqabayomzi Peter",
     "role": "Bowler",
     "country": "South Africa",
-    "basePrice": 0.75
+    "basePrice": 0.75,
+    "setCode": "SP3",
+    "setLabel": "Capped Spinners",
+    "capped": true,
+    "isOverseas": true,
+    "previousTeam": null
   },
   {
     "name": "Tanveer Sangha",
     "role": "Bowler",
     "country": "Australia",
-    "basePrice": 0.75
+    "basePrice": 0.75,
+    "setCode": "SP3",
+    "setLabel": "Capped Spinners",
+    "capped": true,
+    "isOverseas": true,
+    "previousTeam": null
   },
   {
     "name": "Tabraiz Shamsi",
     "role": "Bowler",
     "country": "South Africa",
-    "basePrice": 2
+    "basePrice": 2,
+    "setCode": "SP3",
+    "setLabel": "Capped Spinners",
+    "capped": true,
+    "isOverseas": true,
+    "previousTeam": "Royal Challengers Bengaluru"
   },
   {
     "name": "Jeffery Vandersay",
     "role": "Bowler",
     "country": "Sri Lanka",
-    "basePrice": 0.75
+    "basePrice": 0.75,
+    "setCode": "SP3",
+    "setLabel": "Capped Spinners",
+    "capped": true,
+    "isOverseas": true,
+    "previousTeam": null
   },
   {
     "name": "Sachin Baby",
     "role": "Batsman",
     "country": "India",
-    "basePrice": 0.3
+    "basePrice": 0.3,
+    "setCode": "UBA3",
+    "setLabel": "Uncapped Batters",
+    "capped": false,
+    "isOverseas": false,
+    "previousTeam": "Rajasthan Royals"
   },
   {
     "name": "Priyam Garg",
     "role": "Batsman",
     "country": "India",
-    "basePrice": 0.3
+    "basePrice": 0.3,
+    "setCode": "UBA3",
+    "setLabel": "Uncapped Batters",
+    "capped": false,
+    "isOverseas": false,
+    "previousTeam": "Sunrisers Hyderabad"
   },
   {
     "name": "Harnoor Pannu",
     "role": "Batsman",
     "country": "India",
-    "basePrice": 0.3
+    "basePrice": 0.3,
+    "setCode": "UBA3",
+    "setLabel": "Uncapped Batters",
+    "capped": false,
+    "isOverseas": false,
+    "previousTeam": null
   },
   {
     "name": "Smaran Ravichandran",
     "role": "Batsman",
     "country": "India",
-    "basePrice": 0.3
+    "basePrice": 0.3,
+    "setCode": "UBA3",
+    "setLabel": "Uncapped Batters",
+    "capped": false,
+    "isOverseas": false,
+    "previousTeam": null
   },
   {
     "name": "Shashwat Rawat",
     "role": "Batsman",
     "country": "India",
-    "basePrice": 0.3
+    "basePrice": 0.3,
+    "setCode": "UBA3",
+    "setLabel": "Uncapped Batters",
+    "capped": false,
+    "isOverseas": false,
+    "previousTeam": null
   },
   {
     "name": "Andre Siddarth",
     "role": "Batsman",
     "country": "India",
-    "basePrice": 0.3
+    "basePrice": 0.3,
+    "setCode": "UBA3",
+    "setLabel": "Uncapped Batters",
+    "capped": false,
+    "isOverseas": false,
+    "previousTeam": null
   },
   {
     "name": "Avneesh Sudha",
     "role": "Batsman",
     "country": "India",
-    "basePrice": 0.3
+    "basePrice": 0.3,
+    "setCode": "UBA3",
+    "setLabel": "Uncapped Batters",
+    "capped": false,
+    "isOverseas": false,
+    "previousTeam": null
   },
   {
     "name": "Apoorv Wankhade",
     "role": "Batsman",
     "country": "India",
-    "basePrice": 0.3
+    "basePrice": 0.3,
+    "setCode": "UBA3",
+    "setLabel": "Uncapped Batters",
+    "capped": false,
+    "isOverseas": false,
+    "previousTeam": "Kolkata Knight Riders"
   },
   {
     "name": "Yudhvir Charak",
     "role": "All-rounder",
     "country": "India",
-    "basePrice": 0.3
+    "basePrice": 0.3,
+    "setCode": "UAL3",
+    "setLabel": "Uncapped All-rounders",
+    "capped": false,
+    "isOverseas": false,
+    "previousTeam": "Lucknow Super Giants"
   },
   {
     "name": "Rishi Dhawan",
     "role": "All-rounder",
     "country": "India",
-    "basePrice": 0.3
+    "basePrice": 0.3,
+    "setCode": "UAL3",
+    "setLabel": "Uncapped All-rounders",
+    "capped": false,
+    "isOverseas": false,
+    "previousTeam": "Punjab Kings"
   },
   {
     "name": "Rajvardhan Hangargekar",
     "role": "All-rounder",
     "country": "India",
-    "basePrice": 0.3
+    "basePrice": 0.3,
+    "setCode": "UAL3",
+    "setLabel": "Uncapped All-rounders",
+    "capped": false,
+    "isOverseas": false,
+    "previousTeam": "Chennai Super Kings"
   },
   {
     "name": "Tanush Kotian",
     "role": "All-rounder",
     "country": "India",
-    "basePrice": 0.3
+    "basePrice": 0.3,
+    "setCode": "UAL3",
+    "setLabel": "Uncapped All-rounders",
+    "capped": false,
+    "isOverseas": false,
+    "previousTeam": "Rajasthan Royals"
   },
   {
     "name": "Arshin Kulkarni",
     "role": "All-rounder",
     "country": "India",
-    "basePrice": 0.3
+    "basePrice": 0.3,
+    "setCode": "UAL3",
+    "setLabel": "Uncapped All-rounders",
+    "capped": false,
+    "isOverseas": false,
+    "previousTeam": "Lucknow Super Giants"
   },
   {
     "name": "Shams Mulani",
     "role": "All-rounder",
     "country": "India",
-    "basePrice": 0.3
+    "basePrice": 0.3,
+    "setCode": "UAL3",
+    "setLabel": "Uncapped All-rounders",
+    "capped": false,
+    "isOverseas": false,
+    "previousTeam": "Mumbai Indians"
   },
   {
     "name": "Shivam Singh",
     "role": "All-rounder",
     "country": "India",
-    "basePrice": 0.3
+    "basePrice": 0.3,
+    "setCode": "UAL3",
+    "setLabel": "Uncapped All-rounders",
+    "capped": false,
+    "isOverseas": false,
+    "previousTeam": "Punjab Kings"
   },
   {
     "name": "Lalit Yadav",
     "role": "All-rounder",
     "country": "India",
-    "basePrice": 0.3
+    "basePrice": 0.3,
+    "setCode": "UAL3",
+    "setLabel": "Uncapped All-rounders",
+    "capped": false,
+    "isOverseas": false,
+    "previousTeam": "Delhi Capitals"
   },
   {
     "name": "Mohammed Azharuddeen",
     "role": "Wicket-keeper",
     "country": "India",
-    "basePrice": 0.3
+    "basePrice": 0.3,
+    "setCode": "UWK3",
+    "setLabel": "Uncapped Wicketkeepers",
+    "capped": false,
+    "isOverseas": false,
+    "previousTeam": "Royal Challengers Bengaluru"
   },
   {
     "name": "L.R Chethan",
     "role": "Wicket-keeper",
     "country": "India",
-    "basePrice": 0.3
+    "basePrice": 0.3,
+    "setCode": "UWK3",
+    "setLabel": "Uncapped Wicketkeepers",
+    "capped": false,
+    "isOverseas": false,
+    "previousTeam": null
   },
   {
     "name": "Aryaman Singh Dhaliwal",
     "role": "Wicket-keeper",
     "country": "India",
-    "basePrice": 0.3
+    "basePrice": 0.3,
+    "setCode": "UWK3",
+    "setLabel": "Uncapped Wicketkeepers",
+    "capped": false,
+    "isOverseas": false,
+    "previousTeam": null
   },
   {
     "name": "Urvil Patel",
     "role": "Wicket-keeper",
     "country": "India",
-    "basePrice": 0.3
+    "basePrice": 0.3,
+    "setCode": "UWK3",
+    "setLabel": "Uncapped Wicketkeepers",
+    "capped": false,
+    "isOverseas": false,
+    "previousTeam": "Gujarat Titans"
   },
   {
     "name": "Sanskar Rawat",
     "role": "Wicket-keeper",
     "country": "India",
-    "basePrice": 0.3
+    "basePrice": 0.3,
+    "setCode": "UWK3",
+    "setLabel": "Uncapped Wicketkeepers",
+    "capped": false,
+    "isOverseas": false,
+    "previousTeam": null
   },
   {
     "name": "Bipin Saurabh",
     "role": "Wicket-keeper",
     "country": "India",
-    "basePrice": 0.3
+    "basePrice": 0.3,
+    "setCode": "UWK3",
+    "setLabel": "Uncapped Wicketkeepers",
+    "capped": false,
+    "isOverseas": false,
+    "previousTeam": null
   },
   {
     "name": "Tanay Thyagarajann",
     "role": "Wicket-keeper",
     "country": "India",
-    "basePrice": 0.3
+    "basePrice": 0.3,
+    "setCode": "UWK3",
+    "setLabel": "Uncapped Wicketkeepers",
+    "capped": false,
+    "isOverseas": false,
+    "previousTeam": null
   },
   {
     "name": "Money Grewal",
     "role": "Bowler",
     "country": "India",
-    "basePrice": 0.3
+    "basePrice": 0.3,
+    "setCode": "UFA3",
+    "setLabel": "Uncapped Fast Bowlers",
+    "capped": false,
+    "isOverseas": false,
+    "previousTeam": null
   },
   {
     "name": "Ashwani Kumar",
     "role": "Bowler",
     "country": "India",
-    "basePrice": 0.3
+    "basePrice": 0.3,
+    "setCode": "UFA3",
+    "setLabel": "Uncapped Fast Bowlers",
+    "capped": false,
+    "isOverseas": false,
+    "previousTeam": null
   },
   {
     "name": "Ishan Porel",
     "role": "Bowler",
     "country": "India",
-    "basePrice": 0.3
+    "basePrice": 0.3,
+    "setCode": "UFA3",
+    "setLabel": "Uncapped Fast Bowlers",
+    "capped": false,
+    "isOverseas": false,
+    "previousTeam": null
   },
   {
     "name": "Abhilash Shetty",
     "role": "Bowler",
     "country": "India",
-    "basePrice": 0.3
+    "basePrice": 0.3,
+    "setCode": "UFA3",
+    "setLabel": "Uncapped Fast Bowlers",
+    "capped": false,
+    "isOverseas": false,
+    "previousTeam": null
   },
   {
     "name": "Akash Singh",
     "role": "Bowler",
     "country": "India",
-    "basePrice": 0.3
+    "basePrice": 0.3,
+    "setCode": "UFA3",
+    "setLabel": "Uncapped Fast Bowlers",
+    "capped": false,
+    "isOverseas": false,
+    "previousTeam": null
   },
   {
     "name": "Gurjapneet Singh",
     "role": "Bowler",
     "country": "India",
-    "basePrice": 0.3
+    "basePrice": 0.3,
+    "setCode": "UFA3",
+    "setLabel": "Uncapped Fast Bowlers",
+    "capped": false,
+    "isOverseas": false,
+    "previousTeam": null
   },
   {
     "name": "Basil Thampi",
     "role": "Bowler",
     "country": "India",
-    "basePrice": 0.3
+    "basePrice": 0.3,
+    "setCode": "UFA3",
+    "setLabel": "Uncapped Fast Bowlers",
+    "capped": false,
+    "isOverseas": false,
+    "previousTeam": "Sunrisers Hyderabad"
   },
   {
     "name": "Murugan Ashwin",
     "role": "Bowler",
     "country": "India",
-    "basePrice": 0.3
+    "basePrice": 0.3,
+    "setCode": "USP3",
+    "setLabel": "Uncapped Spinners",
+    "capped": false,
+    "isOverseas": false,
+    "previousTeam": "Delhi Capitals"
   },
   {
     "name": "Shreyas Chavan",
     "role": "Bowler",
     "country": "India",
-    "basePrice": 0.3
+    "basePrice": 0.3,
+    "setCode": "USP3",
+    "setLabel": "Uncapped Spinners",
+    "capped": false,
+    "isOverseas": false,
+    "previousTeam": null
   },
   {
     "name": "Chintal Gandhi",
     "role": "Bowler",
     "country": "India",
-    "basePrice": 0.3
+    "basePrice": 0.3,
+    "setCode": "USP3",
+    "setLabel": "Uncapped Spinners",
+    "capped": false,
+    "isOverseas": false,
+    "previousTeam": null
   },
   {
     "name": "Raghav Goyal",
     "role": "Bowler",
     "country": "India",
-    "basePrice": 0.3
+    "basePrice": 0.3,
+    "setCode": "USP3",
+    "setLabel": "Uncapped Spinners",
+    "capped": false,
+    "isOverseas": false,
+    "previousTeam": "Mumbai Indians"
   },
   {
     "name": "Jagadeesha Suchith",
     "role": "Bowler",
     "country": "India",
-    "basePrice": 0.3
+    "basePrice": 0.3,
+    "setCode": "USP3",
+    "setLabel": "Uncapped Spinners",
+    "capped": false,
+    "isOverseas": false,
+    "previousTeam": "Mumbai Indians"
   },
   {
     "name": "Roshan Waghsare",
     "role": "Bowler",
     "country": "India",
-    "basePrice": 0.3
+    "basePrice": 0.3,
+    "setCode": "USP3",
+    "setLabel": "Uncapped Spinners",
+    "capped": false,
+    "isOverseas": false,
+    "previousTeam": null
   },
   {
     "name": "Bailapudi Yeswanth",
     "role": "Bowler",
     "country": "India",
-    "basePrice": 0.3
+    "basePrice": 0.3,
+    "setCode": "USP3",
+    "setLabel": "Uncapped Spinners",
+    "capped": false,
+    "isOverseas": false,
+    "previousTeam": null
   },
   {
     "name": "Sediqullah Atal",
     "role": "Batsman",
     "country": "Afghanistan",
-    "basePrice": 0.75
+    "basePrice": 0.75,
+    "setCode": "BA4",
+    "setLabel": "Capped Batters",
+    "capped": true,
+    "isOverseas": true,
+    "previousTeam": null
   },
   {
     "name": "Matthew Breetzke",
     "role": "Batsman",
     "country": "South Africa",
-    "basePrice": 0.75
+    "basePrice": 0.75,
+    "setCode": "BA4",
+    "setLabel": "Capped Batters",
+    "capped": true,
+    "isOverseas": true,
+    "previousTeam": null
   },
   {
     "name": "Mark Chapman",
     "role": "Batsman",
     "country": "New Zealand",
-    "basePrice": 1.5
+    "basePrice": 1.5,
+    "setCode": "BA4",
+    "setLabel": "Capped Batters",
+    "capped": true,
+    "isOverseas": true,
+    "previousTeam": null
   },
   {
     "name": "Brandon King",
     "role": "Batsman",
     "country": "West Indies",
-    "basePrice": 0.75
+    "basePrice": 0.75,
+    "setCode": "BA4",
+    "setLabel": "Capped Batters",
+    "capped": true,
+    "isOverseas": true,
+    "previousTeam": null
   },
   {
     "name": "Evin Lewis",
     "role": "Batsman",
     "country": "West Indies",
-    "basePrice": 2
+    "basePrice": 2,
+    "setCode": "BA4",
+    "setLabel": "Capped Batters",
+    "capped": true,
+    "isOverseas": true,
+    "previousTeam": "Mumbai Indians"
   },
   {
     "name": "Pathum Nissanka",
     "role": "Batsman",
     "country": "Sri Lanka",
-    "basePrice": 0.75
+    "basePrice": 0.75,
+    "setCode": "BA4",
+    "setLabel": "Capped Batters",
+    "capped": true,
+    "isOverseas": true,
+    "previousTeam": null
   },
   {
     "name": "Bhanuka Rajapaksa",
     "role": "Batsman",
     "country": "Sri Lanka",
-    "basePrice": 0.75
+    "basePrice": 0.75,
+    "setCode": "BA4",
+    "setLabel": "Capped Batters",
+    "capped": true,
+    "isOverseas": true,
+    "previousTeam": "Punjab Kings"
   },
   {
     "name": "Steve Smith",
     "role": "Batsman",
     "country": "Australia",
-    "basePrice": 2
+    "basePrice": 2,
+    "setCode": "BA4",
+    "setLabel": "Capped Batters",
+    "capped": true,
+    "isOverseas": true,
+    "previousTeam": "Rajasthan Royals"
   },
   {
     "name": "Gus Atkinson",
     "role": "All-rounder",
     "country": "England",
-    "basePrice": 2
+    "basePrice": 2,
+    "setCode": "AL4",
+    "setLabel": "Capped All-rounders",
+    "capped": true,
+    "isOverseas": true,
+    "previousTeam": "Kolkata Knight Riders"
   },
   {
     "name": "Tom Curran",
     "role": "All-rounder",
     "country": "England",
-    "basePrice": 2
+    "basePrice": 2,
+    "setCode": "AL4",
+    "setLabel": "Capped All-rounders",
+    "capped": true,
+    "isOverseas": true,
+    "previousTeam": "Royal Challengers Bengaluru"
   },
   {
     "name": "Krishnappa Gowtham",
     "role": "All-rounder",
     "country": "India",
-    "basePrice": 1
+    "basePrice": 1,
+    "setCode": "AL4",
+    "setLabel": "Capped All-rounders",
+    "capped": true,
+    "isOverseas": false,
+    "previousTeam": "Lucknow Super Giants"
   },
   {
     "name": "Mohammad Nabi",
     "role": "All-rounder",
     "country": "Afghanistan",
-    "basePrice": 1.5
+    "basePrice": 1.5,
+    "setCode": "AL4",
+    "setLabel": "Capped All-rounders",
+    "capped": true,
+    "isOverseas": true,
+    "previousTeam": "Mumbai Indians"
   },
   {
     "name": "Gulbadin Naib",
     "role": "All-rounder",
     "country": "Afghanistan",
-    "basePrice": 1
+    "basePrice": 1,
+    "setCode": "AL4",
+    "setLabel": "Capped All-rounders",
+    "capped": true,
+    "isOverseas": true,
+    "previousTeam": "Delhi Capitals"
   },
   {
     "name": "Sikandar Raza",
     "role": "All-rounder",
     "country": "Zimbabwe",
-    "basePrice": 1.25
+    "basePrice": 1.25,
+    "setCode": "AL4",
+    "setLabel": "Capped All-rounders",
+    "capped": true,
+    "isOverseas": true,
+    "previousTeam": "Punjab Kings"
   },
   {
     "name": "Mitchell Santner",
     "role": "All-rounder",
     "country": "New Zealand",
-    "basePrice": 2
+    "basePrice": 2,
+    "setCode": "AL4",
+    "setLabel": "Capped All-rounders",
+    "capped": true,
+    "isOverseas": true,
+    "previousTeam": "Chennai Super Kings"
   },
   {
     "name": "Jayant Yadav",
     "role": "All-rounder",
     "country": "India",
-    "basePrice": 0.75
+    "basePrice": 0.75,
+    "setCode": "AL4",
+    "setLabel": "Capped All-rounders",
+    "capped": true,
+    "isOverseas": false,
+    "previousTeam": "Gujarat Titans"
   },
   {
     "name": "Johnson Charles",
     "role": "Wicket-keeper",
     "country": "West Indies",
-    "basePrice": 0.75
+    "basePrice": 0.75,
+    "setCode": "WK4",
+    "setLabel": "Capped Wicketkeepers",
+    "capped": true,
+    "isOverseas": true,
+    "previousTeam": null
   },
   {
     "name": "Litton Das",
     "role": "Wicket-keeper",
     "country": "Bangladesh",
-    "basePrice": 0.75
+    "basePrice": 0.75,
+    "setCode": "WK4",
+    "setLabel": "Capped Wicketkeepers",
+    "capped": true,
+    "isOverseas": true,
+    "previousTeam": "Kolkata Knight Riders"
   },
   {
     "name": "Andre Fletcher",
     "role": "Wicket-keeper",
     "country": "West Indies",
-    "basePrice": 0.75
+    "basePrice": 0.75,
+    "setCode": "WK4",
+    "setLabel": "Capped Wicketkeepers",
+    "capped": true,
+    "isOverseas": true,
+    "previousTeam": null
   },
   {
     "name": "Tom Latham",
     "role": "Wicket-keeper",
     "country": "New Zealand",
-    "basePrice": 1.5
+    "basePrice": 1.5,
+    "setCode": "WK4",
+    "setLabel": "Capped Wicketkeepers",
+    "capped": true,
+    "isOverseas": true,
+    "previousTeam": null
   },
   {
     "name": "Ollie Pope",
     "role": "Wicket-keeper",
     "country": "England",
-    "basePrice": 0.75
+    "basePrice": 0.75,
+    "setCode": "WK4",
+    "setLabel": "Capped Wicketkeepers",
+    "capped": true,
+    "isOverseas": true,
+    "previousTeam": null
   },
   {
     "name": "Kyle Verreynne",
     "role": "Wicket-keeper",
     "country": "South Africa",
-    "basePrice": 0.75
+    "basePrice": 0.75,
+    "setCode": "WK4",
+    "setLabel": "Capped Wicketkeepers",
+    "capped": true,
+    "isOverseas": true,
+    "previousTeam": null
   },
   {
     "name": "Fazalhaq Farooqi",
     "role": "Bowler",
     "country": "Afghanistan",
-    "basePrice": 2
+    "basePrice": 2,
+    "setCode": "FA4",
+    "setLabel": "Capped Fast Bowlers",
+    "capped": true,
+    "isOverseas": true,
+    "previousTeam": "Sunrisers Hyderabad"
   },
   {
     "name": "Richard Gleeson",
     "role": "Bowler",
     "country": "England",
-    "basePrice": 0.75
+    "basePrice": 0.75,
+    "setCode": "FA4",
+    "setLabel": "Capped Fast Bowlers",
+    "capped": true,
+    "isOverseas": true,
+    "previousTeam": "Chennai Super Kings"
   },
   {
     "name": "Matt Henry",
     "role": "Bowler",
     "country": "New Zealand",
-    "basePrice": 2
+    "basePrice": 2,
+    "setCode": "FA4",
+    "setLabel": "Capped Fast Bowlers",
+    "capped": true,
+    "isOverseas": true,
+    "previousTeam": "Lucknow Super Giants"
   },
   {
     "name": "Alzarri Joseph",
     "role": "Bowler",
     "country": "West Indies",
-    "basePrice": 2
+    "basePrice": 2,
+    "setCode": "FA4",
+    "setLabel": "Capped Fast Bowlers",
+    "capped": true,
+    "isOverseas": true,
+    "previousTeam": "Royal Challengers Bengaluru"
   },
   {
     "name": "Kwena Maphaka",
     "role": "Bowler",
     "country": "South Africa",
-    "basePrice": 0.75
+    "basePrice": 0.75,
+    "setCode": "FA4",
+    "setLabel": "Capped Fast Bowlers",
+    "capped": true,
+    "isOverseas": true,
+    "previousTeam": "Mumbai Indians"
   },
   {
     "name": "Kuldeep Sen",
     "role": "Bowler",
     "country": "India",
-    "basePrice": 0.75
+    "basePrice": 0.75,
+    "setCode": "FA4",
+    "setLabel": "Capped Fast Bowlers",
+    "capped": true,
+    "isOverseas": false,
+    "previousTeam": "Rajasthan Royals"
   },
   {
     "name": "Reece Topley",
     "role": "Bowler",
     "country": "England",
-    "basePrice": 0.75
+    "basePrice": 0.75,
+    "setCode": "FA4",
+    "setLabel": "Capped Fast Bowlers",
+    "capped": true,
+    "isOverseas": true,
+    "previousTeam": "Royal Challengers Bengaluru"
   },
   {
     "name": "Lizaad Williams",
     "role": "Bowler",
     "country": "South Africa",
-    "basePrice": 0.75
+    "basePrice": 0.75,
+    "setCode": "FA4",
+    "setLabel": "Capped Fast Bowlers",
+    "capped": true,
+    "isOverseas": true,
+    "previousTeam": "Delhi Capitals"
   },
   {
     "name": "Luke Wood",
     "role": "Bowler",
     "country": "England",
-    "basePrice": 0.75
+    "basePrice": 0.75,
+    "setCode": "FA4",
+    "setLabel": "Capped Fast Bowlers",
+    "capped": true,
+    "isOverseas": true,
+    "previousTeam": "Mumbai Indians"
   },
   {
     "name": "Sachin Dhas",
     "role": "Batsman",
     "country": "India",
-    "basePrice": 0.3
+    "basePrice": 0.3,
+    "setCode": "UBA4",
+    "setLabel": "Uncapped Batters",
+    "capped": false,
+    "isOverseas": false,
+    "previousTeam": null
   },
   {
     "name": "Leus Du Plooy",
     "role": "Batsman",
     "country": "England",
-    "basePrice": 0.5
+    "basePrice": 0.5,
+    "setCode": "UBA4",
+    "setLabel": "Uncapped Batters",
+    "capped": false,
+    "isOverseas": true,
+    "previousTeam": null
   },
   {
     "name": "Ashwin Hebbar",
     "role": "Batsman",
     "country": "India",
-    "basePrice": 0.3
+    "basePrice": 0.3,
+    "setCode": "UBA4",
+    "setLabel": "Uncapped Batters",
+    "capped": false,
+    "isOverseas": false,
+    "previousTeam": "Delhi Capitals"
   },
   {
     "name": "Rohan Kunnummal",
     "role": "Batsman",
     "country": "India",
-    "basePrice": 0.3
+    "basePrice": 0.3,
+    "setCode": "UBA4",
+    "setLabel": "Uncapped Batters",
+    "capped": false,
+    "isOverseas": false,
+    "previousTeam": null
   },
   {
     "name": "Ayush Pandey",
     "role": "Batsman",
     "country": "India",
-    "basePrice": 0.3
+    "basePrice": 0.3,
+    "setCode": "UBA4",
+    "setLabel": "Uncapped Batters",
+    "capped": false,
+    "isOverseas": false,
+    "previousTeam": null
   },
   {
     "name": "Akshat Raghuwanshi",
     "role": "Batsman",
     "country": "India",
-    "basePrice": 0.3
+    "basePrice": 0.3,
+    "setCode": "UBA4",
+    "setLabel": "Uncapped Batters",
+    "capped": false,
+    "isOverseas": false,
+    "previousTeam": null
   },
   {
     "name": "Shoun Roger",
     "role": "Batsman",
     "country": "India",
-    "basePrice": 0.4
+    "basePrice": 0.4,
+    "setCode": "UBA4",
+    "setLabel": "Uncapped Batters",
+    "capped": false,
+    "isOverseas": false,
+    "previousTeam": null
   },
   {
     "name": "Virat Singh",
     "role": "Batsman",
     "country": "India",
-    "basePrice": 0.3
+    "basePrice": 0.3,
+    "setCode": "UBA4",
+    "setLabel": "Uncapped Batters",
+    "capped": false,
+    "isOverseas": false,
+    "previousTeam": "Sunrisers Hyderabad"
   },
   {
     "name": "Priyansh Arya",
     "role": "All-rounder",
     "country": "India",
-    "basePrice": 0.3
+    "basePrice": 0.3,
+    "setCode": "UAL4",
+    "setLabel": "Uncapped All-rounders",
+    "capped": false,
+    "isOverseas": false,
+    "previousTeam": null
   },
   {
     "name": "Manoj Bhandage",
     "role": "All-rounder",
     "country": "India",
-    "basePrice": 0.3
+    "basePrice": 0.3,
+    "setCode": "UAL4",
+    "setLabel": "Uncapped All-rounders",
+    "capped": false,
+    "isOverseas": false,
+    "previousTeam": "Royal Challengers Bengaluru"
   },
   {
     "name": "Pravin Dubey",
     "role": "All-rounder",
     "country": "India",
-    "basePrice": 0.3
+    "basePrice": 0.3,
+    "setCode": "UAL4",
+    "setLabel": "Uncapped All-rounders",
+    "capped": false,
+    "isOverseas": false,
+    "previousTeam": "Delhi Capitals"
   },
   {
     "name": "Ajay Mandal",
     "role": "All-rounder",
     "country": "India",
-    "basePrice": 0.3
+    "basePrice": 0.3,
+    "setCode": "UAL4",
+    "setLabel": "Uncapped All-rounders",
+    "capped": false,
+    "isOverseas": false,
+    "previousTeam": "Chennai Super Kings"
   },
   {
     "name": "Prerak Mankad",
     "role": "All-rounder",
     "country": "India",
-    "basePrice": 0.3
+    "basePrice": 0.3,
+    "setCode": "UAL4",
+    "setLabel": "Uncapped All-rounders",
+    "capped": false,
+    "isOverseas": false,
+    "previousTeam": "Lucknow Super Giants"
   },
   {
     "name": "Vipraj Nigam",
     "role": "All-rounder",
     "country": "India",
-    "basePrice": 0.3
+    "basePrice": 0.3,
+    "setCode": "UAL4",
+    "setLabel": "Uncapped All-rounders",
+    "capped": false,
+    "isOverseas": false,
+    "previousTeam": null
   },
   {
     "name": "Vicky Ostwal",
     "role": "All-rounder",
     "country": "India",
-    "basePrice": 0.3
+    "basePrice": 0.3,
+    "setCode": "UAL4",
+    "setLabel": "Uncapped All-rounders",
+    "capped": false,
+    "isOverseas": false,
+    "previousTeam": "Delhi Capitals"
   },
   {
     "name": "Shivalik Sharma",
     "role": "All-rounder",
     "country": "India",
-    "basePrice": 0.3
+    "basePrice": 0.3,
+    "setCode": "UAL4",
+    "setLabel": "Uncapped All-rounders",
+    "capped": false,
+    "isOverseas": false,
+    "previousTeam": "Mumbai Indians"
   },
   {
     "name": "Salil Arora",
     "role": "Wicket-keeper",
     "country": "India",
-    "basePrice": 0.3
+    "basePrice": 0.3,
+    "setCode": "UWK4",
+    "setLabel": "Uncapped Wicketkeepers",
+    "capped": false,
+    "isOverseas": false,
+    "previousTeam": null
   },
   {
     "name": "Dinesh Bana",
     "role": "Wicket-keeper",
     "country": "India",
-    "basePrice": 0.3
+    "basePrice": 0.3,
+    "setCode": "UWK4",
+    "setLabel": "Uncapped Wicketkeepers",
+    "capped": false,
+    "isOverseas": false,
+    "previousTeam": null
   },
   {
     "name": "Ajitesh Guruswamy",
     "role": "Wicket-keeper",
     "country": "India",
-    "basePrice": 0.3
+    "basePrice": 0.3,
+    "setCode": "UWK4",
+    "setLabel": "Uncapped Wicketkeepers",
+    "capped": false,
+    "isOverseas": false,
+    "previousTeam": null
   },
   {
     "name": "Narayan Jagadeesan",
     "role": "Wicket-keeper",
     "country": "India",
-    "basePrice": 0.3
+    "basePrice": 0.3,
+    "setCode": "UWK4",
+    "setLabel": "Uncapped Wicketkeepers",
+    "capped": false,
+    "isOverseas": false,
+    "previousTeam": "Chennai Super Kings"
   },
   {
     "name": "Shrijith Krishnan",
     "role": "Wicket-keeper",
     "country": "India",
-    "basePrice": 0.3
+    "basePrice": 0.3,
+    "setCode": "UWK4",
+    "setLabel": "Uncapped Wicketkeepers",
+    "capped": false,
+    "isOverseas": false,
+    "previousTeam": null
   },
   {
     "name": "Michael Pepper",
     "role": "Wicket-keeper",
     "country": "England",
-    "basePrice": 0.5
+    "basePrice": 0.5,
+    "setCode": "UWK4",
+    "setLabel": "Uncapped Wicketkeepers",
+    "capped": false,
+    "isOverseas": true,
+    "previousTeam": null
   },
   {
     "name": "Vishnu Solanki",
     "role": "Wicket-keeper",
     "country": "India",
-    "basePrice": 0.3
+    "basePrice": 0.3,
+    "setCode": "UWK4",
+    "setLabel": "Uncapped Wicketkeepers",
+    "capped": false,
+    "isOverseas": false,
+    "previousTeam": null
   },
   {
     "name": "K.M Asif",
     "role": "Bowler",
     "country": "India",
-    "basePrice": 0.3
+    "basePrice": 0.3,
+    "setCode": "UFA4",
+    "setLabel": "Uncapped Fast Bowlers",
+    "capped": false,
+    "isOverseas": false,
+    "previousTeam": "Chennai Super Kings"
   },
   {
     "name": "Akhil Chaudhary",
     "role": "Bowler",
     "country": "India",
-    "basePrice": 0.3
+    "basePrice": 0.3,
+    "setCode": "UFA4",
+    "setLabel": "Uncapped Fast Bowlers",
+    "capped": false,
+    "isOverseas": false,
+    "previousTeam": null
   },
   {
     "name": "Himanshu Chauhan",
     "role": "Bowler",
     "country": "India",
-    "basePrice": 0.3
+    "basePrice": 0.3,
+    "setCode": "UFA4",
+    "setLabel": "Uncapped Fast Bowlers",
+    "capped": false,
+    "isOverseas": false,
+    "previousTeam": null
   },
   {
     "name": "Arpit Guleria",
     "role": "Bowler",
     "country": "India",
-    "basePrice": 0.3
+    "basePrice": 0.3,
+    "setCode": "UFA4",
+    "setLabel": "Uncapped Fast Bowlers",
+    "capped": false,
+    "isOverseas": false,
+    "previousTeam": "Lucknow Super Giants"
   },
   {
     "name": "Nishanth Saranu",
     "role": "Bowler",
     "country": "India",
-    "basePrice": 0.3
+    "basePrice": 0.3,
+    "setCode": "UFA4",
+    "setLabel": "Uncapped Fast Bowlers",
+    "capped": false,
+    "isOverseas": false,
+    "previousTeam": null
   },
   {
     "name": "Kuldip Yadav",
     "role": "Bowler",
     "country": "India",
-    "basePrice": 0.3
+    "basePrice": 0.3,
+    "setCode": "UFA4",
+    "setLabel": "Uncapped Fast Bowlers",
+    "capped": false,
+    "isOverseas": false,
+    "previousTeam": "Rajasthan Royals"
   },
   {
     "name": "Prithviraj Yarra",
     "role": "Bowler",
     "country": "India",
-    "basePrice": 0.3
+    "basePrice": 0.3,
+    "setCode": "UFA4",
+    "setLabel": "Uncapped Fast Bowlers",
+    "capped": false,
+    "isOverseas": false,
+    "previousTeam": "Kolkata Knight Riders"
   },
   {
     "name": "Shubham Agrawal",
     "role": "Bowler",
     "country": "India",
-    "basePrice": 0.3
+    "basePrice": 0.3,
+    "setCode": "USP4",
+    "setLabel": "Uncapped Spinners",
+    "capped": false,
+    "isOverseas": false,
+    "previousTeam": null
   },
   {
     "name": "Jass Inder Baidwan",
     "role": "Bowler",
     "country": "India",
-    "basePrice": 0.3
+    "basePrice": 0.3,
+    "setCode": "USP4",
+    "setLabel": "Uncapped Spinners",
+    "capped": false,
+    "isOverseas": false,
+    "previousTeam": null
   },
   {
     "name": "Jasmer Dhankhar",
     "role": "Bowler",
     "country": "India",
-    "basePrice": 0.3
+    "basePrice": 0.3,
+    "setCode": "USP4",
+    "setLabel": "Uncapped Spinners",
+    "capped": false,
+    "isOverseas": false,
+    "previousTeam": null
   },
   {
     "name": "Pulkit Narang",
     "role": "Bowler",
     "country": "India",
-    "basePrice": 0.3
+    "basePrice": 0.3,
+    "setCode": "USP4",
+    "setLabel": "Uncapped Spinners",
+    "capped": false,
+    "isOverseas": false,
+    "previousTeam": null
   },
   {
     "name": "Saumy Pandey",
     "role": "Bowler",
     "country": "India",
-    "basePrice": 0.3
+    "basePrice": 0.3,
+    "setCode": "USP4",
+    "setLabel": "Uncapped Spinners",
+    "capped": false,
+    "isOverseas": false,
+    "previousTeam": null
   },
   {
     "name": "Mohit Rathee",
     "role": "Bowler",
     "country": "India",
-    "basePrice": 0.3
+    "basePrice": 0.3,
+    "setCode": "USP4",
+    "setLabel": "Uncapped Spinners",
+    "capped": false,
+    "isOverseas": false,
+    "previousTeam": "Punjab Kings"
   },
   {
     "name": "Himanshu Singh",
     "role": "Bowler",
     "country": "India",
-    "basePrice": 0.3
+    "basePrice": 0.3,
+    "setCode": "USP4",
+    "setLabel": "Uncapped Spinners",
+    "capped": false,
+    "isOverseas": false,
+    "previousTeam": null
   },
   {
     "name": "Towhid Hridoy",
     "role": "Batsman",
     "country": "Bangladesh",
-    "basePrice": 0.75
+    "basePrice": 0.75,
+    "setCode": "BA5",
+    "setLabel": "Capped Batters",
+    "capped": true,
+    "isOverseas": true,
+    "previousTeam": null
   },
   {
     "name": "Mikyle Louis",
     "role": "Batsman",
     "country": "West Indies",
-    "basePrice": 0.75
+    "basePrice": 0.75,
+    "setCode": "BA5",
+    "setLabel": "Capped Batters",
+    "capped": true,
+    "isOverseas": true,
+    "previousTeam": null
   },
   {
     "name": "Harry Tector",
     "role": "Batsman",
     "country": "Ireland",
-    "basePrice": 0.75
+    "basePrice": 0.75,
+    "setCode": "BA5",
+    "setLabel": "Capped Batters",
+    "capped": true,
+    "isOverseas": true,
+    "previousTeam": null
   }
 ]

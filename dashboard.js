@@ -13,6 +13,8 @@
     selectionGrid: document.getElementById("team-selection-grid"),
     selectionCopy: document.getElementById("selection-copy"),
     waitingMessage: document.getElementById("waiting-message"),
+    setSelect: document.getElementById("dashboard-set-select"),
+    setList: document.getElementById("dashboard-set-list"),
     liveView: document.getElementById("dashboard-live-view"),
     breakPanel: document.getElementById("dashboard-break-panel"),
     breakTitle: document.getElementById("dashboard-break-title"),
@@ -34,6 +36,12 @@
     bidLog: document.getElementById("dashboard-bid-log"),
     roster: document.getElementById("dashboard-roster"),
     teamGrid: document.getElementById("dashboard-team-grid"),
+    liveSetHeading: document.getElementById("dashboard-live-set-heading"),
+    liveSetCopy: document.getElementById("dashboard-live-set-copy"),
+    liveSetPill: document.getElementById("dashboard-live-set-pill"),
+    liveSetList: document.getElementById("dashboard-live-set-list"),
+    upcomingSets: document.getElementById("dashboard-upcoming-sets"),
+    checklist: document.getElementById("dashboard-checklist"),
     soldOverlay: document.getElementById("dashboard-sold-overlay"),
     soldOverlayTitle: document.getElementById("dashboard-sold-overlay-title"),
     soldOverlayCopy: document.getElementById("dashboard-sold-overlay-copy"),
@@ -51,6 +59,7 @@
   let selectedTeam = null;
   let previousLastBidder = null;
   let overlayTimeout = null;
+  let activeSetCode = null;
   const TEAM_COLORS = ["#38bdf8", "#f59e0b", "#10b981", "#f472b6", "#a78bfa", "#fb7185", "#22c55e", "#f97316", "#14b8a6", "#eab308"];
 
   if (spectatorMode) {
@@ -141,6 +150,22 @@
     return state && selectedTeam ? state.teams.find((team) => team.name === selectedTeam) : null;
   }
 
+  function getChecklistKey() {
+    return `auction_checklist_${selectedTeam || (spectatorMode ? "spectator" : "guest")}`;
+  }
+
+  function loadChecklist() {
+    try {
+      return JSON.parse(localStorage.getItem(getChecklistKey()) || "[]");
+    } catch {
+      return [];
+    }
+  }
+
+  function saveChecklist(list) {
+    localStorage.setItem(getChecklistKey(), JSON.stringify(list));
+  }
+
   function renderSelection() {
     if (spectatorMode) {
       ui.selectionGrid.innerHTML = '<div class="selection-card"><strong>Spectator mode enabled</strong><p class="muted">Live data and chat are available below. Bidding is disabled.</p></div>';
@@ -163,7 +188,184 @@
         socket.emit("join-auction", { role: "participant", teamName: selectedTeam, spectator: false });
         ui.waitingMessage.classList.remove("hidden");
         ui.waitingMessage.textContent = `Joined ${selectedTeam}. Waiting for auction to start...`;
+        renderChecklist();
       });
+    });
+  }
+
+  function renderSetOptions() {
+    const sets = Object.values(state?.playerSets || {});
+    if (!sets.length) return;
+    if (!activeSetCode || !sets.some((set) => set.setCode === activeSetCode)) {
+      activeSetCode = sets[0].setCode;
+    }
+    const options = sets.map((set) => `<option value="${set.setCode}">${set.setCode} • ${set.setLabel}</option>`).join("");
+    ui.setSelect.innerHTML = options;
+    ui.setSelect.value = activeSetCode;
+  }
+
+  function toggleChecklistPlayer(playerName) {
+    const checklist = loadChecklist();
+    const next = checklist.includes(playerName)
+      ? checklist.filter((entry) => entry !== playerName)
+      : [...checklist, playerName];
+    saveChecklist(next);
+    renderChecklist();
+    renderPlanningLists();
+    renderLiveAuctionSets();
+  }
+
+  function renderPlanningList(container, setCode) {
+    const set = (state?.playerSets || {})[setCode];
+    if (!set) {
+      container.innerHTML = '<div class="planning-item">No set data available yet.</div>';
+      return;
+    }
+    const checklist = loadChecklist();
+    container.innerHTML = set.players.map((player) => `
+      <article class="planning-item">
+        <div class="planning-item-head">
+          <div>
+            <strong>${player.name}</strong>
+            <div class="muted">${player.role} • ${player.country}</div>
+          </div>
+          <span class="mini-pill">${player.status}</span>
+        </div>
+        <div class="planning-item-actions">
+          <span class="mini-pill">${player.capped ? "Capped" : "Uncapped"}</span>
+          <span class="mini-pill">${player.isOverseas ? "Overseas" : "Indian"}</span>
+          <span class="mini-pill">${formatMoney(player.basePrice)}</span>
+          <button class="btn btn-ghost" type="button" data-check-player="${player.name}">
+            ${checklist.includes(player.name) ? "Remove from checklist" : "Add to checklist"}
+          </button>
+        </div>
+      </article>
+    `).join("");
+    container.querySelectorAll("[data-check-player]").forEach((button) => {
+      button.addEventListener("click", () => toggleChecklistPlayer(button.dataset.checkPlayer));
+    });
+  }
+
+  function renderPlanningLists() {
+    renderSetOptions();
+    renderPlanningList(ui.setList, activeSetCode);
+  }
+
+  function getAuctionSetPlayerStatus(player) {
+    if (player.isCurrent) {
+      return "Now bidding";
+    }
+    if (player.status === "sold") {
+      return player.soldTo ? `Sold to ${player.soldTo}` : "Sold";
+    }
+    if (player.status === "unsold") {
+      return "Unsold";
+    }
+    return "Upcoming";
+  }
+
+  function renderAuctionSetList(container, auctionSet) {
+    if (!auctionSet) {
+      container.innerHTML = '<div class="planning-item">No live set is active right now.</div>';
+      return;
+    }
+
+    const checklist = loadChecklist();
+    container.innerHTML = auctionSet.players.map((player) => `
+      <article class="planning-item ${player.isCurrent ? "planning-item-current" : ""}">
+        <div class="planning-item-head">
+          <div>
+            <strong>${player.name}</strong>
+            <div class="muted">${player.role} - ${player.country}</div>
+          </div>
+          <span class="mini-pill">${getAuctionSetPlayerStatus(player)}</span>
+        </div>
+        <div class="planning-item-actions">
+          <span class="mini-pill">${player.capped ? "Capped" : "Uncapped"}</span>
+          <span class="mini-pill">${player.isOverseas ? "Overseas" : "Indian"}</span>
+          <span class="mini-pill">${formatMoney(player.basePrice)}</span>
+          <button class="btn btn-ghost" type="button" data-check-player="${player.name}">
+            ${checklist.includes(player.name) ? "Remove from checklist" : "Add to checklist"}
+          </button>
+        </div>
+      </article>
+    `).join("");
+
+    container.querySelectorAll("[data-check-player]").forEach((button) => {
+      button.addEventListener("click", () => toggleChecklistPlayer(button.dataset.checkPlayer));
+    });
+  }
+
+  function renderUpcomingSets() {
+    const upcomingSets = state?.upcomingAuctionSets || [];
+    if (!upcomingSets.length) {
+      ui.upcomingSets.innerHTML = '<div class="planning-item">No more future sets in this round.</div>';
+      return;
+    }
+
+    const checklist = loadChecklist();
+    ui.upcomingSets.innerHTML = upcomingSets.map((set) => `
+      <article class="planning-set-card">
+        <div class="planning-item-head">
+          <div>
+            <strong>${set.setCode} - ${set.setLabel}</strong>
+            <div class="muted">${set.pendingCount} players waiting in this set</div>
+          </div>
+          <span class="mini-pill">Set ${set.position}/${set.totalSets}</span>
+        </div>
+        <div class="planning-set-players">
+          ${set.players.map((player) => `
+            <div class="planning-set-player">
+              <div>
+                <strong>${player.name}</strong>
+                <div class="muted">${player.role} - ${player.country}</div>
+              </div>
+              <button class="btn btn-ghost" type="button" data-check-player="${player.name}">
+                ${checklist.includes(player.name) ? "Watching" : "Watch"}
+              </button>
+            </div>
+          `).join("")}
+        </div>
+      </article>
+    `).join("");
+
+    ui.upcomingSets.querySelectorAll("[data-check-player]").forEach((button) => {
+      button.addEventListener("click", () => toggleChecklistPlayer(button.dataset.checkPlayer));
+    });
+  }
+
+  function renderLiveAuctionSets() {
+    const activeSet = state?.activeAuctionSet;
+    if (!activeSet) {
+      ui.liveSetHeading.textContent = "Waiting for the auction to start";
+      ui.liveSetCopy.textContent = "The current set and next sets will appear here once bidding begins.";
+      ui.liveSetPill.textContent = "No active set";
+      renderAuctionSetList(ui.liveSetList, null);
+      renderUpcomingSets();
+      return;
+    }
+
+    ui.liveSetHeading.textContent = `${activeSet.setCode} - ${activeSet.setLabel}`;
+    ui.liveSetCopy.textContent = `${activeSet.pendingCount} players still to come in this set. Use this board to plan the current stretch and the sets coming up next.`;
+    ui.liveSetPill.textContent = `Set ${activeSet.position}/${activeSet.totalSets}`;
+    renderAuctionSetList(ui.liveSetList, activeSet);
+    renderUpcomingSets();
+  }
+
+  function renderChecklist() {
+    const checklist = loadChecklist();
+    ui.checklist.innerHTML = checklist.length
+      ? checklist.map((name) => `
+        <article class="planning-item">
+          <div class="planning-item-head">
+            <strong>${name}</strong>
+            <button class="btn btn-ghost" type="button" data-remove-check="${name}">Remove</button>
+          </div>
+        </article>
+      `).join("")
+      : '<div class="planning-item">Your planning checklist is empty.</div>';
+    ui.checklist.querySelectorAll("[data-remove-check]").forEach((button) => {
+      button.addEventListener("click", () => toggleChecklistPlayer(button.dataset.removeCheck));
     });
   }
 
@@ -202,7 +404,7 @@
       return `
         <article class="team-card team-accent ${highlight ? "highlight" : ""}" style="--team-accent:${teamColor}">
           <strong class="team-name-chip">${team.name}</strong>
-          <div class="muted">${team.playersCount} players</div>
+          <div class="muted">${team.playersCount} players • ${team.overseasCount} overseas</div>
           <div class="team-balance">${formatMoney(team.balance)}</div>
           <div class="budget-bar"><span style="width:${Math.min(100, spentPct)}%;background:${budgetColor(team.balance, team.initialBalance)}"></span></div>
         </article>
@@ -329,11 +531,11 @@
     if (!state) return;
     const myTeam = getMyTeam();
     const currentPlayer = state.currentPlayer;
-    const canBid = !spectatorMode && myTeam && state.status === "running" && !state.currentPlayerClosed && state.lastBidder !== myTeam.name && myTeam.balance >= state.nextBidAmount;
+    const canBid = !spectatorMode && myTeam && state.status === "running" && !state.currentPlayerClosed && state.lastBidder !== myTeam.name && myTeam.balance >= state.nextBidAmount && myTeam.canBuyCurrentPlayer;
 
     setStatusPill(state.status, state.status);
     renderTimerOnly();
-    ui.roundBadge.textContent = `Round ${state.round}`;
+    ui.roundBadge.textContent = state.activeAuctionSet ? `Round ${state.round} - ${state.activeAuctionSet.setCode}` : `Round ${state.round}`;
     ui.progress.textContent = `${state.progress.current} / ${state.progress.total}`;
     ui.segmentProgress.textContent = `${(state.progress.segmentProgress || 0) + 1} / ${state.progress.segmentSize || 15}`;
     ui.modeLabel.textContent = state.status === "break" ? "Segment Break" : state.status;
@@ -341,14 +543,16 @@
     ui.affordability.textContent = spectatorMode
       ? "Spectators can follow the action and chat live."
       : myTeam
-        ? `You can bid up to ${formatMoney(myTeam.balance)} right now.`
+        ? myTeam.canBuyCurrentPlayer
+          ? `You can bid up to ${formatMoney(myTeam.balance)} right now. Squad: ${myTeam.squadCount}/25, Overseas: ${myTeam.overseasCount}/8.`
+          : `This player would break your squad rules. Squad: ${myTeam.squadCount}/25, Overseas: ${myTeam.overseasCount}/8.`
         : "Select a team to see affordability.";
     ui.lastBidder.textContent = state.lastBidder || "No bids yet";
     ui.liveStatus.textContent = state.status === "break" ? "Segment break in progress" : state.status === "running" ? "Bidding is live" : state.status === "paused" ? "Auction paused" : state.status === "waiting" ? "Waiting for admin" : "Auction completed";
 
     if (currentPlayer) {
       ui.playerName.textContent = currentPlayer.name;
-      ui.playerMeta.textContent = `${currentPlayer.role} - ${currentPlayer.country}`;
+      ui.playerMeta.textContent = `${currentPlayer.role} - ${currentPlayer.country} - ${currentPlayer.setLabel}`;
       ui.currentPrice.textContent = `${state.currentBid === null ? "Base" : "Current"} ${formatMoney(state.currentBid === null ? state.openingBid : state.currentBid)}`;
     } else {
       ui.playerName.textContent = state.status === "ended" ? "Auction completed" : "Waiting for player";
@@ -366,7 +570,7 @@
       ui.chatSend.disabled = false;
     } else {
       ui.bidControls.classList.remove("hidden");
-      ui.placeBidBtn.textContent = canBid ? `Place Bid (${formatMoney(state.nextBidAmount)})` : myTeam && state.nextBidAmount && myTeam.balance < state.nextBidAmount ? "Insufficient Balance" : "Place Bid";
+      ui.placeBidBtn.textContent = canBid ? `Place Bid (${formatMoney(state.nextBidAmount)})` : myTeam && !myTeam.canBuyCurrentPlayer ? "Squad Limit Reached" : myTeam && state.nextBidAmount && myTeam.balance < state.nextBidAmount ? "Insufficient Balance" : "Place Bid";
       ui.chatSend.disabled = !selectedTeam;
       ui.chatInput.placeholder = selectedTeam ? "Chat with the admin, teams, and spectators" : "Select a team before chatting";
     }
@@ -375,6 +579,9 @@
     renderBidLog();
     renderRoster();
     renderTeams();
+    renderPlanningLists();
+    renderLiveAuctionSets();
+    renderChecklist();
     renderChat();
     renderBreakPanel();
     renderCompletion();
@@ -387,6 +594,10 @@
   });
   ui.exportJsonBtn.addEventListener("click", exportJson);
   ui.exportCsvBtn.addEventListener("click", exportCsv);
+  ui.setSelect.addEventListener("change", (event) => {
+    activeSetCode = event.target.value;
+    renderPlanningLists();
+  });
   ui.chatForm.addEventListener("submit", (event) => {
     event.preventDefault();
     const message = ui.chatInput.value.trim();

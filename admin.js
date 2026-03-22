@@ -42,6 +42,15 @@
     overrideTeamSelect: document.getElementById("override-team-select"),
     overrideAmountInput: document.getElementById("override-amount-input"),
     overrideApplyBtn: document.getElementById("override-apply-btn"),
+    retentionPlayerSelect: document.getElementById("retention-player-select"),
+    retentionTeamSelect: document.getElementById("retention-team-select"),
+    retentionPriceInput: document.getElementById("retention-price-input"),
+    retentionApplyBtn: document.getElementById("retention-apply-btn"),
+    rtmPanel: document.getElementById("admin-rtm-panel"),
+    rtmTitle: document.getElementById("admin-rtm-title"),
+    rtmCopy: document.getElementById("admin-rtm-copy"),
+    rtmUseBtn: document.getElementById("admin-rtm-use-btn"),
+    rtmDeclineBtn: document.getElementById("admin-rtm-decline-btn"),
     completionPanel: document.getElementById("admin-completion"),
     resultsGrid: document.getElementById("admin-results-grid"),
     exportJsonBtn: document.getElementById("admin-export-json"),
@@ -155,7 +164,7 @@
           <div class="team-card-head">
             <div>
               <strong class="team-name-chip">${team.name}</strong>
-              <div class="muted">${team.playersCount} players acquired</div>
+              <div class="muted">${team.playersCount} players • ${team.overseasCount} overseas</div>
             </div>
             ${isHighest ? '<span class="pill-note">Highest bidder</span>' : ""}
           </div>
@@ -280,7 +289,17 @@
     ui.extend15Btn.disabled = state.status !== "running";
     ui.extend30Btn.disabled = state.status !== "running";
     ui.overrideApplyBtn.disabled = !state.currentPlayer || state.currentPlayerClosed || state.status !== "running";
+    ui.retentionApplyBtn.disabled = state.status !== "waiting";
     ui.overrideTeamSelect.innerHTML = state.teams.map((team) => `<option value="${team.name}">${team.name}</option>`).join("");
+    ui.retentionTeamSelect.innerHTML = state.teams.map((team) => `<option value="${team.name}">${team.name}</option>`).join("");
+    ui.retentionPlayerSelect.innerHTML = Object.values(state.playerSets || {})
+      .flatMap((set) => set.players.filter((player) => player.status === "upcoming"))
+      .map((player) => `<option value="${player.name}">${player.name} • ${player.setCode}</option>`).join("");
+    ui.rtmPanel.classList.toggle("hidden", !state.pendingRTM);
+    if (state.pendingRTM) {
+      ui.rtmTitle.textContent = `RTM available for ${state.pendingRTM.originalTeam}`;
+      ui.rtmCopy.textContent = `${state.pendingRTM.playerName} was sold to ${state.pendingRTM.soldTo} for ${formatMoney(state.pendingRTM.finalPrice)}. ${state.pendingRTM.originalTeam} can match this bid.`;
+    }
 
     renderParticipants();
     renderBidLog();
@@ -316,6 +335,19 @@
       ui.overrideAmountInput.value = "";
     }
   });
+  ui.retentionApplyBtn.addEventListener("click", () => {
+    const playerName = ui.retentionPlayerSelect.value;
+    const teamName = ui.retentionTeamSelect.value;
+    const price = Number(ui.retentionPriceInput.value);
+    if (!playerName || !teamName || !Number.isFinite(price)) {
+      window.alert("Choose a player, team, and retention price.");
+      return;
+    }
+    socket.emit("admin-retain-player", { playerName, teamName, price });
+    ui.retentionPriceInput.value = "";
+  });
+  ui.rtmUseBtn.addEventListener("click", () => socket.emit("admin-resolve-rtm", { useRTM: true }));
+  ui.rtmDeclineBtn.addEventListener("click", () => socket.emit("admin-resolve-rtm", { useRTM: false }));
   ui.exportJsonBtn.addEventListener("click", exportJson);
   ui.exportCsvBtn.addEventListener("click", exportCsv);
   ui.chatForm.addEventListener("submit", (event) => {

@@ -42,6 +42,16 @@
       <p id="selection-copy" class="muted">Pick an available team to join the live auction.</p>
       <div id="team-selection-grid" class="selection-grid"></div>
       <div id="waiting-message" class="banner banner-neutral hidden">Waiting for auction to start...</div>
+      <div class="section-head planner-head">
+        <div>
+          <div class="eyebrow">Pre-Auction Board</div>
+          <h3>Player Sets And Planning</h3>
+        </div>
+      </div>
+      <div class="planner-toolbar">
+        <select id="dashboard-set-select" class="input"></select>
+      </div>
+      <div id="dashboard-set-list" class="planning-list"></div>
     </section>
 
     <section id="dashboard-live-view" class="hidden">
@@ -139,6 +149,43 @@
             </div>
           </div>
           <div id="dashboard-team-grid" class="team-grid compact-team-grid"></div>
+        </article>
+      </section>
+
+      <section class="grid-two">
+        <article class="panel">
+          <div class="section-head">
+            <div>
+              <div class="eyebrow">Set Planner</div>
+              <h3>Current And Future Sets</h3>
+            </div>
+          </div>
+          <div class="planner-summary">
+            <div>
+              <div class="eyebrow">Active Set</div>
+              <h4 id="dashboard-live-set-heading">Waiting for the auction to start</h4>
+              <p id="dashboard-live-set-copy" class="muted">The current set and next sets will appear here once bidding begins.</p>
+            </div>
+            <div id="dashboard-live-set-pill" class="pill-note">No active set</div>
+          </div>
+          <div id="dashboard-live-set-list" class="planning-list"></div>
+          <div class="section-head">
+            <div>
+              <div class="eyebrow">Next Up</div>
+              <h4>Upcoming Sets</h4>
+            </div>
+          </div>
+          <div id="dashboard-upcoming-sets" class="upcoming-set-stack"></div>
+        </article>
+
+        <article class="panel">
+          <div class="section-head">
+            <div>
+              <div class="eyebrow">My Checklist</div>
+              <h3>Players To Watch</h3>
+            </div>
+          </div>
+          <div id="dashboard-checklist" class="planning-list"></div>
         </article>
       </section>
 

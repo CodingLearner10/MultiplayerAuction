@@ -166,6 +166,94 @@ select.input {
   border-color: rgba(148, 163, 184, 0.2);
 }
 
+.planner-head {
+  margin-top: 22px;
+}
+
+.planner-toolbar {
+  margin-top: 14px;
+}
+
+.planner-summary {
+  margin-top: 10px;
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  align-items: flex-start;
+}
+
+.planning-list {
+  margin-top: 16px;
+  display: grid;
+  gap: 10px;
+  max-height: 420px;
+  overflow-y: auto;
+}
+
+.planning-item {
+  padding: 14px;
+  border-radius: 16px;
+  background: rgba(15, 23, 42, 0.42);
+  border: 1px solid rgba(148, 163, 184, 0.12);
+}
+
+.planning-item-current {
+  border-color: rgba(245, 158, 11, 0.42);
+  box-shadow: 0 0 0 1px rgba(245, 158, 11, 0.18);
+  background: linear-gradient(180deg, rgba(245, 158, 11, 0.16), rgba(15, 23, 42, 0.52));
+}
+
+.planning-item-head {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  align-items: center;
+}
+
+.planning-item-actions {
+  margin-top: 10px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.mini-pill {
+  display: inline-flex;
+  border-radius: 999px;
+  padding: 4px 8px;
+  background: rgba(59, 130, 246, 0.14);
+  color: #bfdbfe;
+  font-size: 0.76rem;
+}
+
+.upcoming-set-stack {
+  margin-top: 16px;
+  display: grid;
+  gap: 12px;
+}
+
+.planning-set-card {
+  padding: 14px;
+  border-radius: 18px;
+  background: rgba(15, 23, 42, 0.48);
+  border: 1px solid rgba(148, 163, 184, 0.12);
+}
+
+.planning-set-players {
+  margin-top: 12px;
+  display: grid;
+  gap: 8px;
+}
+
+.planning-set-player {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 10px 12px;
+  border-radius: 12px;
+  background: rgba(2, 8, 23, 0.3);
+}
+
 .topbar,
 .section-head,
 .price-strip,
