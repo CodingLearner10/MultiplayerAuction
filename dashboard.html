@@ -55,6 +55,17 @@
     </section>
 
     <section id="dashboard-live-view" class="hidden">
+      <section id="watch-alert-panel" class="panel watch-alert hidden">
+        <div class="section-head">
+          <div>
+            <div class="eyebrow">Watchlist Alert</div>
+            <h2 id="watch-alert-title">Player alert</h2>
+          </div>
+          <div id="watch-alert-stage" class="status-pill warning">Up Next</div>
+        </div>
+        <p id="watch-alert-copy" class="muted"></p>
+      </section>
+
       <section id="dashboard-break-panel" class="panel break-panel hidden">
         <div class="section-head">
           <div>
@@ -122,11 +133,11 @@
         <article class="panel">
           <div class="section-head">
             <div>
-              <div class="eyebrow">Bid History</div>
-              <h3>Live Activity</h3>
+              <div class="eyebrow">Official Profile</div>
+              <h3>Current Player Snapshot</h3>
             </div>
           </div>
-          <ul id="dashboard-bid-log" class="log-list"></ul>
+          <div id="dashboard-player-profile" class="profile-card-shell"></div>
         </article>
       </section>
 

@@ -60,21 +60,6 @@
       </div>
     </section>
 
-    <section id="admin-rtm-panel" class="panel hidden">
-      <div class="section-head">
-        <div>
-          <div class="eyebrow">Right To Match</div>
-          <h2 id="admin-rtm-title">RTM decision pending</h2>
-        </div>
-        <div class="status-pill break">Action Needed</div>
-      </div>
-      <p id="admin-rtm-copy" class="muted"></p>
-      <div class="break-actions">
-        <button id="admin-rtm-use-btn" class="btn btn-success">Use RTM</button>
-        <button id="admin-rtm-decline-btn" class="btn btn-ghost">Decline RTM</button>
-      </div>
-    </section>
-
     <section id="admin-break-panel" class="panel break-panel hidden">
       <div class="section-head">
         <div>
@@ -144,12 +129,12 @@
       <aside class="panel sidebar-panel">
         <div class="section-head">
           <div>
-            <div class="eyebrow">Connections</div>
-            <h3>Participants And Status</h3>
+            <div class="eyebrow">Official Profile</div>
+            <h3>Current Player Snapshot</h3>
           </div>
         </div>
         <div id="admin-status-copy" class="muted">Waiting for live state...</div>
-        <ul id="admin-participants-list" class="participant-list"></ul>
+        <div id="admin-player-profile" class="profile-card-shell"></div>
       </aside>
 
       <article class="panel teams-panel">

@@ -17,7 +17,7 @@
     participantCount: document.getElementById("admin-participant-count"),
     statusCopy: document.getElementById("admin-status-copy"),
     bidLog: document.getElementById("admin-bid-log"),
-    participantsList: document.getElementById("admin-participants-list"),
+    playerProfile: document.getElementById("admin-player-profile"),
     teamGrid: document.getElementById("admin-team-grid"),
     soldOverlay: document.getElementById("admin-sold-overlay"),
     soldOverlayTitle: document.getElementById("admin-sold-overlay-title"),
@@ -46,11 +46,6 @@
     retentionTeamSelect: document.getElementById("retention-team-select"),
     retentionPriceInput: document.getElementById("retention-price-input"),
     retentionApplyBtn: document.getElementById("retention-apply-btn"),
-    rtmPanel: document.getElementById("admin-rtm-panel"),
-    rtmTitle: document.getElementById("admin-rtm-title"),
-    rtmCopy: document.getElementById("admin-rtm-copy"),
-    rtmUseBtn: document.getElementById("admin-rtm-use-btn"),
-    rtmDeclineBtn: document.getElementById("admin-rtm-decline-btn"),
     completionPanel: document.getElementById("admin-completion"),
     resultsGrid: document.getElementById("admin-results-grid"),
     exportJsonBtn: document.getElementById("admin-export-json"),
@@ -67,6 +62,71 @@
 
   function formatMoney(value) {
     return `Rs ${roundCurrency(value)} Cr`;
+  }
+
+  function formatRatings(ratings) {
+    if (!ratings) {
+      return "";
+    }
+    return `BAT ${ratings.batting}/10 | FLD ${ratings.fielding}/10 | BWL ${ratings.bowling}/10`;
+  }
+
+  function renderPlayerProfile() {
+    const currentPlayer = state?.currentPlayer;
+    if (!currentPlayer) {
+      ui.playerProfile.innerHTML = '<div class="planning-item">Current player profile will appear here once the auction starts.</div>';
+      return;
+    }
+
+    const stats = currentPlayer.officialStats || {};
+    const batting = stats.batting || {};
+    const bowling = stats.bowling || {};
+    const fielding = stats.fielding || {};
+    const profileLink = currentPlayer.iplProfileUrl ? `<a class="btn btn-ghost" href="${currentPlayer.iplProfileUrl}" target="_blank" rel="noreferrer">Official IPL Profile</a>` : "";
+
+    ui.playerProfile.innerHTML = `
+      <article class="profile-card">
+        <div class="planning-item-head">
+          <div>
+            <strong>${currentPlayer.name}</strong>
+            <div class="muted">${currentPlayer.role} | ${currentPlayer.country}</div>
+          </div>
+          <span class="mini-pill">${currentPlayer.setLabel}</span>
+        </div>
+        <div class="planning-item-actions">
+          <span class="mini-pill">BAT ${currentPlayer.ratings?.batting ?? "-"}/10</span>
+          <span class="mini-pill">FLD ${currentPlayer.ratings?.fielding ?? "-"}/10</span>
+          <span class="mini-pill">BWL ${currentPlayer.ratings?.bowling ?? "-"}/10</span>
+        </div>
+        <div class="profile-stat-grid">
+          <div class="profile-stat-block">
+            <span class="label">Career Matches</span>
+            <strong>${stats.matches ?? 0}</strong>
+          </div>
+          <div class="profile-stat-block">
+            <span class="label">Runs</span>
+            <strong>${batting.runs ?? 0}</strong>
+          </div>
+          <div class="profile-stat-block">
+            <span class="label">Bat Avg / SR</span>
+            <strong>${batting.average ?? 0} / ${batting.strikeRate ?? 0}</strong>
+          </div>
+          <div class="profile-stat-block">
+            <span class="label">Wickets</span>
+            <strong>${bowling.wickets ?? 0}</strong>
+          </div>
+          <div class="profile-stat-block">
+            <span class="label">Bowl Avg / Econ</span>
+            <strong>${bowling.average ?? 0} / ${bowling.economy ?? 0}</strong>
+          </div>
+          <div class="profile-stat-block">
+            <span class="label">Catches / Stumpings</span>
+            <strong>${fielding.catches ?? 0} / ${fielding.stumpings ?? 0}</strong>
+          </div>
+        </div>
+        ${profileLink ? `<div class="profile-link-row">${profileLink}</div>` : ""}
+      </article>
+    `;
   }
 
   function budgetColor(balance, initialBalance) {
@@ -140,13 +200,6 @@
     ui.connectionStatus.textContent = text;
   }
 
-  function renderParticipants() {
-    const participants = state.connectedParticipants || [];
-    ui.participantsList.innerHTML = participants.length
-      ? participants.map((participant) => `<li>${participant.role === "admin" ? "Admin" : participant.spectator ? "Spectator" : participant.teamName || "Participant"}</li>`).join("")
-      : "<li>No participants connected.</li>";
-  }
-
   function renderBidLog() {
     const items = (state.currentPlayerBids || []).slice(-5).reverse();
     ui.bidLog.innerHTML = items.length
@@ -164,6 +217,7 @@
           <div class="team-card-head">
             <div>
               <strong class="team-name-chip">${team.name}</strong>
+              <div class="muted">${team.controller === "ai" ? "AI managed team" : team.controller === "human" ? "Participant controlled" : "Open team"}</div>
               <div class="muted">${team.playersCount} players • ${team.overseasCount} overseas</div>
             </div>
             ${isHighest ? '<span class="pill-note">Highest bidder</span>' : ""}
@@ -174,6 +228,7 @@
             <span class="muted">Initial ${formatMoney(team.initialBalance)}</span>
             <span class="muted">${spentPct.toFixed(0)}% spent</span>
           </div>
+          <div class="muted">${team.acquiredPlayers.length ? team.acquiredPlayers.map((player) => `${player.name} (${formatRatings(player.ratings)})`).join(", ") : "No players acquired yet."}</div>
         </article>
       `;
     }).join("");
@@ -264,7 +319,7 @@
     ui.segmentProgress.textContent = `${(state.progress.segmentProgress || 0) + 1} / ${state.progress.segmentSize || 15}`;
     ui.modeLabel.textContent = state.status === "break" ? "Segment Break" : state.status;
     ui.participantCount.textContent = String(state.connectedParticipantCount || 0);
-    ui.statusCopy.textContent = `Status: ${state.status}. Available teams: ${(state.availableTeams || []).length}.`;
+    ui.statusCopy.textContent = `Status: ${state.status}. Available teams: ${(state.availableTeams || []).length}. AI teams: ${state.aiTeamCount || 0}.`;
     ui.liveStatus.textContent = state.status === "break" ? "Segment break in progress" : state.status === "running" ? "Live bidding open" : state.status === "paused" ? "Auction paused by admin" : state.status === "waiting" ? "Waiting to start" : "Auction completed";
     ui.lastBidder.textContent = state.lastBidder || "No bids yet";
     ui.currentPrice.textContent = currentPlayer
@@ -273,7 +328,7 @@
 
     if (currentPlayer) {
       ui.playerName.textContent = currentPlayer.name;
-      ui.playerMeta.textContent = `${currentPlayer.role} - ${currentPlayer.country}`;
+      ui.playerMeta.textContent = `${currentPlayer.role} - ${currentPlayer.country} - ${formatRatings(currentPlayer.ratings)}`;
     } else {
       ui.playerName.textContent = state.status === "ended" ? "Auction completed" : "Waiting for auction to start";
       ui.playerMeta.textContent = "Role and country will appear here.";
@@ -295,13 +350,7 @@
     ui.retentionPlayerSelect.innerHTML = Object.values(state.playerSets || {})
       .flatMap((set) => set.players.filter((player) => player.status === "upcoming"))
       .map((player) => `<option value="${player.name}">${player.name} • ${player.setCode}</option>`).join("");
-    ui.rtmPanel.classList.toggle("hidden", !state.pendingRTM);
-    if (state.pendingRTM) {
-      ui.rtmTitle.textContent = `RTM available for ${state.pendingRTM.originalTeam}`;
-      ui.rtmCopy.textContent = `${state.pendingRTM.playerName} was sold to ${state.pendingRTM.soldTo} for ${formatMoney(state.pendingRTM.finalPrice)}. ${state.pendingRTM.originalTeam} can match this bid.`;
-    }
-
-    renderParticipants();
+    renderPlayerProfile();
     renderBidLog();
     renderTeams();
     renderChat();
@@ -346,8 +395,6 @@
     socket.emit("admin-retain-player", { playerName, teamName, price });
     ui.retentionPriceInput.value = "";
   });
-  ui.rtmUseBtn.addEventListener("click", () => socket.emit("admin-resolve-rtm", { useRTM: true }));
-  ui.rtmDeclineBtn.addEventListener("click", () => socket.emit("admin-resolve-rtm", { useRTM: false }));
   ui.exportJsonBtn.addEventListener("click", exportJson);
   ui.exportCsvBtn.addEventListener("click", exportCsv);
   ui.chatForm.addEventListener("submit", (event) => {
@@ -375,6 +422,7 @@
   socket.on("timer-update", (payload) => {
     if (!state) return;
     state.timerRemaining = payload.secondsRemaining;
+    state.timerMode = payload.mode;
     renderTimerOnly();
   });
 

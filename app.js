@@ -68,6 +68,64 @@
     return `Rs ${roundCurrency(value)} Cr`;
   }
 
+  function createSeededValue(input, min, max) {
+    let hash = 0;
+    const text = String(input || "");
+    for (let index = 0; index < text.length; index += 1) {
+      hash = (hash * 31 + text.charCodeAt(index)) % 1000003;
+    }
+    return min + (hash % (max - min + 1));
+  }
+
+  function createPlayerRatings(player) {
+    const role = String(player.role || "").toLowerCase();
+    const setLabel = String(player.setLabel || "").toLowerCase();
+    const cappedBoost = player.capped ? 1 : 0;
+    const overseasBoost = player.isOverseas ? 1 : 0;
+    let batting = createSeededValue(`${player.name}:bat`, 3, 6) + cappedBoost;
+    let bowling = createSeededValue(`${player.name}:bowl`, 3, 6) + cappedBoost;
+    let fielding = createSeededValue(`${player.name}:field`, 4, 7) + cappedBoost + overseasBoost;
+
+    if (role.includes("batsman") || setLabel.includes("batter")) {
+      batting += 3;
+      bowling -= 1;
+    } else if (role.includes("bowler") || setLabel.includes("bowler") || setLabel.includes("spinner")) {
+      bowling += 3;
+      batting -= 1;
+    } else if (role.includes("all-rounder") || setLabel.includes("all-rounder")) {
+      batting += 2;
+      bowling += 2;
+    } else if (role.includes("wicket")) {
+      batting += 2;
+      fielding += 2;
+      bowling -= 2;
+    }
+
+    if (setLabel.includes("uncapped")) {
+      batting -= 1;
+      bowling -= 1;
+      fielding -= 1;
+    }
+    if (setLabel.includes("marquee")) {
+      batting += 1;
+      bowling += 1;
+      fielding += 1;
+    }
+
+    return {
+      batting: Math.max(1, Math.min(10, batting)),
+      fielding: Math.max(1, Math.min(10, fielding)),
+      bowling: Math.max(1, Math.min(10, bowling))
+    };
+  }
+
+  function formatRatings(ratings) {
+    if (!ratings) {
+      return "";
+    }
+    return `BAT ${ratings.batting}/10 • FLD ${ratings.fielding}/10 • BWL ${ratings.bowling}/10`;
+  }
+
   function budgetColor(balance, initialBalance) {
     const spentPct = initialBalance <= 0 ? 0 : ((initialBalance - balance) / initialBalance) * 100;
     if (spentPct < 40) {
@@ -137,7 +195,7 @@
     return {
       status: "running",
       round: 1,
-      roundOnePlayers: shuffle(bundle.players).map((player) => ({ ...player, status: "pending" })),
+      roundOnePlayers: shuffle(bundle.players).map((player) => ({ ...player, ratings: player.ratings || createPlayerRatings(player), status: "pending" })),
       roundTwoPlayers: [],
       currentPlayerIndex: 0,
       currentBid: null,
@@ -199,6 +257,7 @@
         <div class="roster-row">
           <div>
             <strong>${player.name}</strong>
+            <div class="muted">${formatRatings(player.ratings)}</div>
             <div class="muted">${player.role} • ${player.country}</div>
           </div>
           <strong>${formatMoney(player.price)}</strong>
@@ -271,8 +330,8 @@
       ui.lastBidder.textContent = "No bids";
     } else {
       ui.playerName.textContent = currentPlayer.name;
-      ui.playerMeta.textContent = `${currentPlayer.role} • ${currentPlayer.country}`;
       ui.currentPrice.textContent = `${state.currentBid === null ? "Base" : "Current"} ${formatMoney(currentPrice)}`;
+      ui.playerMeta.textContent = `${currentPlayer.role} | ${currentPlayer.country} | ${formatRatings(currentPlayer.ratings)}`;
       ui.lastBidder.textContent = state.lastBidder || "No bids yet";
     }
 
@@ -295,6 +354,7 @@
           name: player.name,
           role: player.role,
           country: player.country,
+          ratings: player.ratings,
           price: player.price
         }))
       }))
@@ -392,6 +452,7 @@
         name: currentPlayer.name,
         role: currentPlayer.role,
         country: currentPlayer.country,
+        ratings: currentPlayer.ratings,
         basePrice: currentPlayer.basePrice
       });
     }
@@ -413,6 +474,7 @@
       name: currentPlayer.name,
       role: currentPlayer.role,
       country: currentPlayer.country,
+      ratings: currentPlayer.ratings,
       price: state.currentBid
     });
     currentPlayer.status = "sold";

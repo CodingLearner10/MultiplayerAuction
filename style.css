@@ -418,6 +418,48 @@ select.input {
   margin-top: 18px;
 }
 
+.watch-alert {
+  border-color: rgba(245, 158, 11, 0.32);
+  background: linear-gradient(180deg, rgba(120, 53, 15, 0.42), rgba(15, 23, 42, 0.92));
+}
+
+.rtm-input {
+  min-width: min(240px, 100%);
+  max-width: 280px;
+}
+
+.profile-card-shell {
+  display: grid;
+  gap: 12px;
+}
+
+.profile-card {
+  display: grid;
+  gap: 14px;
+  padding: 16px;
+  border-radius: 18px;
+  background: rgba(15, 23, 42, 0.5);
+  border: 1px solid rgba(148, 163, 184, 0.16);
+}
+
+.profile-stat-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.profile-stat-block {
+  padding: 12px;
+  border-radius: 14px;
+  background: rgba(2, 8, 23, 0.28);
+  border: 1px solid rgba(148, 163, 184, 0.12);
+}
+
+.profile-link-row {
+  display: flex;
+  justify-content: flex-start;
+}
+
 .team-card.highlight {
   border-color: rgba(245, 158, 11, 0.8);
   box-shadow: 0 0 0 1px rgba(245, 158, 11, 0.3), 0 18px 36px rgba(245, 158, 11, 0.16);

@@ -7,6 +7,19 @@ const { Server } = require("socket.io");
 const ROOT_DIR = __dirname;
 const PORT = Number(process.env.PORT || 5000);
 const SEGMENT_SIZE = 15;
+const RTM_WINDOW_SECONDS = 15;
+const AI_PRIMARY_ROLE_TARGETS = {
+  wicketkeeper: 2,
+  batsman: 5,
+  allrounder: 4,
+  fastbowler: 4,
+  spinner: 2
+};
+const AI_UNCAPPED_TARGET = 6;
+const AI_SQUAD_MIN = 18;
+const AI_SQUAD_MAX = 25;
+const AI_MIN_BALANCE_RESERVE = 12;
+const AI_OPTIONAL_BID_CHANCE = 0.18;
 
 function loadJsonFile(filename) {
   return JSON.parse(fs.readFileSync(path.join(ROOT_DIR, filename), "utf8"));
@@ -98,6 +111,57 @@ function validateSourceData(players, teams, config) {
   });
 }
 
+function createSeededValue(input, min, max) {
+  let hash = 0;
+  const text = String(input || "");
+  for (let index = 0; index < text.length; index += 1) {
+    hash = (hash * 31 + text.charCodeAt(index)) % 1000003;
+  }
+  return min + (hash % (max - min + 1));
+}
+
+function createPlayerRatings(player) {
+  const role = String(player.role || "").toLowerCase();
+  const setLabel = String(player.setLabel || "").toLowerCase();
+  const cappedBoost = player.capped ? 1 : 0;
+  const overseasBoost = player.isOverseas ? 1 : 0;
+  let batting = createSeededValue(`${player.name}:bat`, 3, 6) + cappedBoost;
+  let bowling = createSeededValue(`${player.name}:bowl`, 3, 6) + cappedBoost;
+  let fielding = createSeededValue(`${player.name}:field`, 4, 7) + cappedBoost + overseasBoost;
+
+  if (role.includes("batsman") || setLabel.includes("batter")) {
+    batting += 3;
+    bowling -= 1;
+  } else if (role.includes("bowler") || setLabel.includes("bowler") || setLabel.includes("spinner")) {
+    bowling += 3;
+    batting -= 1;
+  } else if (role.includes("all-rounder") || setLabel.includes("all-rounder")) {
+    batting += 2;
+    bowling += 2;
+  } else if (role.includes("wicket")) {
+    batting += 2;
+    fielding += 2;
+    bowling -= 2;
+  }
+
+  if (setLabel.includes("uncapped")) {
+    batting -= 1;
+    bowling -= 1;
+    fielding -= 1;
+  }
+  if (setLabel.includes("marquee")) {
+    batting += 1;
+    bowling += 1;
+    fielding += 1;
+  }
+
+  return {
+    batting: Math.max(1, Math.min(10, batting)),
+    fielding: Math.max(1, Math.min(10, fielding)),
+    bowling: Math.max(1, Math.min(10, bowling))
+  };
+}
+
 const sourcePlayers = loadJsonFile("players.json");
 const sourceTeams = loadJsonFile("teams.json");
 const config = loadJsonFile("config.json");
@@ -133,6 +197,10 @@ function createPlayersForRound(players, round) {
     setLabel: player.setLabel || "General",
     capped: Boolean(player.capped),
     isOverseas: Boolean(player.isOverseas),
+    iplProfileId: player.iplProfileId || null,
+    iplProfileUrl: player.iplProfileUrl || null,
+    officialStats: deepClone(player.officialStats || null),
+    ratings: player.ratings || createPlayerRatings(player),
     previousTeam: player.previousTeam || null,
     roundEntered: round,
     status: "pending",
@@ -152,6 +220,10 @@ function createSourcePlayerState() {
     setLabel: player.setLabel || "General",
     capped: Boolean(player.capped),
     isOverseas: Boolean(player.isOverseas),
+    iplProfileId: player.iplProfileId || null,
+    iplProfileUrl: player.iplProfileUrl || null,
+    officialStats: deepClone(player.officialStats || null),
+    ratings: player.ratings || createPlayerRatings(player),
     previousTeam: player.previousTeam || null
   }));
 }
@@ -167,7 +239,8 @@ function createTeamState() {
       name: team.name,
       balance: roundCurrency(Number(team.balance)),
       initialBalance,
-      acquiredPlayers: []
+      acquiredPlayers: [],
+      rtmSlotsUsed: 0
     };
   });
 }
@@ -194,6 +267,9 @@ function createInitialAuctionState() {
     completedPlayers: [],
     segmentBreak: null,
     pendingRTM: null,
+    aiTeams: [],
+    aiBidTargets: {},
+    timerMode: null,
     timerRemaining: Number(config.BID_TIMER_SECONDS),
     timerEndsAt: null,
     startedAt: null,
@@ -205,6 +281,7 @@ function createInitialAuctionState() {
 let auctionState = createInitialAuctionState();
 let timerInterval = null;
 let autoAdvanceTimeout = null;
+let aiActionTimeout = null;
 const connectedClients = new Map();
 
 function getRoundBasePrice(round = auctionState.round) {
@@ -238,6 +315,112 @@ function listAssignedTeamNames() {
       .filter((client) => client.teamName && !client.spectator)
       .map((client) => client.teamName)
   );
+}
+
+function isAITeam(teamName) {
+  return auctionState.aiTeams.includes(teamName);
+}
+
+function normalizeAIPlayerRole(player) {
+  const label = String(player.setLabel || "").toLowerCase();
+  const role = String(player.role || "").toLowerCase();
+
+  if (label.includes("wicketkeeper") || role.includes("wicket")) {
+    return "wicketkeeper";
+  }
+  if (label.includes("spinner")) {
+    return "spinner";
+  }
+  if (label.includes("fast bowler")) {
+    return "fastbowler";
+  }
+  if (label.includes("all-rounder") || role.includes("all-rounder")) {
+    return "allrounder";
+  }
+  if (label.includes("batter") || role.includes("batsman")) {
+    return "batsman";
+  }
+  if (role.includes("bowler")) {
+    return "fastbowler";
+  }
+  return "batsman";
+}
+
+function getAISquadComposition(team) {
+  const composition = {
+    wicketkeeper: 0,
+    batsman: 0,
+    allrounder: 0,
+    fastbowler: 0,
+    spinner: 0,
+    uncapped: 0,
+    total: team.acquiredPlayers.length
+  };
+
+  team.acquiredPlayers.forEach((player) => {
+    const key = normalizeAIPlayerRole(player);
+    composition[key] = (composition[key] || 0) + 1;
+    if (!player.capped) {
+      composition.uncapped += 1;
+    }
+  });
+
+  return composition;
+}
+
+function getAIRoleNeedScore(team, player) {
+  const composition = getAISquadComposition(team);
+  const roleKey = normalizeAIPlayerRole(player);
+  const target = AI_PRIMARY_ROLE_TARGETS[roleKey] || 0;
+  const remainingForRole = Math.max(0, target - (composition[roleKey] || 0));
+  const uncappedNeed = !player.capped && remainingForRole > 0 ? Math.max(0, AI_UNCAPPED_TARGET - composition.uncapped) : 0;
+  const minimumSquadNeed = Math.max(0, AI_SQUAD_MIN - composition.total);
+  const hasPrimaryNeed = remainingForRole > 0;
+  const isOptionalDepth = !hasPrimaryNeed && minimumSquadNeed > 0 && Math.random() < AI_OPTIONAL_BID_CHANCE;
+
+  return {
+    roleKey,
+    target,
+    composition,
+    remainingForRole,
+    uncappedNeed,
+    minimumSquadNeed,
+    hasPrimaryNeed,
+    isOptionalDepth,
+    hasNeed: hasPrimaryNeed || uncappedNeed > 0 || isOptionalDepth
+  };
+}
+
+function getAIPlayerValueScore(player, roleKey) {
+  const ratings = player.ratings || createPlayerRatings(player);
+  if (roleKey === "wicketkeeper") {
+    return (ratings.batting * 0.45) + (ratings.fielding * 0.45) + (ratings.bowling * 0.1);
+  }
+  if (roleKey === "batsman") {
+    return (ratings.batting * 0.65) + (ratings.fielding * 0.2) + (ratings.bowling * 0.15);
+  }
+  if (roleKey === "allrounder") {
+    return (ratings.batting * 0.42) + (ratings.bowling * 0.42) + (ratings.fielding * 0.16);
+  }
+  if (roleKey === "spinner" || roleKey === "fastbowler") {
+    return (ratings.bowling * 0.65) + (ratings.fielding * 0.2) + (ratings.batting * 0.15);
+  }
+  return (ratings.batting + ratings.fielding + ratings.bowling) / 3;
+}
+
+function notifyTeamClients(teamName, eventName, payload) {
+  connectedClients.forEach((client, socketId) => {
+    if (client.teamName === teamName && !client.spectator) {
+      io.to(socketId).emit(eventName, payload);
+    }
+  });
+}
+
+function clearScheduledAIAction() {
+  if (aiActionTimeout) {
+    clearTimeout(aiActionTimeout);
+    aiActionTimeout = null;
+  }
 }
 
 function findTeam(teamName) {
@@ -275,6 +458,72 @@ function canTeamAcquirePlayer(team, player) {
   };
 }
 
+function assignAITeamsForCurrentAuction() {
+  const humanTeams = listAssignedTeamNames();
+  auctionState.aiTeams = auctionState.teams
+    .filter((team) => !humanTeams.has(team.name))
+    .map((team) => team.name);
+}
+
+function buildAITargetPrice(team, player) {
+  const openingBid = getOpeningBidForPlayer(player);
+  const bidIncrement = roundCurrency(config.BID_INCREMENT);
+  const squadMetrics = getTeamSquadMetrics(team);
+  const roleNeed = getAIRoleNeedScore(team, player);
+  const playerValue = getAIPlayerValueScore(player, roleNeed.roleKey);
+  const availableBudget = Math.max(0, team.balance - AI_MIN_BALANCE_RESERVE);
+
+  if (!roleNeed.hasPrimaryNeed && !roleNeed.isOptionalDepth) {
+    return null;
+  }
+
+  if (availableBudget < openingBid) {
+    return null;
+  }
+
+  const squadRoomFactor = Math.max(0.55, (AI_SQUAD_MAX - squadMetrics.squadCount) / AI_SQUAD_MAX);
+  const balanceFactor = Math.max(0.65, Math.min(1.35, availableBudget / 20));
+  const roleUrgencyFactor = 1 + (roleNeed.remainingForRole * 0.35) + (roleNeed.isOptionalDepth ? 0.08 : 0);
+  const uncappedFactor = !player.capped && roleNeed.uncappedNeed > 0 ? 1.12 : 1;
+  const ratingFactor = Math.max(0.9, playerValue / 6.5);
+  const marqueeFactor = player.setCode && /^M/i.test(player.setCode) ? 1.25 : 1;
+  const cappedFactor = player.capped ? 1.08 : 0.96;
+  const overseasFactor = player.isOverseas ? 0.92 : 1;
+  const previousTeamFactor = player.previousTeam === team.name ? 1.12 : 1;
+  const weaknessPenalty = roleNeed.hasPrimaryNeed ? 1 : playerValue < 5.5 ? 0.62 : 0.82;
+  const randomness = roleNeed.hasPrimaryNeed ? 0.84 + (Math.random() * 0.42) : 0.58 + (Math.random() * 0.24);
+  const rawTarget = openingBid * balanceFactor * squadRoomFactor * roleUrgencyFactor * uncappedFactor * ratingFactor * marqueeFactor * cappedFactor * overseasFactor * previousTeamFactor * weaknessPenalty * randomness;
+  const cappedTarget = Math.min(availableBudget, Math.max(openingBid, rawTarget));
+  const roundedTarget = roundCurrency(Math.floor(cappedTarget / bidIncrement) * bidIncrement || openingBid);
+  return roundedTarget >= openingBid ? roundedTarget : null;
+}
+
+function getAITargetPrice(teamName, player) {
+  if (!player) {
+    return null;
+  }
+
+  const cacheKey = `${player.id}:${teamName}`;
+  if (Object.prototype.hasOwnProperty.call(auctionState.aiBidTargets, cacheKey)) {
+    return auctionState.aiBidTargets[cacheKey];
+  }
+
+  const team = findTeam(teamName);
+  if (!team) {
+    auctionState.aiBidTargets[cacheKey] = null;
+    return null;
+  }
+
+  const roleNeed = getAIRoleNeedScore(team, player);
+  const squadMetrics = getTeamSquadMetrics(team);
+  const isPreviousTeamPlayer = player.previousTeam === teamName;
+  const targetPrice = ((roleNeed.hasNeed && squadMetrics.squadCount < AI_SQUAD_MAX) || isPreviousTeamPlayer)
+    ? buildAITargetPrice(team, player)
+    : null;
+  auctionState.aiBidTargets[cacheKey] = targetPrice;
+  return targetPrice;
+}
+
 function appendReplayLog(message, type, extra = {}) {
   const timestamp = createTimestampParts();
   auctionState.replayLog.push({
@@ -297,10 +546,15 @@ function clearPendingTimers() {
     clearTimeout(autoAdvanceTimeout);
     autoAdvanceTimeout = null;
   }
+
+  clearScheduledAIAction();
 }
 
 function emitTimerUpdate() {
-  const payload = { secondsRemaining: auctionState.timerRemaining };
+  const payload = {
+    secondsRemaining: auctionState.timerRemaining,
+    mode: auctionState.timerMode
+  };
   io.emit("timer-update", payload);
 }
 
@@ -310,6 +564,7 @@ function stopBidTimer() {
     timerInterval = null;
   }
   auctionState.timerEndsAt = null;
+  auctionState.timerMode = null;
 }
 
 function buildSegmentBreakSummary() {
@@ -395,6 +650,7 @@ function startBidTimer() {
     return;
   }
 
+  auctionState.timerMode = "bid";
   auctionState.timerRemaining = Number(config.BID_TIMER_SECONDS);
   auctionState.timerEndsAt = Date.now() + auctionState.timerRemaining * 1000;
   emitTimerUpdate();
@@ -411,6 +667,166 @@ function startBidTimer() {
   }, 1000);
 }
 
+function startRTMDecisionTimer() {
+  stopBidTimer();
+
+  if (auctionState.status !== "rtm" || !auctionState.pendingRTM) {
+    return;
+  }
+
+  auctionState.timerMode = "rtm";
+  auctionState.timerRemaining = RTM_WINDOW_SECONDS;
+  auctionState.timerEndsAt = Date.now() + RTM_WINDOW_SECONDS * 1000;
+  emitTimerUpdate();
+
+  timerInterval = setInterval(() => {
+    const secondsRemaining = Math.max(0, Math.ceil((auctionState.timerEndsAt - Date.now()) / 1000));
+    auctionState.timerRemaining = secondsRemaining;
+    emitTimerUpdate();
+
+    if (secondsRemaining <= 0) {
+      stopBidTimer();
+      handleRTMTimerExpiry();
+    }
+  }, 1000);
+}
+
+function maybeScheduleAutoAdvance(delayMs = 800) {
+  clearScheduledAIAction();
+  if (autoAdvanceTimeout) {
+    clearTimeout(autoAdvanceTimeout);
+  }
+  autoAdvanceTimeout = setTimeout(() => {
+    autoAdvanceTimeout = null;
+    moveToNextPlayer();
+  }, delayMs);
+}
+
+function queueNextAIAction() {
+  clearScheduledAIAction();
+
+  if (!canAcceptBids()) {
+    return;
+  }
+
+  const currentPlayer = getCurrentPlayer();
+  if (!currentPlayer) {
+    return;
+  }
+
+  const nextBidAmount = auctionState.currentBid === null
+    ? roundCurrency(auctionState.openingBid)
+    : roundCurrency(auctionState.currentBid + Number(config.BID_INCREMENT));
+
+  const candidates = auctionState.aiTeams
+    .filter((teamName) => teamName !== auctionState.lastBidder)
+    .map((teamName) => {
+      const team = findTeam(teamName);
+      if (!team) {
+        return null;
+      }
+
+      const acquisition = canTeamAcquirePlayer(team, currentPlayer);
+      const roleNeed = getAIRoleNeedScore(team, currentPlayer);
+      const targetPrice = getAITargetPrice(teamName, currentPlayer);
+      if (!acquisition.allowed || !Number.isFinite(targetPrice) || targetPrice < nextBidAmount || team.balance < nextBidAmount) {
+        return null;
+      }
+
+      return {
+        teamName,
+        targetPrice,
+        needScore: (roleNeed.remainingForRole * 4) + (roleNeed.uncappedNeed > 0 ? 1 : 0) + (roleNeed.isOptionalDepth ? 0.5 : 0)
+      };
+    })
+    .filter(Boolean)
+    .sort((left, right) => (right.needScore - left.needScore) || (right.targetPrice - left.targetPrice));
+
+  if (!candidates.length) {
+    return;
+  }
+
+  const shortList = candidates.slice(0, Math.min(3, candidates.length));
+  const chosen = shortList[Math.floor(Math.random() * shortList.length)];
+  const delayMs = 1200 + Math.floor(Math.random() * 1400);
+
+  aiActionTimeout = setTimeout(() => {
+    aiActionTimeout = null;
+
+    if (!canAcceptBids() || getCurrentPlayer()?.name !== currentPlayer.name) {
+      return;
+    }
+
+    const refreshedNextBid = auctionState.currentBid === null
+      ? roundCurrency(auctionState.openingBid)
+      : roundCurrency(auctionState.currentBid + Number(config.BID_INCREMENT));
+    if (chosen.targetPrice < refreshedNextBid) {
+      queueNextAIAction();
+      return;
+    }
+
+    applyBid(chosen.teamName, refreshedNextBid, "ai");
+  }, delayMs);
+}
+
+function queueAIRTMAction() {
+  clearScheduledAIAction();
+
+  if (auctionState.status !== "rtm" || !auctionState.pendingRTM) {
+    return;
+  }
+
+  const pending = auctionState.pendingRTM;
+  const actions = [];
+  const soldTeam = findTeam(pending.soldTo);
+  const originalTeam = findTeam(pending.originalTeam);
+
+  if (isAITeam(pending.soldTo) && soldTeam) {
+    const targetPrice = getAITargetPrice(pending.soldTo, getCurrentPlayer());
+    if (Number.isFinite(targetPrice) && targetPrice > pending.priceToMatch && soldTeam.balance >= roundCurrency(targetPrice - pending.openingPrice)) {
+      actions.push({ type: "raise", teamName: pending.soldTo, targetPrice });
+    }
+  }
+
+  if (isAITeam(pending.originalTeam) && originalTeam) {
+    const originalTarget = getAITargetPrice(pending.originalTeam, getCurrentPlayer());
+    actions.push({
+      type: Number.isFinite(originalTarget) && originalTarget >= pending.priceToMatch && originalTeam.rtmSlotsUsed < 4 ? "use" : "decline",
+      teamName: pending.originalTeam
+    });
+  }
+
+  if (!actions.length) {
+    return;
+  }
+
+  const chosen = actions[Math.floor(Math.random() * actions.length)];
+  const delayMs = 1800 + Math.floor(Math.random() * 2200);
+
+  aiActionTimeout = setTimeout(() => {
+    aiActionTimeout = null;
+
+    if (auctionState.status !== "rtm" || !auctionState.pendingRTM) {
+      return;
+    }
+
+    if (chosen.type === "raise") {
+      const raiseFloor = roundCurrency(auctionState.pendingRTM.priceToMatch + Number(config.BID_INCREMENT));
+      const raiseAmount = Math.max(raiseFloor, chosen.targetPrice);
+      const result = raiseRTMBid({ teamName: chosen.teamName, amount: raiseAmount });
+      if (result.ok) {
+        queueAIRTMAction();
+      }
+      return;
+    }
+
+    const result = resolveRTM(chosen.type === "use", chosen.teamName, chosen.type === "use" ? "ai" : "ai-decline");
+    if (!result.ok) {
+      queueAIRTMAction();
+    }
+  }, delayMs);
+}
+
 function resetCurrentBidState() {
   const currentPlayer = getCurrentPlayer();
   auctionState.currentBid = null;
@@ -418,7 +834,9 @@ function resetCurrentBidState() {
   auctionState.lastBidder = null;
   auctionState.currentPlayerClosed = false;
   auctionState.currentPlayerBids = [];
+  auctionState.pendingRTM = null;
   auctionState.timerRemaining = Number(config.BID_TIMER_SECONDS);
+  auctionState.aiBidTargets = {};
 }
 
 function buildResultsPayload() {
@@ -432,6 +850,7 @@ function buildResultsPayload() {
         name: player.name,
         role: player.role,
         country: player.country,
+        ratings: player.ratings,
         price: player.price
       }))
     })),
@@ -479,6 +898,7 @@ function buildPlayerSetsSummary() {
       capped: player.capped,
       isOverseas: player.isOverseas,
       previousTeam: player.previousTeam,
+      ratings: player.ratings,
       status: retainedNames.has(player.name) ? "retained" : completedNames.has(player.name) ? "auctioned" : "upcoming"
     });
     return sets;
@@ -528,11 +948,12 @@ function buildAuctionSetFlow() {
       pendingCount,
       soldCount,
       unsoldCount,
-      players: group.players.map((player) => ({
+    players: group.players.map((player) => ({
         name: player.name,
         role: player.role,
         country: player.country,
         basePrice: getOpeningBidForPlayer(player, auctionState.round),
+        ratings: deepClone(player.ratings),
         status: player.status,
         isCurrent: Boolean(activePlayer && activePlayer.name === player.name),
         soldTo: player.soldTo,
@@ -581,8 +1002,10 @@ function buildPublicState() {
     teams: auctionState.teams.map((team) => ({
       ...getTeamSquadMetrics(team),
       ...team,
+      controller: isAITeam(team.name) ? "ai" : assignedTeams.has(team.name) ? "human" : "open",
       playersCount: team.acquiredPlayers.length,
       canBuyCurrentPlayer: currentPlayer ? canTeamAcquirePlayer(team, currentPlayer).allowed : true,
+      rtmSlotsRemaining: Math.max(0, 4 - team.rtmSlotsUsed),
       spentPercentage: team.initialBalance <= 0
         ? 0
         : roundCurrency(((team.initialBalance - team.balance) / team.initialBalance) * 100)
@@ -603,10 +1026,12 @@ function buildPublicState() {
       spectator: client.spectator
     })),
     connectedParticipantCount: Array.from(connectedClients.values()).filter((client) => client.role === "participant" && !client.spectator).length,
+    aiTeamCount: auctionState.aiTeams.length,
     availableTeams: auctionState.teams
-      .filter((team) => !assignedTeams.has(team.name))
+      .filter((team) => !assignedTeams.has(team.name) && !isAITeam(team.name))
       .map((team) => team.name),
     nextBidAmount,
+    timerMode: auctionState.timerMode,
     config,
     results: auctionState.status === "ended" ? buildResultsPayload() : null
   };
@@ -732,6 +1157,10 @@ function retainPlayerForTeam({ playerName, teamName, price }) {
     country: found.player.country,
     isOverseas: found.player.isOverseas,
     capped: found.player.capped,
+    iplProfileId: found.player.iplProfileId,
+    iplProfileUrl: found.player.iplProfileUrl,
+    officialStats: found.player.officialStats,
+    ratings: found.player.ratings,
     setCode: found.player.setCode,
     setLabel: found.player.setLabel,
     previousTeam: found.player.previousTeam,
@@ -754,6 +1183,8 @@ function retainPlayerForTeam({ playerName, teamName, price }) {
 }
 
 function maybeCreateRTM(player, soldTeamName, finalPrice) {
+  return null;
+
   if (!player.previousTeam || player.previousTeam === soldTeamName) {
     return null;
   }
@@ -772,19 +1203,142 @@ function maybeCreateRTM(player, soldTeamName, finalPrice) {
     return null;
   }
 
+  if (originalTeam.rtmSlotsUsed >= 4) {
+    return null;
+  }
+
   const payload = {
     playerName: player.name,
-    finalPrice,
+    openingPrice: finalPrice,
+    priceToMatch: finalPrice,
     soldTo: soldTeamName,
-    originalTeam: originalTeam.name
+    originalTeam: originalTeam.name,
+    raisedBy: null,
+    raiseHistory: [],
+    autoAdvanceAfterResolution: false
   };
-  auctionState.pendingRTM = payload;
   appendReplayLog(`RTM available for ${originalTeam.name} on ${player.name}`, "rtm-offered", payload);
-  broadcastState("rtm-offered", payload);
   return payload;
 }
 
-function resolveRTM(useRTM) {
+function finalizeRTMSaleForWinningTeam(reason = "rtm-declined") {
+  const pending = auctionState.pendingRTM;
+  if (!pending) {
+    return { ok: false, message: "There is no pending RTM sale to finalize." };
+  }
+
+  const player = getCurrentPlayer();
+  const soldTeam = findTeam(pending.soldTo);
+  if (!player || !soldTeam) {
+    return { ok: false, message: "Unable to finalize the winning team sale." };
+  }
+
+  const acquiredPlayer = soldTeam.acquiredPlayers.find((entry) => entry.name === player.name && !entry.retained);
+  if (!acquiredPlayer) {
+    return { ok: false, message: "Winning team does not hold the active player." };
+  }
+
+  const extraAmount = roundCurrency(pending.priceToMatch - pending.openingPrice);
+  if (extraAmount > 0) {
+    if (soldTeam.balance < extraAmount) {
+      return { ok: false, message: `${soldTeam.name} can no longer afford the raised RTM price.` };
+    }
+    soldTeam.balance = roundCurrency(soldTeam.balance - extraAmount);
+    acquiredPlayer.price = pending.priceToMatch;
+    player.soldPrice = pending.priceToMatch;
+    const completedPlayer = auctionState.completedPlayers.find((entry) => entry.name === player.name && entry.round === auctionState.round && entry.status === "sold");
+    if (completedPlayer) {
+      completedPlayer.price = pending.priceToMatch;
+    }
+  }
+
+  appendReplayLog(
+    `${pending.originalTeam} ${reason === "rtm-expired" ? "did not use" : "declined"} RTM on ${player.name}. ${soldTeam.name} keeps the player for Rs ${pending.priceToMatch} Cr`,
+    reason,
+    {
+      playerName: player.name,
+      teamName: soldTeam.name,
+      amount: pending.priceToMatch,
+      originalTeam: pending.originalTeam
+    }
+  );
+  broadcastState(reason === "rtm-expired" ? "rtm-expired" : "rtm-declined", pending);
+  return { ok: true };
+}
+
+function finishRTMResolution() {
+  const pending = auctionState.pendingRTM;
+  const shouldAutoAdvance = Boolean(pending && pending.autoAdvanceAfterResolution);
+  auctionState.pendingRTM = null;
+  auctionState.status = "paused";
+  auctionState.pauseReason = "player-closed";
+  auctionState.timerRemaining = 0;
+  stopBidTimer();
+
+  const breakSummary = buildSegmentBreakSummary();
+  if (breakSummary) {
+    enterSegmentBreak(breakSummary);
+    return;
+  }
+
+  broadcastState();
+  if (shouldAutoAdvance) {
+    maybeScheduleAutoAdvance();
+  }
+}
+
+function raiseRTMBid({ teamName, amount }) {
+  if (!auctionState.pendingRTM) {
+    return { ok: false, message: "There is no active RTM decision." };
+  }
+
+  const pending = auctionState.pendingRTM;
+  if (teamName !== pending.soldTo) {
+    return { ok: false, message: "Only the winning bid team can raise the RTM price." };
+  }
+
+  const soldTeam = findTeam(teamName);
+  if (!soldTeam) {
+    return { ok: false, message: "Winning team could not be found." };
+  }
+
+  const raisedAmount = roundCurrency(amount);
+  const minimumRaise = roundCurrency(pending.priceToMatch + Number(config.BID_INCREMENT));
+  if (!Number.isFinite(raisedAmount) || raisedAmount < minimumRaise) {
+    return { ok: false, message: `Raised price must be at least Rs ${minimumRaise} Cr.` };
+  }
+
+  const extraAmount = roundCurrency(raisedAmount - pending.openingPrice);
+  if (soldTeam.balance < extraAmount) {
+    return { ok: false, message: `${soldTeam.name} cannot afford a final RTM price of Rs ${raisedAmount} Cr.` };
+  }
+
+  pending.priceToMatch = raisedAmount;
+  pending.raisedBy = teamName;
+  pending.raiseHistory.push({
+    teamName,
+    amount: raisedAmount,
+    timestamp: new Date().toISOString()
+  });
+
+  appendReplayLog(`${teamName} raised the RTM price for ${pending.playerName} to Rs ${raisedAmount} Cr`, "rtm-raised", {
+    teamName,
+    playerName: pending.playerName,
+    amount: raisedAmount
+  });
+  notifyTeamClients(pending.originalTeam, "rtm-action-required", {
+    ...pending,
+    action: "decide"
+  });
+  broadcastState("rtm-raised", {
+    teamName,
+    playerName: pending.playerName,
+    amount: raisedAmount
+  });
+  return { ok: true };
+}
+
+function resolveRTM(useRTM, actorTeamName = null, resolutionType = "participant") {
   if (!auctionState.pendingRTM) {
     return { ok: false, message: "There is no active RTM decision." };
   }
@@ -796,6 +1350,10 @@ function resolveRTM(useRTM) {
     return { ok: false, message: "RTM state is out of sync with the active player." };
   }
 
+  if (actorTeamName && actorTeamName !== pending.originalTeam) {
+    return { ok: false, message: "Only the team with RTM rights can make this decision." };
+  }
+
   if (useRTM) {
     const originalTeam = findTeam(pending.originalTeam);
     const soldTeam = findTeam(pending.soldTo);
@@ -805,16 +1363,21 @@ function resolveRTM(useRTM) {
 
     const soldIndex = soldTeam.acquiredPlayers.findIndex((entry) => entry.name === player.name && !entry.retained);
     if (soldIndex !== -1) {
-      soldTeam.balance = roundCurrency(soldTeam.balance + pending.finalPrice);
+      soldTeam.balance = roundCurrency(soldTeam.balance + pending.openingPrice);
       soldTeam.acquiredPlayers.splice(soldIndex, 1);
     }
 
     const squadValidation = canTeamAcquirePlayer(originalTeam, player);
-    if (!squadValidation.allowed || originalTeam.balance < pending.finalPrice) {
+    if (!squadValidation.allowed || originalTeam.balance < pending.priceToMatch) {
       return { ok: false, message: "Original team cannot complete the RTM." };
     }
 
-    originalTeam.balance = roundCurrency(originalTeam.balance - pending.finalPrice);
+    if (originalTeam.rtmSlotsUsed >= 4) {
+      return { ok: false, message: `${originalTeam.name} has already used all 4 RTM slots.` };
+    }
+
+    originalTeam.balance = roundCurrency(originalTeam.balance - pending.priceToMatch);
+    originalTeam.rtmSlotsUsed += 1;
     originalTeam.acquiredPlayers.push({
       id: player.sourceId,
       name: player.name,
@@ -822,21 +1385,40 @@ function resolveRTM(useRTM) {
       country: player.country,
       isOverseas: player.isOverseas,
       capped: player.capped,
+      iplProfileId: player.iplProfileId,
+      iplProfileUrl: player.iplProfileUrl,
+      officialStats: player.officialStats,
+      ratings: player.ratings,
       setCode: player.setCode,
       setLabel: player.setLabel,
       previousTeam: player.previousTeam,
-      price: pending.finalPrice,
+      price: pending.priceToMatch,
       round: auctionState.round
     });
     player.soldTo = originalTeam.name;
-    appendReplayLog(`${originalTeam.name} used RTM on ${player.name} for Rs ${pending.finalPrice} Cr`, "rtm-used", pending);
-    broadcastState("rtm-used", pending);
+    player.soldPrice = pending.priceToMatch;
+    const completedPlayer = auctionState.completedPlayers.find((entry) => entry.name === player.name && entry.round === auctionState.round && entry.status === "sold");
+    if (completedPlayer) {
+      completedPlayer.teamName = originalTeam.name;
+      completedPlayer.price = pending.priceToMatch;
+    }
+    appendReplayLog(`${originalTeam.name} used RTM on ${player.name} for Rs ${pending.priceToMatch} Cr`, "rtm-used", {
+      ...pending,
+      amount: pending.priceToMatch,
+      resolutionType
+    });
+    broadcastState("rtm-used", {
+      ...pending,
+      amount: pending.priceToMatch
+    });
   } else {
-    appendReplayLog(`${pending.originalTeam} declined RTM on ${player.name}`, "rtm-declined", pending);
-    broadcastState("rtm-declined", pending);
+    const finalized = finalizeRTMSaleForWinningTeam("rtm-declined");
+    if (!finalized.ok) {
+      return finalized;
+    }
   }
 
-  auctionState.pendingRTM = null;
+  finishRTMResolution();
   return { ok: true };
 }
 
@@ -849,17 +1431,28 @@ function requireAdmin(socket) {
   return client;
 }
 
+function requireParticipantTeam(socket) {
+  const client = connectedClients.get(socket.id);
+  if (!client || client.role !== "participant" || client.spectator || !client.teamName) {
+    emitError(socket, "Join the auction with a team before using this action.");
+    return null;
+  }
+  return client.teamName;
+}
+
 function canAcceptBids() {
   return auctionState.status === "running" && !!getCurrentPlayer() && !auctionState.currentPlayerClosed;
 }
 
 function finalizeAuction() {
   stopBidTimer();
+  clearScheduledAIAction();
   auctionState.status = "ended";
   auctionState.currentBid = null;
   auctionState.openingBid = null;
   auctionState.lastBidder = null;
   auctionState.currentPlayerClosed = true;
+  auctionState.pendingRTM = null;
   auctionState.timerRemaining = 0;
   auctionState.endedAt = new Date().toISOString();
   appendReplayLog("Auction completed", "auction-ended");
@@ -883,6 +1476,7 @@ function moveToNextPlayer() {
     auctionState.pauseReason = null;
     resetCurrentBidState();
     startBidTimer();
+    queueNextAIAction();
     broadcastState("next-player", { currentPlayer: getCurrentPlayer(), round: auctionState.round });
     return;
   }
@@ -895,6 +1489,7 @@ function moveToNextPlayer() {
     auctionState.segmentBreak = null;
     appendReplayLog("Round 2 started", "round-changed", { round: 2 });
     startBidTimer();
+    queueNextAIAction();
     broadcastState("round-changed", { round: 2, currentPlayer: getCurrentPlayer() });
     return;
   }
@@ -925,9 +1520,16 @@ function startFreshAuction() {
   auctionState.currentPlayerIndex = 0;
   auctionState.status = "running";
   auctionState.startedAt = new Date().toISOString();
+  assignAITeamsForCurrentAuction();
   resetCurrentBidState();
   appendReplayLog("Auction started", "auction-started");
+  if (auctionState.aiTeams.length) {
+    appendReplayLog(`AI joined for ${auctionState.aiTeams.length} unclaimed teams`, "ai-joined", {
+      teams: deepClone(auctionState.aiTeams)
+    });
+  }
   startBidTimer();
+  queueNextAIAction();
 }
 
 function markCurrentPlayerUnsold(reason = "manual-unsold") {
@@ -956,6 +1558,10 @@ function markCurrentPlayerUnsold(reason = "manual-unsold") {
       role: currentPlayer.role,
       country: currentPlayer.country,
       basePrice: currentPlayer.basePriceOverride,
+      iplProfileId: currentPlayer.iplProfileId,
+      iplProfileUrl: currentPlayer.iplProfileUrl,
+      officialStats: currentPlayer.officialStats,
+      ratings: currentPlayer.ratings,
       setCode: currentPlayer.setCode,
       setLabel: currentPlayer.setLabel,
       capped: currentPlayer.capped,
@@ -1019,6 +1625,10 @@ function markCurrentPlayerSold() {
     country: currentPlayer.country,
     isOverseas: currentPlayer.isOverseas,
     capped: currentPlayer.capped,
+    iplProfileId: currentPlayer.iplProfileId,
+    iplProfileUrl: currentPlayer.iplProfileUrl,
+    officialStats: currentPlayer.officialStats,
+    ratings: currentPlayer.ratings,
     setCode: currentPlayer.setCode,
     setLabel: currentPlayer.setLabel,
     previousTeam: currentPlayer.previousTeam,
@@ -1053,9 +1663,26 @@ function markCurrentPlayerSold() {
     player: currentPlayer.name
   });
 
-  maybeCreateRTM(currentPlayer, winningTeam.name, auctionState.currentBid);
+  const rtmPayload = maybeCreateRTM(currentPlayer, winningTeam.name, auctionState.currentBid);
+  if (rtmPayload) {
+    auctionState.pendingRTM = rtmPayload;
+    auctionState.status = "rtm";
+    auctionState.pauseReason = "rtm";
+    startRTMDecisionTimer();
+    broadcastState("rtm-offered", rtmPayload);
+    notifyTeamClients(rtmPayload.originalTeam, "rtm-action-required", {
+      ...rtmPayload,
+      action: "decide"
+    });
+    notifyTeamClients(rtmPayload.soldTo, "rtm-action-required", {
+      ...rtmPayload,
+      action: "raise-or-wait"
+    });
+    queueAIRTMAction();
+    return { success: true, player: currentPlayer, team: winningTeam };
+  }
 
-  const breakSummary = !auctionState.pendingRTM ? buildSegmentBreakSummary() : null;
+  const breakSummary = buildSegmentBreakSummary();
   if (breakSummary) {
     enterSegmentBreak(breakSummary);
   }
@@ -1077,6 +1704,9 @@ function handleTimerExpiry() {
   }
 
   if (auctionState.lastBidder && auctionState.currentBid !== null) {
+    if (auctionState.pendingRTM) {
+      auctionState.pendingRTM.autoAdvanceAfterResolution = true;
+    }
     broadcastState("timer-expired", {
       playerName: currentPlayer.name,
       round: auctionState.round,
@@ -1098,10 +1728,20 @@ function handleTimerExpiry() {
     return;
   }
 
-  autoAdvanceTimeout = setTimeout(() => {
-    autoAdvanceTimeout = null;
-    moveToNextPlayer();
-  }, 800);
+  maybeScheduleAutoAdvance();
+}
+
+function handleRTMTimerExpiry() {
+  if (!auctionState.pendingRTM) {
+    return;
+  }
+
+  const finalized = finalizeRTMSaleForWinningTeam("rtm-expired");
+  if (!finalized.ok) {
+    return;
+  }
+
+  finishRTMResolution();
 }
 
 function validateBidRequest({ socket, teamName, amount, allowJumpBids = false, skipClientOwnership = false }) {
@@ -1175,6 +1815,7 @@ function validateBidRequest({ socket, teamName, amount, allowJumpBids = false, s
 
 function applyBid(teamName, amount, origin = "participant") {
   const currentPlayer = getCurrentPlayer();
+  clearScheduledAIAction();
   auctionState.currentBid = amount;
   auctionState.lastBidder = teamName;
   auctionState.currentPlayerBids.push({
@@ -1185,7 +1826,7 @@ function applyBid(teamName, amount, origin = "participant") {
   });
   appendReplayLog(
     `${teamName} bid Rs ${amount} Cr on ${currentPlayer.name}`,
-    origin === "admin-override" ? "admin-bid-override" : "bid",
+    origin === "admin-override" ? "admin-bid-override" : origin === "ai" ? "ai-bid" : "bid",
     { teamName, amount, playerName: currentPlayer.name }
   );
   startBidTimer();
@@ -1195,6 +1836,11 @@ function applyBid(teamName, amount, origin = "participant") {
     playerName: currentPlayer.name,
     origin
   });
+  if (origin !== "ai") {
+    queueNextAIAction();
+  } else {
+    queueNextAIAction();
+  }
 }
 
 const app = express();
@@ -1237,6 +1883,11 @@ io.on("connection", (socket) => {
       const team = findTeam(requestedTeam);
       if (!team) {
         emitError(socket, "Selected team does not exist.");
+        return;
+      }
+
+      if (isAITeam(requestedTeam)) {
+        emitError(socket, "That team is currently being managed by AI for this auction.");
         return;
       }
 
@@ -1298,6 +1949,7 @@ io.on("connection", (socket) => {
       auctionState.status = "running";
       auctionState.pauseReason = null;
       startBidTimer();
+      queueNextAIAction();
       broadcastState("auction-started", { currentPlayer: getCurrentPlayer(), round: auctionState.round, resumed: true });
       return;
     }
@@ -1307,6 +1959,7 @@ io.on("connection", (socket) => {
       auctionState.pauseReason = null;
       auctionState.segmentBreak = null;
       startBidTimer();
+      queueNextAIAction();
       broadcastState("auction-started", { currentPlayer: getCurrentPlayer(), round: auctionState.round, resumed: true });
       return;
     }
@@ -1372,19 +2025,38 @@ io.on("connection", (socket) => {
       return;
     }
 
-    const result = resolveRTM(Boolean(payload.useRTM));
+    const result = resolveRTM(Boolean(payload.useRTM), null, "admin");
+    if (!result.ok) {
+      emitError(socket, result.message);
+    }
+  });
+
+  socket.on("participant-raise-rtm-bid", (payload = {}) => {
+    const teamName = requireParticipantTeam(socket);
+    if (!teamName) {
+      return;
+    }
+
+    const result = raiseRTMBid({ teamName, amount: payload.amount });
     if (!result.ok) {
       emitError(socket, result.message);
       return;
     }
 
-    const breakSummary = buildSegmentBreakSummary();
-    if (breakSummary) {
-      enterSegmentBreak(breakSummary);
+    queueAIRTMAction();
+  });
+
+  socket.on("participant-resolve-rtm", (payload = {}) => {
+    const teamName = requireParticipantTeam(socket);
+    if (!teamName) {
       return;
     }
 
-    broadcastState();
+    const result = resolveRTM(Boolean(payload.useRTM), teamName, "participant");
+    if (!result.ok) {
+      emitError(socket, result.message);
+      return;
+    }
   });
 
   socket.on("admin-next-player", () => {
@@ -1466,6 +2138,18 @@ io.on("connection", (socket) => {
     const clientInfo = connectedClients.get(socket.id);
     connectedClients.delete(socket.id);
     if (clientInfo) {
+      if (clientInfo.teamName && !clientInfo.spectator && clientInfo.role === "participant" && auctionState.status !== "waiting" && auctionState.status !== "ended" && !isAITeam(clientInfo.teamName)) {
+        auctionState.aiTeams.push(clientInfo.teamName);
+        appendReplayLog(`${clientInfo.teamName} switched to AI control after participant disconnect`, "ai-takeover", {
+          teamName: clientInfo.teamName
+        });
+        if (auctionState.status === "running") {
+          queueNextAIAction();
+        }
+        if (auctionState.status === "rtm") {
+          queueAIRTMAction();
+        }
+      }
       broadcastState("participant-left", { socketId: socket.id, teamName: clientInfo.teamName });
     } else {
       io.emit("auction-state-update", buildPublicState());
